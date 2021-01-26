@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.mii_cv-library_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.mii.cvlibrary.models.Technical</class>
+    <class>com.mii.cvlibrary.models.Employee</class>
+    <class>com.mii.cvlibrary.models.Religion</class>
+    <class>com.mii.cvlibrary.models.Major</class>
+    <class>com.mii.cvlibrary.models.TechnicalType</class>
+    <class>com.mii.cvlibrary.models.University</class>
+    <class>com.mii.cvlibrary.models.Permission</class>
+    <class>com.mii.cvlibrary.models.Organization</class>
+    <class>com.mii.cvlibrary.models.Level</class>
+    <class>com.mii.cvlibrary.models.Work</class>
+    <class>com.mii.cvlibrary.models.Training</class>
+    <class>com.mii.cvlibrary.models.UserRole</class>
+    <class>com.mii.cvlibrary.models.Award</class>
+    <class>com.mii.cvlibrary.models.User</class>
+    <class>com.mii.cvlibrary.models.WorkProjectSpec</class>
+    <class>com.mii.cvlibrary.models.TrainingType</class>
+    <class>com.mii.cvlibrary.models.UserPermission</class>
+    <class>com.mii.cvlibrary.models.Education</class>
+    <class>com.mii.cvlibrary.models.Role</class>
+    <class>com.mii.cvlibrary.models.Experience</class>
+    <class>com.mii.cvlibrary.models.Status</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cv?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+    </properties>
+  </persistence-unit>
+</persistence>
