@@ -26,27 +26,27 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class TrainingTypeController implements IController<TrainingType, Integer>{
     @Autowired
     private TrainingTypeService tts;
     
-    @GetMapping("trainingtype")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN')")
+    @GetMapping("training_type")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseList<TrainingType> getAll() {
         return new ResponseList(tts.getAll());
     }
 
-    @GetMapping("trainingtype/{id}")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN')")
+    @GetMapping("training_type/{id}")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseRest<TrainingType> getById(Integer id) {
         return ResponseRest.success(tts.getById(id));
     }
 
-    @PostMapping("trainingtype")
-    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN')")
+    @PostMapping("training_type")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<TrainingType> insert(TrainingType data) {
         try {
@@ -56,8 +56,8 @@ public class TrainingTypeController implements IController<TrainingType, Integer
         }
     }
 
-    @PutMapping("trainingtype/{id}")
-    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN')")
+    @PutMapping("training_type/{id}")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @Override
     public ResponseRest<TrainingType> update(Integer id, TrainingType data) {
         try {
@@ -67,8 +67,8 @@ public class TrainingTypeController implements IController<TrainingType, Integer
         }
     }
 
-    @DeleteMapping("trainingtype/{id}")
-    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN')")
+    @DeleteMapping("training_type/{id}")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<TrainingType> delete(Integer id) {
         if(tts.delete(id)){

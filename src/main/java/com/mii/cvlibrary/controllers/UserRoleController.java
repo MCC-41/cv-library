@@ -12,6 +12,12 @@ import com.mii.cvlibrary.models.data.ResponseRest;
 import com.mii.cvlibrary.services.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,21 +25,29 @@ import org.springframework.web.bind.annotation.RestController;
  * @author habib
  */
 @RestController
+@RequestMapping("/api")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class UserRoleController implements IController<UserRole, Integer>{
 
     @Autowired
     private UserRoleService urs;
     
+    @GetMapping("user_role")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseList<UserRole> getAll() {
         return new ResponseList(urs.getAll());
     }
 
+    @GetMapping("user_role/{id}")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseRest<UserRole> getById(Integer id) {
         return ResponseRest.success(urs.getById(id));
     }
 
+    @PostMapping("user_role")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<UserRole> insert(UserRole data) {
         try {
@@ -43,6 +57,8 @@ public class UserRoleController implements IController<UserRole, Integer>{
         }
     }
 
+    @PutMapping("user_role/{id}")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @Override
     public ResponseRest<UserRole> update(Integer id, UserRole data) {
         try {
@@ -52,6 +68,8 @@ public class UserRoleController implements IController<UserRole, Integer>{
         }
     }
 
+    @DeleteMapping("user_role/{id}")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<UserRole> delete(Integer id) {
         if(urs.delete(id)){

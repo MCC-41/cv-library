@@ -5,6 +5,7 @@
  */
 package com.mii.cvlibrary.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -44,6 +45,7 @@ public class TechnicalType implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "technicalType", fetch = FetchType.LAZY)
     private List<Technical> technicalList;
 

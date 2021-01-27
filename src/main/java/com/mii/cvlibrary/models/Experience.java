@@ -5,6 +5,7 @@
  */
 package com.mii.cvlibrary.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -49,6 +50,7 @@ public class Experience implements Serializable {
     @Column(name = "year")
     @Temporal(TemporalType.DATE)
     private Date year;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) 
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employee;

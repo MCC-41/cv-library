@@ -12,6 +12,12 @@ import com.mii.cvlibrary.models.data.ResponseRest;
 import com.mii.cvlibrary.services.TechnicalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,21 +25,29 @@ import org.springframework.web.bind.annotation.RestController;
  * @author habib
  */
 @RestController
+@RequestMapping("/api")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class TechnicalController implements IController<Technical, Integer>{
 
     @Autowired
     private TechnicalService ts;
     
+    @GetMapping("technical")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseList<Technical> getAll() {
         return new ResponseList(ts.getAll());
     }
 
+    @GetMapping("technical/{id}")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseRest<Technical> getById(Integer id) {
         return ResponseRest.success(ts.getById(id));
     }
 
+    @PostMapping("technical")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<Technical> insert(Technical data) {
         try {
@@ -43,6 +57,8 @@ public class TechnicalController implements IController<Technical, Integer>{
         }
     }
 
+    @PutMapping("technical/{id}")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @Override
     public ResponseRest<Technical> update(Integer id, Technical data) {
         try {
@@ -52,6 +68,8 @@ public class TechnicalController implements IController<Technical, Integer>{
         }
     }
 
+    @DeleteMapping("technical/{id}")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<Technical> delete(Integer id) {
         if(ts.delete(id)){

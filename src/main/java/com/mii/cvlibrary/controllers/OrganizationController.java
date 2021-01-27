@@ -12,6 +12,12 @@ import com.mii.cvlibrary.models.data.ResponseRest;
 import com.mii.cvlibrary.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,21 +25,29 @@ import org.springframework.web.bind.annotation.RestController;
  * @author habib
  */
 @RestController
+@RequestMapping("/api")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class OrganizationController implements IController<Organization, Integer>{
 
     @Autowired
     private OrganizationService os;
     
+    @GetMapping("organization")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseList<Organization> getAll() {
         return new ResponseList(os.getAll());
     }
 
+    @GetMapping("organization/{id}")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseRest<Organization> getById(Integer id) {
         return ResponseRest.success(os.getById(id));
     }
 
+    @PostMapping("organization")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<Organization> insert(Organization data) {
         try {
@@ -43,6 +57,8 @@ public class OrganizationController implements IController<Organization, Integer
         }
     }
 
+    @PutMapping("organization/{id}")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @Override
     public ResponseRest<Organization> update(Integer id, Organization data) {
         try {
@@ -52,6 +68,8 @@ public class OrganizationController implements IController<Organization, Integer
         }
     }
 
+    @DeleteMapping("organization/{id}")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<Organization> delete(Integer id) {
         if(os.delete(id)){

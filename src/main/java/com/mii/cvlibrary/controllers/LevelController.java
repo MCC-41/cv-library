@@ -27,28 +27,28 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class LevelController implements IController<Level, Integer>{
 
     @Autowired
     private LevelService ls;
    
     @GetMapping("level")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseList<Level> getAll() {
         return new ResponseList(ls.getAll());
     }
 
     @GetMapping("level/{id}")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseRest<Level> getById(Integer id) {
         return ResponseRest.success(ls.getById(id));
     }
 
     @PostMapping("level")
-    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<Level> insert(Level data) {
         try {
@@ -59,7 +59,7 @@ public class LevelController implements IController<Level, Integer>{
     }
 
     @PutMapping("level/{id}")
-    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @Override
     public ResponseRest<Level> update(Integer id, Level data) {
         try {
@@ -70,7 +70,7 @@ public class LevelController implements IController<Level, Integer>{
     }
 
     @DeleteMapping("level/{id}")
-    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<Level> delete(Integer id) {
         if(ls.delete(id)){

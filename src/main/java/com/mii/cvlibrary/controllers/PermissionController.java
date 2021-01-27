@@ -26,28 +26,28 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class PermissionController implements IController<Permission, Integer> {
 
     @Autowired
     private PermissionService ps;
     
     @GetMapping("permission")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseList<Permission> getAll() {
         return new ResponseList(ps.getAll());
     }
 
     @GetMapping("permission/{id}")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseRest<Permission> getById(Integer id) {
         return ResponseRest.success(ps.getById(id));
     }
 
     @PostMapping("permission")
-    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<Permission> insert(Permission data) {
         try {
@@ -58,7 +58,7 @@ public class PermissionController implements IController<Permission, Integer> {
     }
 
     @PutMapping("permission/{id}")
-    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @Override
     public ResponseRest<Permission> update(Integer id, Permission data) {
         try {
@@ -69,7 +69,7 @@ public class PermissionController implements IController<Permission, Integer> {
     }
 
     @DeleteMapping("permission/{id}")
-    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<Permission> delete(Integer id) {
         if(ps.delete(id)){

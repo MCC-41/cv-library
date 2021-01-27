@@ -26,28 +26,28 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class TechnicalTypeController implements IController<TechnicalType, Integer>{
 
     @Autowired
     private TechnicalTypeService service;
     
-    @GetMapping("technicaltype")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN')")
+    @GetMapping("technical_type")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseList<TechnicalType> getAll() {
         return new ResponseList(service.getAll());
     }
 
-    @GetMapping("technicaltype/{id}")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN')")
+    @GetMapping("technical_type/{id}")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseRest<TechnicalType> getById(Integer id) {
         return ResponseRest.success(service.getById(id));
     }
 
-    @PostMapping("technicaltype")
-    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN')")
+    @PostMapping("technical_type")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<TechnicalType> insert(TechnicalType data) {
         try {
@@ -57,8 +57,8 @@ public class TechnicalTypeController implements IController<TechnicalType, Integ
         }
     }
 
-    @PutMapping("technicaltype/{id}")
-    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN')")
+    @PutMapping("technical_type/{id}")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @Override
     public ResponseRest<TechnicalType> update(Integer id, TechnicalType data) {
         try {
@@ -68,8 +68,8 @@ public class TechnicalTypeController implements IController<TechnicalType, Integ
         }
     }
 
-    @DeleteMapping("technicaltype/{id}")
-    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN')")
+    @DeleteMapping("technical_type/{id}")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<TechnicalType> delete(Integer id) {
         if(service.delete(id)){

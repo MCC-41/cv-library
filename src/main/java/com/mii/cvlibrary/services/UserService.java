@@ -5,9 +5,12 @@
  */
 package com.mii.cvlibrary.services;
 
+import com.mii.cvlibrary.models.Employee;
 import com.mii.cvlibrary.models.Status;
 import com.mii.cvlibrary.models.User;
 import com.mii.cvlibrary.repositories.UserRepository;
+import com.mii.cvlibrary.services.iservices.IService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,7 @@ import org.springframework.stereotype.Service;
  * @author habib
  */
 @Service
-public class UserService {
+public class UserService implements IService<User, Integer>{
     @Autowired
     private UserRepository ur;
     
@@ -46,6 +49,47 @@ public class UserService {
     public Integer getId(){
         User id = getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         return id.getId();
+    }
+    
+    public User insertWithEmployee(String email,String name){
+        User user = new User();
+        return user;
+    }
+
+    @Override
+    public List<User> getAll() {
+        return ur.findAll();
+    }
+
+    @Override
+    public User getById(Integer id) {
+        return ur.getOne(id);
+    }
+
+    @Override
+    public User insert(User data) {
+        return ur.save(data);
+    }
+
+    @Override
+    public User update(Integer id, User data) {
+        User user = getById(id);
+        user.setEmployee(new Employee(getId()));
+        user.setUsername(data.getUsername());
+        user.setPassword(data.getPassword());
+        user.setStatus(data.getStatus());
+        user.setVerified(data.getIsVerified());
+        return ur.save(user);
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        try {
+            ur.delete(getById(id));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
     
     

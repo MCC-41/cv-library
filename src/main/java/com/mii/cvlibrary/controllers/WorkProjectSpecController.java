@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -26,28 +26,28 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class WorkProjectSpecController implements IController<WorkProjectSpec, Integer>{
 
     @Autowired
     private WorkProjectSpecService wpss;
     
     @GetMapping("project_spec")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseList<WorkProjectSpec> getAll() {
         return new ResponseList(wpss.getAll());
     }
 
     @GetMapping("project_spec/{id}")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseRest<WorkProjectSpec> getById(Integer id) {
         return ResponseRest.success(wpss.getById(id));
     }
 
     @PostMapping("project_spec")
-    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<WorkProjectSpec> insert(WorkProjectSpec data) {
         try {
@@ -58,7 +58,7 @@ public class WorkProjectSpecController implements IController<WorkProjectSpec, I
     }
 
     @PutMapping("project_spec/{id}")
-    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @Override
     public ResponseRest<WorkProjectSpec> update(Integer id, WorkProjectSpec data) {
         try {
@@ -69,7 +69,7 @@ public class WorkProjectSpecController implements IController<WorkProjectSpec, I
     }
 
     @DeleteMapping("project_spec/{id}")
-    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<WorkProjectSpec> delete(Integer id) {
         if(wpss.delete(id)){

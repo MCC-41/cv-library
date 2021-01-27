@@ -5,6 +5,7 @@
  */
 package com.mii.cvlibrary.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -52,9 +53,11 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "is_verified")
     private boolean isVerified;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserRole> userRoleList;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserPermission> userPermissionList;

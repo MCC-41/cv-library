@@ -5,6 +5,7 @@
  */
 package com.mii.cvlibrary.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -68,6 +69,7 @@ public class Work implements Serializable {
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employee;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "work", fetch = FetchType.LAZY)
     private List<WorkProjectSpec> workProjectSpecList;
 

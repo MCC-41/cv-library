@@ -12,6 +12,12 @@ import com.mii.cvlibrary.models.data.ResponseRest;
 import com.mii.cvlibrary.services.EducationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,21 +25,29 @@ import org.springframework.web.bind.annotation.RestController;
  * @author habib
  */
 @RestController
+@RequestMapping("/api")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class EducationController implements IController<Education, Integer>{
 
     @Autowired
     private EducationService es;
    
+    @GetMapping("education")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseList<Education> getAll() {
         return new ResponseList(es.getAll());
     }
 
+    @GetMapping("education/{id}")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseRest<Education> getById(Integer id) {
         return ResponseRest.success(es.getById(id));
     }
 
+    @PostMapping("education")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<Education> insert(Education data) {
         try {
@@ -43,6 +57,8 @@ public class EducationController implements IController<Education, Integer>{
         }
     }
 
+    @PutMapping("education/{id}")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @Override
     public ResponseRest<Education> update(Integer id, Education data) {
         try {
@@ -52,6 +68,8 @@ public class EducationController implements IController<Education, Integer>{
         }
     }
 
+    @DeleteMapping("education/{id}")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<Education> delete(Integer id) {
         if(es.delete(id)){

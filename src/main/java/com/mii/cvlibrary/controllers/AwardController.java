@@ -12,6 +12,12 @@ import com.mii.cvlibrary.models.data.ResponseRest;
 import com.mii.cvlibrary.services.AwardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,21 +25,29 @@ import org.springframework.web.bind.annotation.RestController;
  * @author habib
  */
 @RestController
+@RequestMapping("/api")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class AwardController implements IController<Award, Integer>{
 
     @Autowired
     private AwardService as;
     
+    @GetMapping("award")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseList<Award> getAll() {
         return new ResponseList(as.getAll());
     }
 
+    @GetMapping("award/{id}")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseRest<Award> getById(Integer id) {
         return ResponseRest.success(as.getById(id));
     }
 
+    @PostMapping("award")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<Award> insert(Award data) {
         try {
@@ -43,6 +57,8 @@ public class AwardController implements IController<Award, Integer>{
         }
     }
 
+    @PutMapping("award/{id}")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @Override
     public ResponseRest<Award> update(Integer id, Award data) {
         try {
@@ -52,6 +68,8 @@ public class AwardController implements IController<Award, Integer>{
         }
     }
 
+    @DeleteMapping("award/{id}")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<Award> delete(Integer id) {
         if(as.delete(id)){
