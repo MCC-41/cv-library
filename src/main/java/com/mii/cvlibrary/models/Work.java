@@ -27,6 +27,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import lombok.Data;
 
 /**
  *
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "work")
 @XmlRootElement
+@Data
 @NamedQueries({
     @NamedQuery(name = "Work.findAll", query = "SELECT w FROM Work w")})
 public class Work implements Serializable {
@@ -65,81 +67,9 @@ public class Work implements Serializable {
     private Date endDate;
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee idEmployee;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idWork", fetch = FetchType.LAZY)
+    private Employee employee;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "work", fetch = FetchType.LAZY)
     private List<WorkProjectSpec> workProjectSpecList;
-
-    public Work() {
-    }
-
-    public Work(Integer id) {
-        this.id = id;
-    }
-
-    public Work(Integer id, String companyName, String position, String jobDesc, Date startDate, Date endDate) {
-        this.id = id;
-        this.companyName = companyName;
-        this.position = position;
-        this.jobDesc = jobDesc;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getJobDesc() {
-        return jobDesc;
-    }
-
-    public void setJobDesc(String jobDesc) {
-        this.jobDesc = jobDesc;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Employee getIdEmployee() {
-        return idEmployee;
-    }
-
-    public void setIdEmployee(Employee idEmployee) {
-        this.idEmployee = idEmployee;
-    }
 
     @XmlTransient
     public List<WorkProjectSpec> getWorkProjectSpecList() {
@@ -148,31 +78,6 @@ public class Work implements Serializable {
 
     public void setWorkProjectSpecList(List<WorkProjectSpec> workProjectSpecList) {
         this.workProjectSpecList = workProjectSpecList;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Work)) {
-            return false;
-        }
-        Work other = (Work) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mii.cvlibrary.models.Work[ id=" + id + " ]";
     }
     
 }

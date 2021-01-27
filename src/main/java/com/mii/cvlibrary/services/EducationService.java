@@ -6,8 +6,11 @@
 package com.mii.cvlibrary.services;
 
 import com.mii.cvlibrary.models.Education;
+import com.mii.cvlibrary.models.Employee;
+import com.mii.cvlibrary.repositories.EducationRepository;
 import com.mii.cvlibrary.services.iservices.IService;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,29 +20,47 @@ import org.springframework.stereotype.Service;
 @Service
 public class EducationService implements IService<Education, Integer>{
 
+    @Autowired
+    private EducationRepository er;
+    @Autowired
+    private UserService us;
+    
     @Override
     public List<Education> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return er.findAll();
     }
 
     @Override
     public Education getById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return er.getOne(id);
     }
 
     @Override
     public Education insert(Education data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        data.setEmployee(new Employee(us.getId()));
+        return er.save(data);
     }
 
     @Override
     public Education update(Integer id, Education data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Education education = getById(id);
+        education.setEmployee(new Employee(us.getId()));
+        education.setUniversity(data.getUniversity());
+        education.setMajor(data.getMajor());
+        education.setLevel(data.getLevel());
+        education.setIpk(data.getIpk());
+        education.setYear(data.getYear());
+        return er.save(education);
     }
 
     @Override
     public boolean delete(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            er.delete(getById(id));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
     
 }

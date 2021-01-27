@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Data;
 
 /**
  *
@@ -27,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "user_permission")
 @XmlRootElement
+@Data
 @NamedQueries({
     @NamedQuery(name = "UserPermission.findAll", query = "SELECT u FROM UserPermission u")})
 public class UserPermission implements Serializable {
@@ -39,65 +41,9 @@ public class UserPermission implements Serializable {
     private Integer id;
     @JoinColumn(name = "id_user", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private User idUser;
+    private User user;
     @JoinColumn(name = "id_permission", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Permission idPermission;
-
-    public UserPermission() {
-    }
-
-    public UserPermission(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public User getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
-    }
-
-    public Permission getIdPermission() {
-        return idPermission;
-    }
-
-    public void setIdPermission(Permission idPermission) {
-        this.idPermission = idPermission;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserPermission)) {
-            return false;
-        }
-        UserPermission other = (UserPermission) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mii.cvlibrary.models.UserPermission[ id=" + id + " ]";
-    }
+    private Permission permission;
     
 }

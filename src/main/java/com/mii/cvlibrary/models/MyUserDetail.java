@@ -29,12 +29,12 @@ public class MyUserDetail implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         user.getUserRoleList().forEach(role->{
-//            System.out.println(role.getIdRole().getName());
-//            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getIdRole().getName()));
+            System.out.println(role.getRole().getName());
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole().getName()));
         });
         user.getUserPermissionList().forEach(permission->{
-            System.out.println(permission.getIdPermission().getName());
-            authorities.add(new SimpleGrantedAuthority(permission.getIdPermission().getName()));
+            System.out.println(permission.getPermission().getName());
+            authorities.add(new SimpleGrantedAuthority(permission.getPermission().getName()));
         });
         return authorities;
     }
@@ -68,5 +68,5 @@ public class MyUserDetail implements UserDetails{
     public boolean isEnabled() {
         return user.getIsVerified();
     }
-    
+
 }

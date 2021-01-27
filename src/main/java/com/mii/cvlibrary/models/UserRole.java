@@ -41,65 +41,9 @@ public class UserRole implements Serializable {
     private Integer id;
     @JoinColumn(name = "id_user", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private User idUser;
+    private User user;
     @JoinColumn(name = "id_role", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Role idRole;
-
-    public UserRole() {
-    }
-
-    public UserRole(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public User getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
-    }
-
-    public Role getIdRole() {
-        return idRole;
-    }
-
-    public void setIdRole(Role idRole) {
-        this.idRole = idRole;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserRole)) {
-            return false;
-        }
-        UserRole other = (UserRole) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mii.cvlibrary.models.UserRole[ id=" + id + " ]";
-    }
+    private Role role;
     
 }

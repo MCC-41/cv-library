@@ -5,6 +5,7 @@
  */
 package com.mii.cvlibrary.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -41,36 +42,9 @@ public class Status implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idStatus", fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "status", fetch = FetchType.LAZY)
     private List<User> userList;
-
-    public Status() {
-    }
-
-//    public Status(Integer id) {
-//        this.id = id;
-//    }
-//
-//    public Status(Integer id, String name) {
-//        this.id = id;
-//        this.name = name;
-//    }
-//
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
 
     @XmlTransient
     public List<User> getUserList() {
@@ -80,30 +54,5 @@ public class Status implements Serializable {
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
-
-//    @Override
-//    public int hashCode() {
-//        int hash = 0;
-//        hash += (id != null ? id.hashCode() : 0);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object object) {
-//        // TODO: Warning - this method won't work in the case the id fields are not set
-//        if (!(object instanceof Status)) {
-//            return false;
-//        }
-//        Status other = (Status) object;
-//        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "com.mii.cvlibrary.models.Status[ id=" + id + " ]";
-//    }
     
 }

@@ -9,6 +9,7 @@ import com.mii.cvlibrary.models.Status;
 import com.mii.cvlibrary.models.User;
 import com.mii.cvlibrary.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,19 +27,26 @@ public class UserService {
     
     public void isNotValid(User user){
         Status status = new Status();
-        status.setId(user.getIdStatus().getId()+1);
-        user.setIdStatus(status);
-        if(user.getIdStatus().getId()==3){
-            user.setIsVerified(false);
+        status.setId(user.getStatus().getId()+1);
+        user.setStatus(status);
+        if(user.getStatus().getId()==3){
+            user.setVerified(false);
         }
         ur.save(user);
     }
     public void isValid(User user){
-        if(user.getIdStatus().getId()!=3){
+        if(user.getStatus().getId()!=3){
             Status status = new Status();
             status.setId(0);
-            user.setIdStatus(status);
+            user.setStatus(status);
         }
         ur.save(user);
     }
+    
+    public Integer getId(){
+        User id = getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        return id.getId();
+    }
+    
+    
 }

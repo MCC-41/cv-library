@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Data;
 
 /**
  *
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "award")
 @XmlRootElement
+@Data
 @NamedQueries({
     @NamedQuery(name = "Award.findAll", query = "SELECT a FROM Award a")})
 public class Award implements Serializable {
@@ -49,76 +51,6 @@ public class Award implements Serializable {
     private Date year;
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee idEmployee;
-
-    public Award() {
-    }
-
-    public Award(Integer id) {
-        this.id = id;
-    }
-
-    public Award(Integer id, String name, Date year) {
-        this.id = id;
-        this.name = name;
-        this.year = year;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getYear() {
-        return year;
-    }
-
-    public void setYear(Date year) {
-        this.year = year;
-    }
-
-    public Employee getIdEmployee() {
-        return idEmployee;
-    }
-
-    public void setIdEmployee(Employee idEmployee) {
-        this.idEmployee = idEmployee;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Award)) {
-            return false;
-        }
-        Award other = (Award) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mii.cvlibrary.models.Award[ id=" + id + " ]";
-    }
+    private Employee employee;
     
 }

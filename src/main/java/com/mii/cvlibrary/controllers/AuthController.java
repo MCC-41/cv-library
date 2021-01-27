@@ -65,7 +65,7 @@ public class AuthController {
     @PostMapping("logout")
     public ResponseRest<String> logout(HttpServletRequest request){
         SecurityContextHolder.getContext().setAuthentication(null);
-        return ResponseRest.success("LOgout");
+        return ResponseRest.success("Logout");
     }
     
     private AuthResponse SuccessResponse(MyUserDetail userDetail){

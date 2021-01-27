@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import lombok.Data;
 
 /**
  *
@@ -29,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "university")
 @XmlRootElement
+@Data
 @NamedQueries({
     @NamedQuery(name = "University.findAll", query = "SELECT u FROM University u")})
 public class University implements Serializable {
@@ -42,36 +44,8 @@ public class University implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUniversity", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "university", fetch = FetchType.LAZY)
     private List<Education> educationList;
-
-    public University() {
-    }
-
-    public University(Integer id) {
-        this.id = id;
-    }
-
-    public University(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @XmlTransient
     public List<Education> getEducationList() {
@@ -80,31 +54,6 @@ public class University implements Serializable {
 
     public void setEducationList(List<Education> educationList) {
         this.educationList = educationList;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof University)) {
-            return false;
-        }
-        University other = (University) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mii.cvlibrary.models.University[ id=" + id + " ]";
     }
     
 }

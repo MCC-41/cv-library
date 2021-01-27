@@ -6,8 +6,8 @@
 package com.mii.cvlibrary.services;
 
 import com.mii.cvlibrary.models.Employee;
-import com.mii.cvlibrary.models.Religion;
-import com.mii.cvlibrary.repositories.EmployeeRepository;
+import com.mii.cvlibrary.models.Experience;
+import com.mii.cvlibrary.repositories.ExperienceRepository;
 import com.mii.cvlibrary.services.iservices.IService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,37 +18,35 @@ import org.springframework.stereotype.Service;
  * @author habib
  */
 @Service
-public class EmployeeService implements IService<Employee, Integer>{
-    @Autowired
-    private EmployeeRepository er;
+public class ExperienceService implements IService<Experience, Integer>{
 
-    @Override
-    public List<Employee> getAll() {
-        return er.findAll();
-    }
+    @Autowired
+    private ExperienceRepository er;
+    @Autowired
+    private UserService us;
     
     @Override
-    public Employee getById(Integer id) {
+    public List<Experience> getAll() {
+        return er.findAll();
+    }
+
+    @Override
+    public Experience getById(Integer id) {
         return er.getOne(id);
     }
 
     @Override
-    public Employee insert(Employee data) {
+    public Experience insert(Experience data) {
         return er.save(data);
     }
 
     @Override
-    public Employee update(Integer id, Employee data) {
-        Employee employee = getById(id);
-        employee.setName(data.getName());
-        employee.setEmail(data.getEmail());
-        employee.setDateBirth(data.getDateBirth());
-        employee.setNation(data.getNation());
-        employee.setStatus(data.getStatus());
-        employee.setGender(data.getGender());
-        employee.setReligion(data.getReligion());
-        employee.setPhoto(data.getPhoto());
-        return er.save(employee);
+    public Experience update(Integer id, Experience data) {
+        Experience experience = getById(id);
+        experience.setEmployee(new Employee(us.getId()));
+        experience.setName(data.getName());
+        experience.setYear(data.getYear());
+        return er.save(experience);
     }
 
     @Override

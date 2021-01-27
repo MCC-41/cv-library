@@ -7,9 +7,11 @@ package com.mii.cvlibrary.controllers;
 
 import com.mii.cvlibrary.controllers.icontrollers.IController;
 import com.mii.cvlibrary.models.Employee;
+import com.mii.cvlibrary.models.data.MemoRequest;
 import com.mii.cvlibrary.models.data.ResponseList;
 import com.mii.cvlibrary.models.data.ResponseRest;
 import com.mii.cvlibrary.services.EmployeeService;
+import com.mii.cvlibrary.services.NotificationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,6 +35,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmployeeController implements IController<Employee, Integer>{
     @Autowired
     EmployeeService service;
+    @Autowired
+    private NotificationService ns;
 
     @GetMapping("employee")
     @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
@@ -75,6 +81,17 @@ public class EmployeeController implements IController<Employee, Integer>{
         if(service.delete(id)){
             return ResponseRest.success("Success");
         }else{
+            return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @PostMapping("employee/send")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
+    public ResponseRest<String> sendMemo(@RequestBody MemoRequest mr){
+        try {
+            ns.sendMemo(mr.getEmail(), mr.getMemo());
+            return ResponseRest.success("Success");
+        } catch (Exception e) {
             return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);
         }
     }

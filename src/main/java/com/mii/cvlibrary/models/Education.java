@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Data;
 
 /**
  *
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "education")
 @XmlRootElement
+@Data
 @NamedQueries({
     @NamedQuery(name = "Education.findAll", query = "SELECT e FROM Education e")})
 public class Education implements Serializable {
@@ -49,109 +51,15 @@ public class Education implements Serializable {
     private String ipk;
     @JoinColumn(name = "id_university", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private University idUniversity;
+    private University university;
     @JoinColumn(name = "id_major", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Major idMajor;
+    private Major major;
     @JoinColumn(name = "id_level", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Level idLevel;
+    private Level level;
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee idEmployee;
-
-    public Education() {
-    }
-
-    public Education(Integer id) {
-        this.id = id;
-    }
-
-    public Education(Integer id, Date year, String ipk) {
-        this.id = id;
-        this.year = year;
-        this.ipk = ipk;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getYear() {
-        return year;
-    }
-
-    public void setYear(Date year) {
-        this.year = year;
-    }
-
-    public String getIpk() {
-        return ipk;
-    }
-
-    public void setIpk(String ipk) {
-        this.ipk = ipk;
-    }
-
-    public University getIdUniversity() {
-        return idUniversity;
-    }
-
-    public void setIdUniversity(University idUniversity) {
-        this.idUniversity = idUniversity;
-    }
-
-    public Major getIdMajor() {
-        return idMajor;
-    }
-
-    public void setIdMajor(Major idMajor) {
-        this.idMajor = idMajor;
-    }
-
-    public Level getIdLevel() {
-        return idLevel;
-    }
-
-    public void setIdLevel(Level idLevel) {
-        this.idLevel = idLevel;
-    }
-
-    public Employee getIdEmployee() {
-        return idEmployee;
-    }
-
-    public void setIdEmployee(Employee idEmployee) {
-        this.idEmployee = idEmployee;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Education)) {
-            return false;
-        }
-        Education other = (Education) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mii.cvlibrary.models.Education[ id=" + id + " ]";
-    }
+    private Employee employee;
     
 }

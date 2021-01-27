@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Data;
 
 /**
  *
@@ -27,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "technical")
 @XmlRootElement
+@Data
 @NamedQueries({
     @NamedQuery(name = "Technical.findAll", query = "SELECT t FROM Technical t")})
 public class Technical implements Serializable {
@@ -42,78 +44,9 @@ public class Technical implements Serializable {
     private String name;
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Employee idEmployee;
+    private Employee employee;
     @JoinColumn(name = "id_technical_type", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private TechnicalType idTechnicalType;
-
-    public Technical() {
-    }
-
-    public Technical(Integer id) {
-        this.id = id;
-    }
-
-    public Technical(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Employee getIdEmployee() {
-        return idEmployee;
-    }
-
-    public void setIdEmployee(Employee idEmployee) {
-        this.idEmployee = idEmployee;
-    }
-
-    public TechnicalType getIdTechnicalType() {
-        return idTechnicalType;
-    }
-
-    public void setIdTechnicalType(TechnicalType idTechnicalType) {
-        this.idTechnicalType = idTechnicalType;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Technical)) {
-            return false;
-        }
-        Technical other = (Technical) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mii.cvlibrary.models.Technical[ id=" + id + " ]";
-    }
+    private TechnicalType technicalType;
     
 }

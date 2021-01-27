@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import lombok.Data;
 
 /**
  *
@@ -29,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "training_type")
 @XmlRootElement
+@Data
 @NamedQueries({
     @NamedQuery(name = "TrainingType.findAll", query = "SELECT t FROM TrainingType t")})
 public class TrainingType implements Serializable {
@@ -42,36 +44,8 @@ public class TrainingType implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTrainingType", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trainingType", fetch = FetchType.LAZY)
     private List<Training> trainingList;
-
-    public TrainingType() {
-    }
-
-    public TrainingType(Integer id) {
-        this.id = id;
-    }
-
-    public TrainingType(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @XmlTransient
     public List<Training> getTrainingList() {
@@ -80,31 +54,6 @@ public class TrainingType implements Serializable {
 
     public void setTrainingList(List<Training> trainingList) {
         this.trainingList = trainingList;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TrainingType)) {
-            return false;
-        }
-        TrainingType other = (TrainingType) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.mii.cvlibrary.models.TrainingType[ id=" + id + " ]";
     }
     
 }
