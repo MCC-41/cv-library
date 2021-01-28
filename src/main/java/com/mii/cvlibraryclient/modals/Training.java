@@ -13,29 +13,26 @@ import lombok.Data;
  * @author Adhi
  */
 @Data
-public class Education {
+public class Training {
     
     private Integer id;
+    private String name;
+    private String institusion;
     private Date year;
-    private String ipk;
-    private University university;
-    private Major major;
-    private Level level;
     private Employee employee;
+    private TrainingType trainingType;
 
-    public Education() {
+    public Training() {
     }
 
-    public Education(Integer id, Date year, String ipk, University university, Major major, Level level, Employee employee) {
+    public Training(Integer id, String name, String institusion, Date year, Employee employee, TrainingType trainingType) {
         this.id = id;
+        this.name = name;
+        this.institusion = institusion;
         this.year = year;
-        this.ipk = ipk;
-        this.university = university;
-        this.major = major;
-        this.level = level;
         this.employee = employee;
+        this.trainingType = trainingType;
     }
-    
     
     
     

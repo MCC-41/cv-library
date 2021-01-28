@@ -7,6 +7,7 @@ package com.mii.cvlibraryclient.services;
 
 import com.mii.cvlibraryclient.modals.Level;
 import com.mii.cvlibraryclient.modals.data.ResponseList;
+import com.mii.cvlibraryclient.modals.data.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -48,28 +49,28 @@ public class LevelService {
         return response.getBody();
     }
     
-    public ResponseList<Level> postCountry(Level level){
-        ResponseEntity<ResponseList<Level>> response
+    public ResponseMessage<Level> postLevel(Level level){
+        ResponseEntity<ResponseMessage<Level>> response
                 = restTemplate.exchange(url + "/level", HttpMethod.POST, 
                         new HttpEntity<>(level, service.createHeaders()), 
-                        new ParameterizedTypeReference<ResponseList<Level>>() {});
+                        new ParameterizedTypeReference<ResponseMessage<Level>>() {});
         return response.getBody();
     }
     
-    public ResponseList<Level> putCountry(Level level){
-        ResponseEntity<ResponseList<Level>> response
+    public ResponseMessage<Level> putLevel(Level level){
+        ResponseEntity<ResponseMessage<Level>> response
                 = restTemplate.exchange(url + "/level", HttpMethod.PUT, 
                         new HttpEntity<>(level, service.createHeaders()), 
-                        new ParameterizedTypeReference<ResponseList<Level>>() {});
+                        new ParameterizedTypeReference<ResponseMessage<Level>>() {});
         return response.getBody();
         
     }
     
-    public ResponseList<Level> deleteCountry(Integer id){
-        ResponseEntity<ResponseList<Level>> response 
+    public ResponseMessage<Level> deleteLevel(Integer id){
+        ResponseEntity<ResponseMessage<Level>> response 
                 = restTemplate.exchange(url + "/level" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
-                        new ParameterizedTypeReference<ResponseList<Level>>() {});
+                        new ParameterizedTypeReference<ResponseMessage<Level>>() {});
         return response.getBody();
     }
 }

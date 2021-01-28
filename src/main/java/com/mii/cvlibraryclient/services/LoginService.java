@@ -51,6 +51,7 @@ public class LoginService {
         SecurityContext sc = SecurityContextHolder.getContext();
         sc.setAuthentication(auth);
     }
+    
     public LoginResponse postLogin(Login loginData){
         ResponseEntity<LoginResponse> response = restTemplate.postForEntity(url+"/login", loginData, LoginResponse.class);
         System.out.println(response.getStatusCode());
@@ -60,8 +61,11 @@ public class LoginService {
         if(response.getStatusCodeValue()==200){
             setAuthority(loginData.getUsername(), loginData.getPassword(), data.getAuthority());
         }
+        
         return loginResponse;
     }
+    
+
     
     public LoginResponse postLogout(){
         ResponseEntity<LoginResponse> response = restTemplate.exchange(url+"/logout",HttpMethod.POST ,new HttpEntity<>(createHeaders()), LoginResponse.class);
@@ -78,8 +82,31 @@ public class LoginService {
             auth.getBytes(Charset.forName("US-ASCII")) );
             String authHeader = "Basic " + new String( encodedAuth );
             set( "Authorization", authHeader );
+            set("Content-Type", "application/json");
 //            set(WARNING, RANGE);
        }};
     }
+    
+    //    public LoginResponse postLogin(Login loginData){
+//        ResponseEntity<LoginResponse> response = restTemplate.postForEntity(url+"/login", loginData, LoginResponse.class);
+//        System.out.println(response.getStatusCode());
+//        LoginDataResponse data = response.getBody().getData();
+//        LoginResponse loginResponse = response.getBody();
+//        System.out.println(loginResponse.getMessage()+" "+loginResponse.getSuccess());
+//        if(response.getStatusCodeValue()==200){
+//            setAuthority(loginData.getUsername(), loginData.getPassword(), data.getAuthority());
+//            return "success";
+//        }
+////        else if(response.getStatusCodeValue()==401){
+////            return "failed";
+////        }
+////        
+////        else{
+////            return "locked";
+////        }
+//            
+//        
+//        return loginResponse;
+//    }
     
 }

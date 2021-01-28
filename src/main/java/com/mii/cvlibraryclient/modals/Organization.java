@@ -12,29 +12,29 @@ import lombok.Data;
  *
  * @author Adhi
  */
+
 @Data
-public class Education {
+public class Organization {
     
     private Integer id;
-    private Date year;
-    private String ipk;
-    private University university;
-    private Major major;
-    private Level level;
+    private String name;
+    private String institusion;
+    private Date startDate;
+    private Date endStart;
     private Employee employee;
 
-    public Education() {
+    public Organization() {
     }
 
-    public Education(Integer id, Date year, String ipk, University university, Major major, Level level, Employee employee) {
+    public Organization(Integer id, String name, String institusion, Date startDate, Date endStart, Employee employee) {
         this.id = id;
-        this.year = year;
-        this.ipk = ipk;
-        this.university = university;
-        this.major = major;
-        this.level = level;
+        this.name = name;
+        this.institusion = institusion;
+        this.startDate = startDate;
+        this.endStart = endStart;
         this.employee = employee;
     }
+    
     
     
     

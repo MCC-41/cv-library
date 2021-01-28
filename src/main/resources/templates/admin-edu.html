@@ -41,8 +41,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Udinyus</td>
+                                        <tr th:each="university : ${universities}">
+                                            <td th:text="${university.name}"></td>
                                             <td class='form-inline'>
                                                 <a class="btn btn-warning fa fa-sm fa-edit" href="#"></a>
                                                 <form class='form-inline' action="#" method="POST">
@@ -73,8 +73,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Akuntansi</td>
+                                       <tr th:each="major : ${majors}">
+                                            <td th:text="${major.name}"></td>
                                             <td class='form-inline'>
                                                 <a class="btn btn-warning fa fa-sm fa-edit" href="#"></a>
                                                 <form class='form-inline' action="#" method="POST">
@@ -83,27 +83,6 @@
                                                 
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Sistem Informasi</td>
-                                            <td class='form-inline'>
-                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#"></a>
-                                                <form class='form-inline' action="#" method="POST">
-                                                    <button class="btn btn-danger delete-confirm mx-1" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
-                                                </form>            
-                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Teknik Elektro</td>
-                                            <td class='form-inline'>
-                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#"></a>
-                                                <form class='form-inline' action="#" method="POST">
-                                                    <button class="btn btn-danger delete-confirm mx-1" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
-                                                </form>            
-                                                
-                                            </td>
-                                        </tr>
-                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -125,28 +104,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>S1</td>
-                                            <td class='form-inline'>
-                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#"></a>
-                                                <form class='form-inline' action="#" method="POST">
-                                                    <button class="btn btn-danger delete-confirm mx-1" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
-                                                </form>            
-                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>S2</td>
-                                            <td class='form-inline'>
-                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#"></a>
-                                                <form class='form-inline' action="#" method="POST">
-                                                    <button class="btn btn-danger delete-confirm mx-1" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
-                                                </form>            
-                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>S#</td>
+                                        <tr th:each="level : ${levels}">
+                                            <td th:text="${level.name}"></td>
                                             <td class='form-inline'>
                                                 <a class="btn btn-warning fa fa-sm fa-edit" href="#"></a>
                                                 <form class='form-inline' action="#" method="POST">

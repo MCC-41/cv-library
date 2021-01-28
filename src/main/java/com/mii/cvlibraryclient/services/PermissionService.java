@@ -50,7 +50,7 @@ public class PermissionService {
         return response.getBody();
     }
     
-    public ResponseMessage<Permission> postCountry(String name){
+    public ResponseMessage<Permission> postPermission(String name){
         ResponseEntity<ResponseMessage<Permission>> response
                 = restTemplate.exchange(url + "/permission", HttpMethod.POST, 
                         new HttpEntity<>(name, service.createHeaders()), 
@@ -58,7 +58,7 @@ public class PermissionService {
         return response.getBody();
     }
     
-    public ResponseMessage<Permission> putCountry(String name){
+    public ResponseMessage<Permission> putPermission(String name){
         ResponseEntity<ResponseMessage<Permission>> response
                 = restTemplate.exchange(url + "/permission", HttpMethod.PUT, 
                         new HttpEntity<>(name, service.createHeaders()), 
@@ -67,7 +67,7 @@ public class PermissionService {
         
     }
     
-    public ResponseMessage<Permission> deleteCountry(Integer id){
+    public ResponseMessage<Permission> deletePermission(Integer id){
         ResponseEntity<ResponseMessage<Permission>> response 
                 = restTemplate.exchange(url + "/permission" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),

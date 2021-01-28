@@ -5,7 +5,7 @@
  */
 package com.mii.cvlibraryclient.services;
 
-    import com.mii.cvlibraryclient.modals.Major;
+import com.mii.cvlibraryclient.modals.Employee;
 import com.mii.cvlibraryclient.modals.data.ResponseList;
 import com.mii.cvlibraryclient.modals.data.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +14,15 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
  *
  * @author Adhi
  */
-@Service
-public class MajorService {
+
+
+public class EmployeeService {
     
     @Autowired
     private RestTemplate restTemplate;
@@ -33,44 +33,44 @@ public class MajorService {
     @Autowired
     private LoginService service;
     
-    public ResponseList<Major> getAll(){
-        ResponseEntity<ResponseList<Major>> response 
+    public ResponseList<Employee> getAll(){
+        ResponseEntity<ResponseList<Employee>> response 
                 = restTemplate.exchange(url + "/major", HttpMethod.GET, 
                         new HttpEntity<>(service.createHeaders()), 
-                        new ParameterizedTypeReference<ResponseList<Major>>(){});
+                        new ParameterizedTypeReference<ResponseList<Employee>>(){});
         return response.getBody();
     }
     
-    public ResponseList<Major> getMajorById(Integer id){
-        ResponseEntity<ResponseList<Major>> response
+    public ResponseList<Employee> getEmployeeById(Integer id){
+        ResponseEntity<ResponseList<Employee>> response
                 = restTemplate.exchange(url + "/major" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
-                        new ParameterizedTypeReference<ResponseList<Major>>(){});
+                        new ParameterizedTypeReference<ResponseList<Employee>>(){});
         return response.getBody();
     }
     
-    public ResponseMessage<Major> postMajor(Major major){
-        ResponseEntity<ResponseMessage<Major>> response
+    public ResponseMessage<Employee> postEmployee(Employee employee){
+        ResponseEntity<ResponseMessage<Employee>> response
                 = restTemplate.exchange(url + "/major", HttpMethod.POST, 
-                        new HttpEntity<>(major, service.createHeaders()), 
-                        new ParameterizedTypeReference<ResponseMessage<Major>>() {});
+                        new HttpEntity<>(employee, service.createHeaders()), 
+                        new ParameterizedTypeReference<ResponseMessage<Employee>>() {});
         return response.getBody();
     }
     
-    public ResponseMessage<Major> putMajor(Major major){
-        ResponseEntity<ResponseMessage<Major>> response
+    public ResponseMessage<Employee> putEmployee(Employee employee){
+        ResponseEntity<ResponseMessage<Employee>> response
                 = restTemplate.exchange(url + "/major", HttpMethod.PUT, 
-                        new HttpEntity<>(major, service.createHeaders()), 
-                        new ParameterizedTypeReference<ResponseMessage<Major>>() {});
+                        new HttpEntity<>(employee, service.createHeaders()), 
+                        new ParameterizedTypeReference<ResponseMessage<Employee>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<Major> deleteMajor(Integer id){
-        ResponseEntity<ResponseMessage<Major>> response 
+    public ResponseMessage<Employee> deleteEmployee(Integer id){
+        ResponseEntity<ResponseMessage<Employee>> response 
                 = restTemplate.exchange(url + "/major" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
-                        new ParameterizedTypeReference<ResponseMessage<Major>>() {});
+                        new ParameterizedTypeReference<ResponseMessage<Employee>>() {});
         return response.getBody();
     }
     

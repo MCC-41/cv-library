@@ -5,7 +5,12 @@
  */
 package com.mii.cvlibraryclient.controllers;
 
+import com.mii.cvlibraryclient.services.LevelService;
+import com.mii.cvlibraryclient.services.MajorService;
+import com.mii.cvlibraryclient.services.UniversityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,6 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("")
 public class CvController {
     
+    @Autowired
+    private LevelService service;
+    @Autowired
+    private MajorService serviceMajor;
+    @Autowired
+    private UniversityService serviceUniversity;
     
     @GetMapping("dashboard")
     public String dash() {
@@ -44,7 +55,11 @@ public class CvController {
     }
     
     @GetMapping("adminedu")
-    public String adminEdu() {
+    public String adminEdu(Model model) {
+        model.addAttribute("levels",service.getAll().getData());
+        model.addAttribute("majors",serviceMajor.getAll().getData());
+        model.addAttribute("universities",serviceUniversity.getAll().getData());
+        System.out.println(service.getAll().getData());
         return "admin-edu";
     }
     

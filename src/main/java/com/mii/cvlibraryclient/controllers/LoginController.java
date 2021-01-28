@@ -32,13 +32,17 @@ public class LoginController {
         model.addAttribute("titlePage","Login");
         return "logincoba";
     }
-    @PostMapping("loginProses")
+    
+    @PostMapping("login-proses")
     public String postLogin(Login lg) throws JsonProcessingException {
         LoginResponse lr = service.postLogin(lg);
         System.out.println(lr.getSuccess()+" "+lr.getMessage());
 
+        
         return "redirect:/dashboard";
     }
+    
+    
     
     @PostMapping("logout")
     public String postLogout(){
@@ -50,5 +54,25 @@ public class LoginController {
     public String home(){
         return "home";
     }
+    
+//   @PostMapping("loginProses")
+//    public String postLogin(Login lg) throws JsonProcessingException {
+//        String lr = service.postLogin(lg);
+//        System.out.println(lr.getSuccess()+" "+lr.getMessage());
+////        try {
+////            lr = service.postLogin(lg);
+////            System.out.println("-----");
+////            
+////        } catch (Exception e) {
+////            if(lr.equals("failed")){
+////            return "redirect:/login?error";
+////            } else if(lr.equals("locked"))
+////            return "redirect:/login?locked";
+////            System.out.println("");
+////        }
+////        
+////        System.out.println("-----/////-----");
+//        return "redirect:/dashboard";
+//    }
     
 }
