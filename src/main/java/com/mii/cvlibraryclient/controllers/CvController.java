@@ -73,4 +73,45 @@ public class CvController {
         return "admin-training";
     }
     
+    @GetMapping("employee")
+    public String employeePersonal(){
+        return "employee";
+    }
+    
+    @GetMapping("employee-edu")
+    public String employeeEducation(){
+        return "employee-education";
+    }
+    
+    @GetMapping("employee-tech")
+    public String employeeTechnical(){
+        return "employee-technical";
+    }
+    
+    @GetMapping("employee-work")
+    public String employeeWork(){
+        return "employee-work";
+    }
+    
+    @GetMapping("employee-training")
+    public String employeeTraining(){
+        return "employee-training";
+    }
+    
+    @GetMapping("employee-organization")
+    public String employeeOrganization(){
+        return "employee-organization";
+    }
+    
+    @GetMapping("employee-exp")
+    public String employeeExperience(){
+        return "employee-experience";
+    }
+    
+    @GetMapping("employee-awards")
+    public String employeeAwards(){
+        return "employee-awards";
+    }
+    
+    
 }
