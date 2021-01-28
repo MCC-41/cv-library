@@ -46,6 +46,13 @@ public class Status implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "status", fetch = FetchType.LAZY)
     private List<User> userList;
 
+    public Status(Integer id) {
+        this.id = id;
+    }
+
+    public Status() {
+    }
+
     @XmlTransient
     public List<User> getUserList() {
         return userList;

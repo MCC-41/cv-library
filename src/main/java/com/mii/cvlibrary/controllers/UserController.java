@@ -5,7 +5,9 @@
  */
 package com.mii.cvlibrary.controllers;
 
+import com.mii.cvlibrary.configs.PasswordConfig;
 import com.mii.cvlibrary.controllers.icontrollers.IController;
+import com.mii.cvlibrary.models.Status;
 import com.mii.cvlibrary.models.User;
 import com.mii.cvlibrary.models.data.ResponseList;
 import com.mii.cvlibrary.models.data.ResponseRest;
@@ -32,32 +34,38 @@ public class UserController implements IController<User, Integer>{
     @Autowired
     private UserService us;
     
-    @GetMapping("level")
+    @Autowired
+    private PasswordConfig passwordConfig;
+    
+    @GetMapping("user")
     @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseList<User> getAll() {
         return new ResponseList(us.getAll());
     }
 
-    @GetMapping("level/{id}")
+    @GetMapping("user/{id}")
     @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     @Override
     public ResponseRest<User> getById(Integer id) {
         return ResponseRest.success(us.getById(id));
     }
 
-    @PostMapping("level")
+    @PostMapping("user")
     @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<User> insert(User data) {
         try {
+            data.setPassword(passwordConfig.passwordEncoder().encode(data.getPassword()));
+            data.setStatus(new Status(0));
+            data.setVerified(true);
             return ResponseRest.success(us.insert(data), "Success");
         } catch (Exception e) {
             return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PutMapping("level/{id}")
+    @PutMapping("user/{id}")
     @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     @Override
     public ResponseRest<User> update(Integer id, User data) {
@@ -68,7 +76,7 @@ public class UserController implements IController<User, Integer>{
         }
     }
 
-    @DeleteMapping("level/{id}")
+    @DeleteMapping("user/{id}")
     @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<User> delete(Integer id) {
@@ -78,5 +86,14 @@ public class UserController implements IController<User, Integer>{
             return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);
         }
     }
-    
+    @PutMapping("user/{id}/password")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
+    public ResponseRest<User> updatePassword(Integer id, User data) {
+        try {
+            data.setPassword(passwordConfig.passwordEncoder().encode(data.getPassword()));
+            return ResponseRest.success(us.update(id,data), "Success");
+        } catch (Exception e) {
+            return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);
+        }
+    }
 }

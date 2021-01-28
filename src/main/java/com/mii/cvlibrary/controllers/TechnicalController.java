@@ -51,6 +51,7 @@ public class TechnicalController implements IController<Technical, Integer>{
     @Override
     public ResponseRest<Technical> insert(Technical data) {
         try {
+           
             return ResponseRest.success(ts.insert(data), "Success");
         } catch (Exception e) {
             return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);

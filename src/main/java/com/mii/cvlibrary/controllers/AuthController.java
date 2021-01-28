@@ -6,10 +6,8 @@
 package com.mii.cvlibrary.controllers;
 
 import com.mii.cvlibrary.models.MyUserDetail;
-import com.mii.cvlibrary.models.User;
 import com.mii.cvlibrary.models.auth.AuthRequest;
 import com.mii.cvlibrary.models.auth.AuthResponse;
-import com.mii.cvlibrary.models.data.ResponseMessage;
 import com.mii.cvlibrary.models.data.ResponseRest;
 import com.mii.cvlibrary.services.MyUserDetailService;
 import java.util.ArrayList;
@@ -17,10 +15,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +41,7 @@ public class AuthController {
     private MyUserDetailService service;
 
     @PostMapping("login")
-    public ResponseRest<AuthResponse> login(@RequestBody AuthRequest user) {
+    public ResponseRest<AuthResponse> login(@RequestBody AuthRequest user) throws AuthenticationException{
         MyUserDetail detail = (MyUserDetail) service.loadUserByUsername(user.getUsername());
         if (detail.isAccountNonLocked()) {
             try {
@@ -57,8 +55,13 @@ public class AuthController {
                 return ResponseRest.failed("Failed", HttpStatus.UNAUTHORIZED);
             }
             
-        } else {
-            return ResponseRest.failed("Locked", HttpStatus.LOCKED);
+        } else{
+            if(detail.getUsername()!=null){
+                return ResponseRest.failed("Locked", HttpStatus.LOCKED);
+            }else{
+                return ResponseRest.failed("NotFound", HttpStatus.NOT_FOUND);
+            }
+            
         }
     }
     

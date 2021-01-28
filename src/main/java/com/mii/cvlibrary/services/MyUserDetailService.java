@@ -6,6 +6,7 @@
 package com.mii.cvlibrary.services;
 
 import com.mii.cvlibrary.models.MyUserDetail;
+import com.mii.cvlibrary.models.User;
 import com.mii.cvlibrary.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +25,13 @@ public class MyUserDetailService implements UserDetailsService{
     
     @Override
     public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
-        return new MyUserDetail(repository.getByUsername(string).get());
+        User user = new User();
+        if(repository.getByUsername(string).isPresent()){
+            user = repository.getByUsername(string).get();
+        }else{
+            System.out.println("aaa");
+        }
+        return new MyUserDetail(user);
     }
     
 }
