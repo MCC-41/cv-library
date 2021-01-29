@@ -42,7 +42,7 @@ public class UserService {
         return response.getBody();
     }
     
-    public ResponseData<User> getLevelById(Integer id){
+    public ResponseData<User> getById(Integer id){
         ResponseEntity<ResponseData<User>> response
                 = restTemplate.exchange(url + "/user" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
@@ -50,7 +50,7 @@ public class UserService {
         return response.getBody();
     }
     
-    public ResponseMessage<User> postLevel(User user){
+    public ResponseMessage<User> insert(User user){
         ResponseEntity<ResponseMessage<User>> response
                 = restTemplate.exchange(url + "/user", HttpMethod.POST, 
                         new HttpEntity<>(user, service.createHeaders()), 
@@ -58,7 +58,7 @@ public class UserService {
         return response.getBody();
     }
     
-    public ResponseMessage<User> putLevel(User user){
+    public ResponseMessage<User> update(User user){
         ResponseEntity<ResponseMessage<User>> response
                 = restTemplate.exchange(url + "/user", HttpMethod.PUT, 
                         new HttpEntity<>(user, service.createHeaders()), 
@@ -67,7 +67,7 @@ public class UserService {
         
     }
     
-    public ResponseMessage<User> deleteLevel(Integer id){
+    public ResponseMessage<User> delete(Integer id){
         ResponseEntity<ResponseMessage<User>> response 
                 = restTemplate.exchange(url + "/user" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),

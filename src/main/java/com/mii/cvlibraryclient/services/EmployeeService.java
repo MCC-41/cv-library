@@ -14,6 +14,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -21,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Adhi
  */
 
-
+@Service
 public class EmployeeService {
     
     @Autowired
@@ -35,7 +36,7 @@ public class EmployeeService {
     
     public ResponseList<Employee> getAll(){
         ResponseEntity<ResponseList<Employee>> response 
-                = restTemplate.exchange(url + "/major", HttpMethod.GET, 
+                = restTemplate.exchange(url + "/employee", HttpMethod.GET, 
                         new HttpEntity<>(service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseList<Employee>>(){});
         return response.getBody();
@@ -43,7 +44,7 @@ public class EmployeeService {
     
     public ResponseList<Employee> getEmployeeById(Integer id){
         ResponseEntity<ResponseList<Employee>> response
-                = restTemplate.exchange(url + "/major" + id, HttpMethod.GET, 
+                = restTemplate.exchange(url + "/employee" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseList<Employee>>(){});
         return response.getBody();
@@ -51,7 +52,7 @@ public class EmployeeService {
     
     public ResponseMessage<Employee> postEmployee(Employee employee){
         ResponseEntity<ResponseMessage<Employee>> response
-                = restTemplate.exchange(url + "/major", HttpMethod.POST, 
+                = restTemplate.exchange(url + "/employee", HttpMethod.POST, 
                         new HttpEntity<>(employee, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Employee>>() {});
         return response.getBody();
@@ -59,7 +60,7 @@ public class EmployeeService {
     
     public ResponseMessage<Employee> putEmployee(Employee employee){
         ResponseEntity<ResponseMessage<Employee>> response
-                = restTemplate.exchange(url + "/major", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/employee", HttpMethod.PUT, 
                         new HttpEntity<>(employee, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Employee>>() {});
         return response.getBody();
@@ -68,7 +69,7 @@ public class EmployeeService {
     
     public ResponseMessage<Employee> deleteEmployee(Integer id){
         ResponseEntity<ResponseMessage<Employee>> response 
-                = restTemplate.exchange(url + "/major" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/employee" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Employee>>() {});
         return response.getBody();

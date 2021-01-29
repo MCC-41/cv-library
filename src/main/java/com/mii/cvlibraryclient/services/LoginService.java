@@ -6,14 +6,17 @@
 package com.mii.cvlibraryclient.services;
 
 import com.mii.cvlibraryclient.modals.Login;
-import com.mii.cvlibraryclient.modals.response.LoginDataResponse;
+import com.mii.cvlibraryclient.modals.auth.AuthResponse;
+import com.mii.cvlibraryclient.modals.data.ResponseMessage;
 import com.mii.cvlibraryclient.modals.response.LoginResponse;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.ws.http.HTTPException;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -27,66 +30,61 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-
-
 /**
  *
  * @author Adhi
  */
-
 @Service
 public class LoginService {
-   @Autowired
+
+    @Autowired
     private RestTemplate restTemplate;
-    
+
     @Value("${api.url}")
     private String url;
-    
-    public void setAuthority(String username,String password,List<String> listAuth){
+
+    public void setAuthority(String username, String password, List<String> listAuth) {
         List<GrantedAuthority> list = new ArrayList<>();
-        listAuth.forEach(action->{
+        listAuth.forEach(action -> {
             list.add(new SimpleGrantedAuthority(action));
         });
-        Authentication auth = new UsernamePasswordAuthenticationToken(username, password,list);
+        Authentication auth = new UsernamePasswordAuthenticationToken(username, password, list);
         SecurityContext sc = SecurityContextHolder.getContext();
         sc.setAuthentication(auth);
     }
-    
-    public LoginResponse postLogin(Login loginData){
-        ResponseEntity<LoginResponse> response = restTemplate.postForEntity(url+"/login", loginData, LoginResponse.class);
-        System.out.println(response.getStatusCode());
-        LoginDataResponse data = response.getBody().getData();
-        LoginResponse loginResponse = response.getBody();
-        System.out.println(loginResponse.getMessage()+" "+loginResponse.getSuccess());
-        if(response.getStatusCodeValue()==200){
-            setAuthority(loginData.getUsername(), loginData.getPassword(), data.getAuthority());
-        }
-        
-        return loginResponse;
-    }
-    
 
-    
-    public LoginResponse postLogout(){
-        ResponseEntity<LoginResponse> response = restTemplate.exchange(url+"/logout",HttpMethod.POST ,new HttpEntity<>(createHeaders()), LoginResponse.class);
+    public ResponseMessage<AuthResponse> postLogin(Login loginData) {
+            ResponseEntity<ResponseMessage<AuthResponse>> response= restTemplate.exchange(url + "/login", HttpMethod.POST, new HttpEntity<>(loginData), new ParameterizedTypeReference<ResponseMessage<AuthResponse>>() {
+            });
+            System.out.println(response.getStatusCode());
+            AuthResponse auth = response.getBody().getData();
+            if (response.getStatusCodeValue() == 200) {
+                setAuthority(loginData.getUsername(), loginData.getPassword(), auth.getAuthority());
+            }
+            return response.getBody();
+    }
+
+    public LoginResponse postLogout() {
+        ResponseEntity<LoginResponse> response = restTemplate.exchange(url + "/logout", HttpMethod.POST, new HttpEntity<>(createHeaders()), LoginResponse.class);
         LoginResponse lr = response.getBody();
         SecurityContextHolder.getContext().setAuthentication(null);
         return lr;
     }
-    
-    HttpHeaders createHeaders(){
+
+    HttpHeaders createHeaders() {
         Authentication sc = SecurityContextHolder.getContext().getAuthentication();
-        return new HttpHeaders() {{
-            String auth = sc.getName() + ":" + sc.getCredentials();
-            byte[] encodedAuth = Base64.encodeBase64( 
-            auth.getBytes(Charset.forName("US-ASCII")) );
-            String authHeader = "Basic " + new String( encodedAuth );
-            set( "Authorization", authHeader );
-            set("Content-Type", "application/json");
-//            set(WARNING, RANGE);
-       }};
+        return new HttpHeaders() {
+            {
+                String auth = sc.getName() + ":" + sc.getCredentials();
+                byte[] encodedAuth = Base64.encodeBase64(
+                        auth.getBytes(Charset.forName("US-ASCII")));
+                String authHeader = "Basic " + new String(encodedAuth);
+                set("Authorization", authHeader);
+                set("Content-Type", "application/json");
+            }
+        };
     }
-    
+
     //    public LoginResponse postLogin(Login loginData){
 //        ResponseEntity<LoginResponse> response = restTemplate.postForEntity(url+"/login", loginData, LoginResponse.class);
 //        System.out.println(response.getStatusCode());
@@ -108,5 +106,4 @@ public class LoginService {
 //        
 //        return loginResponse;
 //    }
-    
 }

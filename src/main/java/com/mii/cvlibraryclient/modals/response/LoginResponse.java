@@ -10,24 +10,13 @@ package com.mii.cvlibraryclient.modals.response;
  * @author Adhi
  */
 public class LoginResponse {
-    private LoginDataResponse data;
-    private boolean success;
     private String message;
 
-    public LoginDataResponse getData() {
-        return data;
-    }
-    
-    public void setData(LoginDataResponse data) {
-        this.data = data;
+    public LoginResponse() {
     }
 
-    public boolean getSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public LoginResponse(String message) {
+        this.message = message;
     }
 
     public String getMessage() {

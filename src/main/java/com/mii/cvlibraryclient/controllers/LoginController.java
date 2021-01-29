@@ -7,16 +7,18 @@ package com.mii.cvlibraryclient.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mii.cvlibraryclient.modals.Login;
+import com.mii.cvlibraryclient.modals.auth.AuthResponse;
+import com.mii.cvlibraryclient.modals.data.ResponseMessage;
 import com.mii.cvlibraryclient.modals.response.LoginResponse;
 import com.mii.cvlibraryclient.services.LoginService;
 import java.util.List;
+import javax.xml.ws.http.HTTPException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-
+import org.springframework.web.client.HttpClientErrorException;
 
 /**
  *
@@ -24,55 +26,43 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class LoginController {
+
     @Autowired
     private LoginService service;
-    
+
     @GetMapping("login")
-    public String login(Model model){
-        model.addAttribute("titlePage","Login");
+    public String login(Model model) {
+        model.addAttribute("titlePage", "Login");
         return "logincoba";
     }
-    
-    @PostMapping("login-proses")
-    public String postLogin(Login lg) throws JsonProcessingException {
-        LoginResponse lr = service.postLogin(lg);
-        System.out.println(lr.getSuccess()+" "+lr.getMessage());
 
-        
-        return "redirect:/dashboard";
+    @PostMapping("login_proses")
+    public String postLogin(Login lg) throws JsonProcessingException {
+        try {
+            ResponseMessage<AuthResponse> lr = service.postLogin(lg);
+            System.out.println(lr.getMessage());
+            return "redirect:/dashboard";
+        } catch (HttpClientErrorException e) {
+            int response = e.getRawStatusCode();
+            switch (response) {
+                case 401:
+                    return "redirect:/login?error";
+                case 404:
+                    return "redirect:/login?notFound";
+                default:
+                    return "redirect:/login?locked";
+            }
+        }
     }
-    
-    
-    
+
     @PostMapping("logout")
-    public String postLogout(){
+    public String postLogout() {
         service.postLogout();
         return "redirect:/login";
     }
-    
+
     @GetMapping("home")
-    public String home(){
+    public String home() {
         return "home";
     }
-    
-//   @PostMapping("loginProses")
-//    public String postLogin(Login lg) throws JsonProcessingException {
-//        String lr = service.postLogin(lg);
-//        System.out.println(lr.getSuccess()+" "+lr.getMessage());
-////        try {
-////            lr = service.postLogin(lg);
-////            System.out.println("-----");
-////            
-////        } catch (Exception e) {
-////            if(lr.equals("failed")){
-////            return "redirect:/login?error";
-////            } else if(lr.equals("locked"))
-////            return "redirect:/login?locked";
-////            System.out.println("");
-////        }
-////        
-////        System.out.println("-----/////-----");
-//        return "redirect:/dashboard";
-//    }
-    
 }

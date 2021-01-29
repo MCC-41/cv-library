@@ -6,13 +6,11 @@
 package com.mii.cvlibraryclient.modals.auth;
 
 import java.util.List;
-import lombok.Data;
 
 /**
  *
  * @author Adhi
  */
-@Data
 public class AuthResponse {
     
     private String username;
@@ -23,6 +21,22 @@ public class AuthResponse {
 
     public AuthResponse(String username, List<String> authority) {
         this.username = username;
+        this.authority = authority;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<String> getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(List<String> authority) {
         this.authority = authority;
     }
     

@@ -34,10 +34,11 @@ public class CvController {
     public String dash() {
         return "dashboard";
     }
-       @GetMapping("admin")
-    public String admin() {
-        return "admin-user";
-    }
+//    
+//    @GetMapping("admin")
+//    public String admin() {
+//        return "admin-user";
+//    }
     
     @GetMapping("adminrole")
     public String adminRole() {
