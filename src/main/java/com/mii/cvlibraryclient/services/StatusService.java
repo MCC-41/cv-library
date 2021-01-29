@@ -42,7 +42,7 @@ public class StatusService {
         return response.getBody();
     }
     
-    public ResponseData<Status> getLevelById(Integer id){
+    public ResponseData<Status> getStatusById(Integer id){
         ResponseEntity<ResponseData<Status>> response
                 = restTemplate.exchange(url + "/status" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
@@ -50,7 +50,7 @@ public class StatusService {
         return response.getBody();
     }
     
-    public ResponseMessage<Status> postLevel(Status status){
+    public ResponseMessage<Status> postStstus(Status status){
         ResponseEntity<ResponseMessage<Status>> response
                 = restTemplate.exchange(url + "/status", HttpMethod.POST, 
                         new HttpEntity<>(status, service.createHeaders()), 
@@ -58,7 +58,7 @@ public class StatusService {
         return response.getBody();
     }
     
-    public ResponseMessage<Status> putLevel(Status status){
+    public ResponseMessage<Status> putStatus(Status status){
         ResponseEntity<ResponseMessage<Status>> response
                 = restTemplate.exchange(url + "/status", HttpMethod.PUT, 
                         new HttpEntity<>(status, service.createHeaders()), 
@@ -67,7 +67,7 @@ public class StatusService {
         
     }
     
-    public ResponseMessage<Status> deleteLevel(Integer id){
+    public ResponseMessage<Status> deleteStatus(Integer id){
         ResponseEntity<ResponseMessage<Status>> response 
                 = restTemplate.exchange(url + "/status" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),

@@ -50,9 +50,9 @@
                                             <td>Figma</td>
                                             <td>Netbeans</td>
                                             <td class='form-inline'>
-                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editModal1"></a>
+                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editTechnical"></a>
                                                 <form class='form-inline' action="#" method="">
-                                                    <button class="btn btn-danger delete-confirm mx-1 deletePermission" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
+                                                    <button class="btn btn-danger delete-confirm mx-1 deleteEmployeeTech" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
                                                 </form>            
                                                 
                                             </td>
@@ -69,11 +69,11 @@
             </div>
             <!-- End of Main Content -->
             <!-- MODAL -->
-                            <div class="modal fade" id="editModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="editTechnical" tabindex="-1" role="dialog" aria-labelledby="techModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <h5 class="modal-title" id="techModalLabel">Edit Technical</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -81,12 +81,22 @@
                                         <div class="modal-body">
                                             <form action="" method="POST">
                                                 <div class="form-group">
-                                                    <label for="regionId"> ID</label>
-                                                    <input type="text" class="form-control" id="id" th:name="regionId">
+                                                    <label for="regionId"> Programming</label>
+                                                    <input type="text" class="form-control" id="id" th:name="techProg">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="regionName"> Permission </label>
-                                                    <input type="text" class="form-control" th:name="regionName" id="name">
+                                                    <label for="regionName"> Platform </label>
+                                                    <input type="text" class="form-control" th:name="techPlatform" id="name">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="regionName"> Aplication </label>
+                                                    <input type="text" class="form-control" th:name="techApp" id="name">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="regionName"> Tools </label>
+                                                    <input type="text" class="form-control" th:name="techTools" id="name">
 
                                                 </div>
                                             </form>
@@ -103,17 +113,12 @@
             <footer th:replace="layout/footer-layout::footer_layout"></footer>
             
             <!-- End of Footer -->
-            <script th:src="@{../js/adminpermission.js}" ></script>
+            <script th:src="@{../js/employeetech.js}" ></script>
         </div>
         <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
 
 
     

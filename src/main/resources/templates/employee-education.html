@@ -37,25 +37,27 @@ and open the template in the editor.
                         <div class="card-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">University</label><select class="form-control" id="exampleFormControlSelect1">
+                                    <label for="exampleFormControlSelect1">University</label><select class="form-control" id="exampleFormControlSelect1" readonly>
                                         <option>UDINUS</option>
                                         <option>UNIMA</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Major</label><select class="form-control" id="exampleFormControlSelect1">
-                                        <option>Male</option>
-                                        <option>Female</option>
+                                    <label for="exampleFormControlSelect1">Major</label><select class="form-control" id="exampleFormControlSelect1" readonly>
+                                        <option>Teknik Informatika</option>
+                                        <option>Akuntansi</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Level</label><select class="form-control" id="exampleFormControlSelect1">
+                                    <label for="exampleFormControlSelect1">Level</label><select class="form-control" id="exampleFormControlSelect1" readonly>
                                         <option>S1</option>
                                         <option>S2</option>
                                         <option>S3</option>
                                     </select>
+                                    
                                 </div>
-                                
+                                <button type="button" class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editModal" ></button>
+
                             </form>
                            
                         </div>
@@ -68,7 +70,49 @@ and open the template in the editor.
 
                 
             <!-- End of Main Content -->
-
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Edit Education</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">University</label>
+                          <select class="form-control" id="exampleFormControlSelect1">
+                                <option>UDINUS</option>
+                                <option>UNIMA</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Major</label>
+                          <select class="form-control" id="exampleFormControlSelect1">
+                                <option>Teknik Informatika</option>
+                                <option>Akuntansi</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Level</label>
+                          <select class="form-control" id="exampleFormControlSelect1">
+                                <option>S1</option>
+                                <option>S2</option>
+                                <option>S3</option>
+                          </select>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Send message</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            
             <!-- Footer -->
             
             

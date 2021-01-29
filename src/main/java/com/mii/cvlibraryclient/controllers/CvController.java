@@ -114,5 +114,14 @@ public class CvController {
         return "employee-awards";
     }
     
+    @GetMapping("employee-detail")
+    public String tesCV(){
+        return "coba";
+    }
+    
+    @GetMapping("rm-employee")
+    public String rmEmployee(){
+        return "rm-employee";
+    }
     
 }

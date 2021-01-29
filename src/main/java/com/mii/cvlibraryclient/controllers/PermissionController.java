@@ -5,10 +5,22 @@
  */
 package com.mii.cvlibraryclient.controllers;
 
+import com.mii.cvlibraryclient.services.PermissionService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  *
  * @author Adhi
  */
 public class PermissionController {
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

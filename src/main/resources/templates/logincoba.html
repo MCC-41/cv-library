@@ -4,53 +4,46 @@
     <body class="bg-gradient-primary">
 
         <div class="container">
+            
+            <div class="row justify-content-center mt-5">
 
-            <!-- Outer Row -->
-            <div class="row justify-content-center  mt-5">
+                <div class="col-xl-6 col-lg-7 col-md-6">
 
-                <!--<div class="col-xl-10 col-lg-12 col-md-9">-->
-                <div class="col-md-5 m-auto">
-
-                    <div class="card o-hidden border-0 shadow-lg my-5 p-3">
-                        <div class="card-body">
+                    <div class="card o-hidden border-0 shadow-lg my-5">
+                        <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
-                            <!--<div class="row">-->
-                            <!--<div></div>-->
-                            <!--                            <div class="col-lg-6 d-none d-lg-block ">
-                                                            <img src="img/mii.png" style="display: block; margin: auto" width="300" height="200" />
-                                                        </div>-->
-                            <!--<div class="col-md-6">-->
-                            <!--<div class="p-5">-->
-                            
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">CV Library</h1>
-                            </div>
-                            <div class="alert alert-danger" role="alert" th:if="${param.locked}">Your account is locked</div>
-                            <div class="alert alert-danger" role="alert" th:if="${param.error}">Check your username and password!</div>
-                            <div class="alert alert-danger" role="alert" th:if="${param.notFound}">Check your username not found</div>
-                            <form class="needs-validation" novalidate action="/login_proses" method="POST">
-                                <div class="form-group">
-                                    <input type="text" th:name="username" class="form-control form-control-user"
-                                           id="exampleInputEmail" aria-describedby="emailHelp"
-                                           placeholder="Enter Your Username...">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" th:name="password" class="form-control form-control-user"
-                                           id="exampleInputPassword" placeholder="Password">
-                                </div>
-                                <button class="btn btn-primary btn-user btn-block">Login</button>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                                <div class="col-lg-6">
+                                    <div class="p-3">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4 mt-3">CV Library</h1>
+                                        </div>
+                                        <div class="alert alert-danger" role="alert" th:if="${param.locked}">Your account is locked</div>
+                                        <div class="alert alert-danger" role="alert" th:if="${param.error}">Check your username and password!</div>
+                                        <div class="alert alert-danger" role="alert" th:if="${param.notFound}">Check your username not found</div>
+                                        <form th:action="@{login_proses}" method="POST" class="user">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user"
+                                                   id="username" th:name="username" aria-describedby="emailHelp"
+                                                    placeholder="Enter your username...">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control form-control-user"
+                                                    id="password" th:name="password" placeholder="Enter yout password...">
+                                            </div>
 
-                            </form>
-                            <!--</div>-->
-                            <!--</div>-->
-                            <!--</div>-->
+                                            <button type="submit" class="btn btn-primary btn-user btn-block mb-3 mt-4">Sign in</button>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
-
             </div>
-
         </div>
 
         <!-- Bootstrap core JavaScript-->

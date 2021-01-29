@@ -71,7 +71,7 @@ and open the template in the editor.
                         <a class="collapse-item" th:href="@{employee}">Personal Data</a>
                         <a class="collapse-item" th:href="@{employee-edu}">Education</a>
                         <a class="collapse-item" th:href="@{employee-tech}">Technical</a>
-                        <a class="collapse-item" th:href="@{employee-work}">Work</a>
+                        <a class="collapse-item" th:href="@{work}">Work</a>
                         <a class="collapse-item" th:href="@{employee-training}">Training</a>
                         <a class="collapse-item" th:href="@{employee-organization}">Organization</a>
                         <a class="collapse-item" th:href="@{employee-exp}">Experience</a>
@@ -81,10 +81,17 @@ and open the template in the editor.
             </li>
             
             
+
             <li class="nav-item" sec:authorize="hasRole('USER')">
                 <a class="nav-link">
                     <i class="fas fa-eye"></i>
                     <span>Detail CV</span></a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{rm-employee}">
+                    <i class="fas fa-eye"></i>
+                    <span>Employee</span></a>
             </li>
            
 

@@ -12,7 +12,7 @@ import lombok.Data;
  *
  * @author Adhi
  */
-@Data
+
 public class Work {
     
     private Integer id;
@@ -35,7 +35,64 @@ public class Work {
         this.endDate = endDate;
         this.employee = employee;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getJobDesc() {
+        return jobDesc;
+    }
+
+    public void setJobDesc(String jobDesc) {
+        this.jobDesc = jobDesc;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
     
+        
     
     
     

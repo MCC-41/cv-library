@@ -50,9 +50,9 @@
                                             <td>IT</td>
                                             <td>sertifikat.png</td>
                                             <td class='form-inline'>
-                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editModal1"></a>
+                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editEmployeeTraining"></a>
                                                 <form class='form-inline' action="#" method="">
-                                                    <button class="btn btn-danger delete-confirm mx-1 deletePermission" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
+                                                    <button class="btn btn-danger delete-confirm mx-1 deleteEmployeeTraining" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
                                                 </form>            
                                                 
                                             </td>
@@ -69,11 +69,11 @@
             </div>
             <!-- End of Main Content -->
             <!-- MODAL -->
-                            <div class="modal fade" id="editModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="editEmployeeTraining" tabindex="-1" role="dialog" aria-labelledby="TrainingModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <h5 class="modal-title" id="TrainingModalLabel">Edit Training</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -81,12 +81,26 @@
                                         <div class="modal-body">
                                             <form action="" method="POST">
                                                 <div class="form-group">
-                                                    <label for="regionId"> ID</label>
-                                                    <input type="text" class="form-control" id="id" th:name="regionId">
+                                                    <label for="trainingName"> Training Name</label>
+                                                    <input type="text" class="form-control" id="id" th:name="trainingName">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="regionName"> Permission </label>
-                                                    <input type="text" class="form-control" th:name="regionName" id="name">
+                                                    <label for="trainingPeriode"> Periode </label>
+                                                    <input type="text" class="form-control" th:name="trainingPeriode" id="name">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="trainingType"> Type </label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                        <option>IT</option>
+                                                        <option>Network</option>
+                                                        <option>Hardware</option>
+                                                    </select>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="trainingPeriode"> File </label>
+                                                    <input type="file" class="form-control" th:name="trainingFile" id="name">
 
                                                 </div>
                                             </form>
@@ -103,7 +117,7 @@
             <footer th:replace="layout/footer-layout::footer_layout"></footer>
             
             <!-- End of Footer -->
-            <script th:src="@{../js/adminpermission.js}" ></script>
+            <script th:src="@{../js/employeetraining.js}" ></script>
         </div>
         <!-- End of Content Wrapper -->
 

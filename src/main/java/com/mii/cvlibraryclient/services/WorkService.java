@@ -5,6 +5,7 @@
  */
 package com.mii.cvlibraryclient.services;
 
+
 import com.mii.cvlibraryclient.modals.Work;
 import com.mii.cvlibraryclient.modals.data.ResponseData;
 import com.mii.cvlibraryclient.modals.data.ResponseList;
@@ -40,10 +41,11 @@ public class WorkService {
                 = restTemplate.exchange(url + "/work", HttpMethod.GET, 
                         new HttpEntity<>(service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseList<Work>>(){});
+        System.out.println(response.getBody());
         return response.getBody();
     }
     
-    public ResponseData<Work> getLevelById(Integer id){
+    public ResponseData<Work> getWorkById(Integer id){
         ResponseEntity<ResponseData<Work>> response
                 = restTemplate.exchange(url + "/work" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
@@ -51,7 +53,7 @@ public class WorkService {
         return response.getBody();
     }
     
-    public ResponseMessage<Work> postLevel(Work work){
+    public ResponseMessage<Work> postWork(Work work){
         ResponseEntity<ResponseMessage<Work>> response
                 = restTemplate.exchange(url + "/work", HttpMethod.POST, 
                         new HttpEntity<>(work, service.createHeaders()), 
@@ -59,7 +61,7 @@ public class WorkService {
         return response.getBody();
     }
     
-    public ResponseMessage<Work> putLevel(Work work){
+    public ResponseMessage<Work> putWork(Work work){
         ResponseEntity<ResponseMessage<Work>> response
                 = restTemplate.exchange(url + "/work", HttpMethod.PUT, 
                         new HttpEntity<>(work, service.createHeaders()), 
@@ -68,7 +70,7 @@ public class WorkService {
         
     }
     
-    public ResponseMessage<Work> deleteLevel(Integer id){
+    public ResponseMessage<Work> deleteWork(Integer id){
         ResponseEntity<ResponseMessage<Work>> response 
                 = restTemplate.exchange(url + "/work" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),

@@ -34,43 +34,40 @@ and open the template in the editor.
                     
                     <div class="card">
                         <div class="card-header">Personal</div>
-                        <div class="card-body">
+                        <div class="card-body" >
                             <form>
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Insert your name...">
-                                </div>
-                                <div class="form-group">
+                                    <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Insert your name..." value="Habib" readonly>
                                     <label>Date of Birth</label>
-                                    <input class="form-control" id="exampleFormControlInput1" type="date">
-                                </div>
-                                <div class="form-group">
+                                    <input class="form-control" id="exampleFormControlInput1" type="text" value="19/01/2020" readonly>
                                     <label>Nationality</label>
-                                    <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Insert your nationality...">
-                                </div>
-                                <div class="form-group">
+                                    <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Insert your nationality..." value="Indonesia" readonly>
                                     <label>Email address</label>
-                                    <input class="form-control" id="exampleFormControlInput1" type="email" placeholder="name@example.com">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Status</label><select class="form-control" id="exampleFormControlSelect1">
+                                    <input class="form-control" id="exampleFormControlInput1" type="email" placeholder="name@example.com" value="habibabdul@gmail.com" readonly>
+                                    <label for="statusRelation">Status</label>
+                                    <select class="form-control" id="exampleFormControlSelect1" readonly>
                                         <option>Single</option>
-                                        <option>Married</option>
+                                        <!--<option>Married</option>-->
                                     </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Gender</label><select class="form-control" id="exampleFormControlSelect1">
+                                    <label for="Gender">Gender</label>
+                                    <select class="form-control" id="exampleFormControlSelect1" readonly>
                                         <option>Male</option>
-                                        <option>Female</option>
+                                        <!--<option>Female</option>-->
                                     </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Religion</label><select class="form-control" id="exampleFormControlSelect1">
+                                    <label for="Religion">Religion</label>
+                                    <select class="form-control" id="exampleFormControlSelect1" readonly>
                                         <option>Moslem</option>
-                                        <option>Christian</option>
-                                        <option>Catolic</option>
+                                        <!--<option>Christian</option>-->
+                                        <!--<option>Catolic</option>-->
                                     </select>
+                                    
                                 </div>
+                                <div>
+                                    <button type="button" class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editEmployee">Edit</button>
+                                    
+                                </div>
+                                
                                 
                             </form>
                            
@@ -85,6 +82,69 @@ and open the template in the editor.
 
                 
             <!-- End of Main Content -->
+            <!-- MODAL -->
+                            <div class="modal fade" id="editEmployee" tabindex="-1" role="dialog" aria-labelledby="modalEmployeeLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalEmployeeLabel">Edit Personal Data</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="" method="POST">
+                                                <div class="form-group">
+                                                    <label>Nama</label>
+                                                    <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Insert your name..." value="Habib">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Date of Birth</label>
+                                                    <input class="form-control" id="exampleFormControlInput1" type="text" value="19/01/2020">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Nationality</label>
+                                                    <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Insert your nationality..." value="Indonesia">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Email address</label>
+                                                    <input class="form-control" id="exampleFormControlInput1" type="email" placeholder="name@example.com" value="habibabdul@gmail.com">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="statusRelation">Status</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                        <option>Single</option>
+                                                        <option>Married</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Gender">Gender</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                        <option>Male</option>
+                                                        <option>Female</option>
+                                                    </select>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Religion">Religion</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                        <option>Moslem</option>
+                                                        <option>Christian</option>
+                                                        <option>Catolic</option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            <!--end-->
 
             <!-- Footer -->
             

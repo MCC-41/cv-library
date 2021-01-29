@@ -36,25 +36,27 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <td>ID</td>
                                             <th>Company Name</th>
                                             <th>Position</th>
-                                            <th>Year</th>
                                             <th>Job Description</th>
-                                            <th>Project Spec</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Java</td>
-                                            <td>Windows 10</td>
-                                            <td>Figma</td>
-                                            <td>Netbeans</td>
-                                            <td>Netbeans</td>
+                                        <tr th:each="work : ${works}">
+                                            <td th:text="${work.id}"></td>
+                                            <td th:text="${work.companyName}"></td>
+                                            <td th:text="${work.position}"></td>
+                                            <td th:text="${work.jobDesc}"></td>
+                                            <td th:text="${work.startDate}"></td>
+                                            <td th:text="${work.endDate}"></td>
                                             <td class='form-inline'>
                                                 <a class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editModal1"></a>
                                                 <form class='form-inline' action="#" method="">
-                                                    <button class="btn btn-danger delete-confirm mx-1 deletePermission" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
+                                                    <button class="btn btn-danger delete-confirm mx-1 deleteEmployeeWork" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
                                                 </form>            
                                                 
                                             </td>
@@ -75,28 +77,48 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit WOrk</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="" method="POST">
-                                                <div class="form-group">
-                                                    <label for="regionId"> ID</label>
-                                                    <input type="text" class="form-control" id="id" th:name="regionId">
+                                            <form action="">
+                                                 <div class="form-group">
+                                                    <label for="idEmployee">ID</label>
+                                                    <input type="text" class="form-control" id="id" th:name="idEmployee">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="regionName"> Permission </label>
-                                                    <input type="text" class="form-control" th:name="regionName" id="name">
+                                                    <label for="companyName"> Company Name</label>
+                                                    <input type="text" class="form-control" id="name" th:name="companyName">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="position"> Position </label>
+                                                    <input type="text" class="form-control" th:name="position" id="position">
 
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="jobdesc"> Job Description </label>
+                                                    <input type="text" class="form-control" th:name="jobDesc" id="jobDesc">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="startDate"> Start Date </label>
+                                                    <input type="date" class="form-control" th:name="startDate" id="startDate">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="endDate"> End Date </label>
+                                                    <input type="date" class="form-control" th:name="endDate" id="endDate">
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary" th:onclick="add()">Save changes</button>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +127,7 @@
             <footer th:replace="layout/footer-layout::footer_layout"></footer>
             
             <!-- End of Footer -->
-            <script th:src="@{../js/adminpermission.js}" ></script>
+            <script th:src="@{../js/employee/employee-work.js}" ></script>
         </div>
         <!-- End of Content Wrapper -->
 
