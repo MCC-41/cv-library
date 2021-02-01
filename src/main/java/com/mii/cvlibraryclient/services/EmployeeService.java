@@ -5,9 +5,10 @@
  */
 package com.mii.cvlibraryclient.services;
 
-import com.mii.cvlibraryclient.modals.Employee;
-import com.mii.cvlibraryclient.modals.data.ResponseList;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.Employee;
+import com.mii.cvlibraryclient.models.data.ResponseData;
+import com.mii.cvlibraryclient.models.data.ResponseList;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -42,15 +43,15 @@ public class EmployeeService {
         return response.getBody();
     }
     
-    public ResponseList<Employee> getEmployeeById(Integer id){
-        ResponseEntity<ResponseList<Employee>> response
-                = restTemplate.exchange(url + "/employee" + id, HttpMethod.GET, 
+    public ResponseData<Employee> getById(Integer id){
+        ResponseEntity<ResponseData<Employee>> response
+                = restTemplate.exchange(url + "/employee/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
-                        new ParameterizedTypeReference<ResponseList<Employee>>(){});
+                        new ParameterizedTypeReference<ResponseData<Employee>>(){});
         return response.getBody();
     }
     
-    public ResponseMessage<Employee> postEmployee(Employee employee){
+    public ResponseMessage<Employee> insert(Employee employee){
         ResponseEntity<ResponseMessage<Employee>> response
                 = restTemplate.exchange(url + "/employee", HttpMethod.POST, 
                         new HttpEntity<>(employee, service.createHeaders()), 
@@ -58,18 +59,18 @@ public class EmployeeService {
         return response.getBody();
     }
     
-    public ResponseMessage<Employee> putEmployee(Employee employee){
+    public ResponseMessage<Employee> update(Integer id, Employee employee){
         ResponseEntity<ResponseMessage<Employee>> response
-                = restTemplate.exchange(url + "/employee", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/employee/" + id, HttpMethod.PUT, 
                         new HttpEntity<>(employee, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Employee>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<Employee> deleteEmployee(Integer id){
+    public ResponseMessage<Employee> delete(Integer id){
         ResponseEntity<ResponseMessage<Employee>> response 
-                = restTemplate.exchange(url + "/employee" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/employee/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Employee>>() {});
         return response.getBody();

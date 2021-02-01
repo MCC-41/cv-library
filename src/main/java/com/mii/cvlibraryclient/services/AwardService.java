@@ -5,10 +5,10 @@
  */
 package com.mii.cvlibraryclient.services;
 
-import com.mii.cvlibraryclient.modals.Award;
-import com.mii.cvlibraryclient.modals.data.ResponseData;
-import com.mii.cvlibraryclient.modals.data.ResponseList;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.Award;
+import com.mii.cvlibraryclient.models.data.ResponseData;
+import com.mii.cvlibraryclient.models.data.ResponseList;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import com.mii.cvlibraryclient.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,15 +42,24 @@ public class AwardService {
         return response.getBody();
     }
     
-    public ResponseData<Award> getLevelById(Integer id){
+    public ResponseList<Award> getAllAward(){
+        Integer id = (service.getIdEmployee()==null) ? 0 : service.getIdEmployee();
+        ResponseEntity<ResponseList<Award>> response 
+                = restTemplate.exchange(url + "/award/" + id + "/employee", HttpMethod.GET, 
+                        new HttpEntity<>(service.createHeaders()), 
+                        new ParameterizedTypeReference<ResponseList<Award>>(){});
+        return response.getBody();
+    }
+    
+    public ResponseData<Award> getById(Integer id){
         ResponseEntity<ResponseData<Award>> response
-                = restTemplate.exchange(url + "/award" + id, HttpMethod.GET, 
+                = restTemplate.exchange(url + "/award/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseData<Award>>(){});
         return response.getBody();
     }
     
-    public ResponseMessage<Award> postLevel(Award award){
+    public ResponseMessage<Award> insert(Award award){
         ResponseEntity<ResponseMessage<Award>> response
                 = restTemplate.exchange(url + "/award", HttpMethod.POST, 
                         new HttpEntity<>(award, service.createHeaders()), 
@@ -58,18 +67,18 @@ public class AwardService {
         return response.getBody();
     }
     
-    public ResponseMessage<Award> putLevel(Award award){
+    public ResponseMessage<Award> update(Integer id,Award award){
         ResponseEntity<ResponseMessage<Award>> response
-                = restTemplate.exchange(url + "/award", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/award/" + id, HttpMethod.PUT, 
                         new HttpEntity<>(award, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Award>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<Award> deleteLevel(Integer id){
+    public ResponseMessage<Award> delete(Integer id){
         ResponseEntity<ResponseMessage<Award>> response 
-                = restTemplate.exchange(url + "/award" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/award/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Award>>() {});
         return response.getBody();

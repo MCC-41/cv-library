@@ -5,9 +5,9 @@
  */
 package com.mii.cvlibraryclient.services;
 
-import com.mii.cvlibraryclient.modals.University;
-import com.mii.cvlibraryclient.modals.data.ResponseList;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.University;
+import com.mii.cvlibraryclient.models.data.ResponseList;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;

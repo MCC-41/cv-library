@@ -6,10 +6,10 @@
 package com.mii.cvlibraryclient.services;
 
 
-import com.mii.cvlibraryclient.modals.Work;
-import com.mii.cvlibraryclient.modals.data.ResponseData;
-import com.mii.cvlibraryclient.modals.data.ResponseList;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.Work;
+import com.mii.cvlibraryclient.models.data.ResponseData;
+import com.mii.cvlibraryclient.models.data.ResponseList;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -41,7 +41,15 @@ public class WorkService {
                 = restTemplate.exchange(url + "/work", HttpMethod.GET, 
                         new HttpEntity<>(service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseList<Work>>(){});
-        System.out.println(response.getBody());
+        return response.getBody();
+    }
+    
+    public ResponseList<Work> getAllWork(){
+        Integer id = (service.getIdEmployee()==null) ? 0 : service.getIdEmployee();
+        ResponseEntity<ResponseList<Work>> response 
+                = restTemplate.exchange(url + "/work/" + id + "/employee", HttpMethod.GET, 
+                        new HttpEntity<>(service.createHeaders()), 
+                        new ParameterizedTypeReference<ResponseList<Work>>(){});
         return response.getBody();
     }
     
@@ -61,9 +69,9 @@ public class WorkService {
         return response.getBody();
     }
     
-    public ResponseMessage<Work> putWork(Work work){
+    public ResponseMessage<Work> putWork(Integer id,Work work){
         ResponseEntity<ResponseMessage<Work>> response
-                = restTemplate.exchange(url + "/work", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/work/" + id, HttpMethod.PUT, 
                         new HttpEntity<>(work, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Work>>() {});
         return response.getBody();
@@ -72,7 +80,7 @@ public class WorkService {
     
     public ResponseMessage<Work> deleteWork(Integer id){
         ResponseEntity<ResponseMessage<Work>> response 
-                = restTemplate.exchange(url + "/work" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/work/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Work>>() {});
         return response.getBody();

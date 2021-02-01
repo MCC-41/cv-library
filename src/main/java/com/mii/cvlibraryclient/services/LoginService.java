@@ -5,10 +5,10 @@
  */
 package com.mii.cvlibraryclient.services;
 
-import com.mii.cvlibraryclient.modals.Login;
-import com.mii.cvlibraryclient.modals.auth.AuthResponse;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
-import com.mii.cvlibraryclient.modals.response.LoginResponse;
+import com.mii.cvlibraryclient.models.Login;
+import com.mii.cvlibraryclient.models.auth.AuthResponse;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.response.LoginResponse;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class LoginService {
         SecurityContextHolder.getContext().setAuthentication(null);
         return lr;
     }
-
+    
     HttpHeaders createHeaders() {
         Authentication sc = SecurityContextHolder.getContext().getAuthentication();
         return new HttpHeaders() {
@@ -85,25 +85,9 @@ public class LoginService {
         };
     }
 
-    //    public LoginResponse postLogin(Login loginData){
-//        ResponseEntity<LoginResponse> response = restTemplate.postForEntity(url+"/login", loginData, LoginResponse.class);
-//        System.out.println(response.getStatusCode());
-//        LoginDataResponse data = response.getBody().getData();
-//        LoginResponse loginResponse = response.getBody();
-//        System.out.println(loginResponse.getMessage()+" "+loginResponse.getSuccess());
-//        if(response.getStatusCodeValue()==200){
-//            setAuthority(loginData.getUsername(), loginData.getPassword(), data.getAuthority());
-//            return "success";
-//        }
-////        else if(response.getStatusCodeValue()==401){
-////            return "failed";
-////        }
-////        
-////        else{
-////            return "locked";
-////        }
-//            
-//        
-//        return loginResponse;
-//    }
+    public Integer getIdEmployee(){
+        Authentication sc = SecurityContextHolder.getContext().getAuthentication();
+        ResponseEntity<Integer> response = restTemplate.exchange(url + "/user/" + sc.getName() +"/id", HttpMethod.GET, new HttpEntity<>(createHeaders()), Integer.class);
+        return response.getBody();
+    }
 }

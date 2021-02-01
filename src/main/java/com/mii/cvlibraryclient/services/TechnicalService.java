@@ -5,10 +5,10 @@
  */
 package com.mii.cvlibraryclient.services;
 
-import com.mii.cvlibraryclient.modals.Technical;
-import com.mii.cvlibraryclient.modals.data.ResponseData;
-import com.mii.cvlibraryclient.modals.data.ResponseList;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.Technical;
+import com.mii.cvlibraryclient.models.data.ResponseData;
+import com.mii.cvlibraryclient.models.data.ResponseList;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -42,15 +42,24 @@ public class TechnicalService {
         return response.getBody();
     }
     
-    public ResponseData<Technical> getLevelById(Integer id){
+    public ResponseList<Technical> getAllTechnical(){
+        Integer id = (service.getIdEmployee()==null) ? 0 : service.getIdEmployee();
+        ResponseEntity<ResponseList<Technical>> response 
+                = restTemplate.exchange(url + "/technical/" + id + "/employee", HttpMethod.GET, 
+                        new HttpEntity<>(service.createHeaders()), 
+                        new ParameterizedTypeReference<ResponseList<Technical>>(){});
+        return response.getBody();
+    }
+    
+    public ResponseData<Technical> getById(Integer id){
         ResponseEntity<ResponseData<Technical>> response
-                = restTemplate.exchange(url + "/technical" + id, HttpMethod.GET, 
+                = restTemplate.exchange(url + "/technical/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseData<Technical>>(){});
         return response.getBody();
     }
     
-    public ResponseMessage<Technical> postLevel(Technical technical){
+    public ResponseMessage<Technical> insert(Technical technical){
         ResponseEntity<ResponseMessage<Technical>> response
                 = restTemplate.exchange(url + "/technical", HttpMethod.POST, 
                         new HttpEntity<>(technical, service.createHeaders()), 
@@ -58,18 +67,18 @@ public class TechnicalService {
         return response.getBody();
     }
     
-    public ResponseMessage<Technical> putLevel(Technical technical){
+    public ResponseMessage<Technical> update(Integer id, Technical technical){
         ResponseEntity<ResponseMessage<Technical>> response
-                = restTemplate.exchange(url + "/technical", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/technical/" + id, HttpMethod.PUT, 
                         new HttpEntity<>(technical, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Technical>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<Technical> deleteLevel(Integer id){
+    public ResponseMessage<Technical> delete(Integer id){
         ResponseEntity<ResponseMessage<Technical>> response 
-                = restTemplate.exchange(url + "/technical" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/technical/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Technical>>() {});
         return response.getBody();

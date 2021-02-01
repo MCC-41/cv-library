@@ -5,11 +5,11 @@
  */
 package com.mii.cvlibraryclient.controllers;
 
-import com.mii.cvlibraryclient.modals.Employee;
-import com.mii.cvlibraryclient.modals.Status;
-import com.mii.cvlibraryclient.modals.User;
-import com.mii.cvlibraryclient.modals.data.ResponseList;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.Employee;
+import com.mii.cvlibraryclient.models.Status;
+import com.mii.cvlibraryclient.models.User;
+import com.mii.cvlibraryclient.models.data.ResponseList;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import com.mii.cvlibraryclient.services.EmployeeService;
 import com.mii.cvlibraryclient.services.StatusService;
 import com.mii.cvlibraryclient.services.UserService;

@@ -1,148 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="layout/head-layout :: head_layout"></head>
+    <head th:replace="layout/head-layout :: head_layout"></head>
 
-<body id="page-top">
+    <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-        
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
-        <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Sidebar -->
+            <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
+            <!-- End of Sidebar -->
 
-            <!-- Main Content -->
-            <div id="content">
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
 
-                <!-- Topbar -->
-                <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
-                
-                <!-- End of Topbar -->
+                <!-- Main Content -->
+                <div id="content">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                    <!-- Topbar -->
+                    <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Work</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <td>ID</td>
-                                            <th>Company Name</th>
-                                            <th>Position</th>
-                                            <th>Job Description</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="work : ${works}">
-                                            <td th:text="${work.id}"></td>
-                                            <td th:text="${work.companyName}"></td>
-                                            <td th:text="${work.position}"></td>
-                                            <td th:text="${work.jobDesc}"></td>
-                                            <td th:text="${work.startDate}"></td>
-                                            <td th:text="${work.endDate}"></td>
-                                            <td class='form-inline'>
-                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editModal1"></a>
-                                                <form class='form-inline' action="#" method="">
-                                                    <button class="btn btn-danger delete-confirm mx-1 deleteEmployeeWork" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
-                                                </form>            
-                                                
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Work</h6>
                             </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-            <!-- MODAL -->
-                            <div class="modal fade" id="editModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Edit WOrk</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="">
-                                                 <div class="form-group">
-                                                    <label for="idEmployee">ID</label>
-                                                    <input type="text" class="form-control" id="id" th:name="idEmployee">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="companyName"> Company Name</label>
-                                                    <input type="text" class="form-control" id="name" th:name="companyName">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="position"> Position </label>
-                                                    <input type="text" class="form-control" th:name="position" id="position">
-
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="jobdesc"> Job Description </label>
-                                                    <input type="text" class="form-control" th:name="jobDesc" id="jobDesc">
-
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="startDate"> Start Date </label>
-                                                    <input type="date" class="form-control" th:name="startDate" id="startDate">
-
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="endDate"> End Date </label>
-                                                    <input type="date" class="form-control" th:name="endDate" id="endDate">
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary" th:onclick="add()">Save changes</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        
-                                    </div>
+                            <div class="card-body">
+                                <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#workModal" th:onclick="btnAdd()">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Add</span>
+                                </button>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="workTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <td>ID</td>
+                                                <th>Company Name</th>
+                                                <th>Position</th>
+                                                <th>Job Description</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    <!--<tbody> 
+                                            <tr th:each="work : ${works}">
+                                                <td th:text="${work.id}"></td>
+                                                <td th:text="${work.companyName}"></td>
+                                                <td th:text="${work.position}"></td>
+                                                <td th:text="${work.jobDesc}"></td>
+                                                <td th:text="${work.startDate}"></td>
+                                                <td th:text="${work.endDate}"></td>
+                                                <td>
+                                                    <button class="btn btn-warning" href="#" data-toggle="modal" data-target="#workModal" 
+                                                            th:id="${work.id}"
+                                                            th:name="${work.companyName}"
+                                                            th:position="${work.position}"
+                                                            th:jobDesc="${work.jobDesc}"
+                                                            th:startDate="${work.startDate}"
+                                                            th:endDate="${work.endDate}"
+                                                            th:onclick="btnEdit(this.getAttribute('id'),this.getAttribute('name'),this.getAttribute('position'),this.getAttribute('jobDesc'),this.getAttribute('startDate'),this.getAttribute('endDate'))"><i class="fa fa-sm fa-edit mx-1"></i></button>
+                                                    <button class="btn btn-danger delete-confirm mx-1 deleteEmployeeWork" 
+                                                            th:id="${work.id}" 
+                                                            th:onclick="deleteWork(this.getAttribute('id'))"><i class="fa fa-sm fa-trash mx-1 "></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>-->
+                                    </table>
                                 </div>
                             </div>
-            <!--end-->
-            <!-- Footer -->
-            <footer th:replace="layout/footer-layout::footer_layout"></footer>
-            
-            <!-- End of Footer -->
-            <script th:src="@{../js/employee/employee-work.js}" ></script>
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+                <!-- MODAL -->
+                <div class="modal fade" id="workModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title workTitle" id="exampleModalLabel"></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="">
+                                    <input type="hidden" class="form-control" id="id" th:name="id">
+                                    <div class="form-group">
+                                        <label for="companyName"> Company Name</label>
+                                        <input type="text" class="form-control" id="companyName" th:name="companyName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="position"> Position </label>
+                                        <input type="text" class="form-control" th:name="position" id="position">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jobdesc"> Job Description </label>
+                                        <textarea class="form-control" th:name="jobDesc" id="jobDesc" rows="3"></textarea>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="startDate"> Start Date </label>
+                                        <input type="date" class="form-control" th:name="startDate" id="startDate">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="endDate"> End Date </label>
+                                        <input type="date" class="form-control" th:name="endDate" id="endDate">
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary btnModalWork" th:onclick="save()"></button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--end-->
+                <!-- Footer -->
+                <footer th:replace="layout/footer-layout::footer_layout"></footer>
+
+                <!-- End of Footer -->
+                <script th:src="@{../js/employee/employee-work.js}" ></script>
+            </div>
+            <!-- End of Content Wrapper -->
+
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
 
-    
-    
 
-</body>
+
+
+    </body>
 
 </html>

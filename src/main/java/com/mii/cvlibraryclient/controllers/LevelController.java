@@ -5,8 +5,8 @@
  */
 package com.mii.cvlibraryclient.controllers;
 
-import com.mii.cvlibraryclient.modals.Level;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.Level;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import com.mii.cvlibraryclient.services.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

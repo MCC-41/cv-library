@@ -5,10 +5,10 @@
  */
 package com.mii.cvlibraryclient.services;
 
-import com.mii.cvlibraryclient.modals.Organization;
-import com.mii.cvlibraryclient.modals.data.ResponseData;
-import com.mii.cvlibraryclient.modals.data.ResponseList;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.Organization;
+import com.mii.cvlibraryclient.models.data.ResponseData;
+import com.mii.cvlibraryclient.models.data.ResponseList;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -41,15 +41,24 @@ public class OrganizationService {
         return response.getBody();
     }
     
-    public ResponseData<Organization> getLevelById(Integer id){
+    public ResponseList<Organization> getAllOrganization(){
+        Integer id = (service.getIdEmployee()==null) ? 0 : service.getIdEmployee();
+        ResponseEntity<ResponseList<Organization>> response 
+                = restTemplate.exchange(url + "/organization/" + id + "/employee", HttpMethod.GET, 
+                        new HttpEntity<>(service.createHeaders()), 
+                        new ParameterizedTypeReference<ResponseList<Organization>>(){});
+        return response.getBody();
+    }
+    
+    public ResponseData<Organization> getById(Integer id){
         ResponseEntity<ResponseData<Organization>> response
-                = restTemplate.exchange(url + "/organization" + id, HttpMethod.GET, 
+                = restTemplate.exchange(url + "/organization/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseData<Organization>>(){});
         return response.getBody();
     }
     
-    public ResponseMessage<Organization> postLevel(Organization organization){
+    public ResponseMessage<Organization> insert(Organization organization){
         ResponseEntity<ResponseMessage<Organization>> response
                 = restTemplate.exchange(url + "/organization", HttpMethod.POST, 
                         new HttpEntity<>(organization, service.createHeaders()), 
@@ -57,18 +66,18 @@ public class OrganizationService {
         return response.getBody();
     }
     
-    public ResponseMessage<Organization> putLevel(Organization organization){
+    public ResponseMessage<Organization> update(Integer id,Organization organization){
         ResponseEntity<ResponseMessage<Organization>> response
-                = restTemplate.exchange(url + "/organization", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/organization/" + id, HttpMethod.PUT, 
                         new HttpEntity<>(organization, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Organization>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<Organization> deleteLevel(Integer id){
+    public ResponseMessage<Organization> delete(Integer id){
         ResponseEntity<ResponseMessage<Organization>> response 
-                = restTemplate.exchange(url + "/organization" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/organization/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Organization>>() {});
         return response.getBody();

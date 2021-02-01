@@ -5,8 +5,8 @@
  */
 package com.mii.cvlibraryclient.controllers;
 
-import com.mii.cvlibraryclient.modals.Major;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.Major;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import com.mii.cvlibraryclient.services.LevelService;
 import com.mii.cvlibraryclient.services.MajorService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,121 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="layout/head-layout :: head_layout"></head>
+    <head th:replace="layout/head-layout :: head_layout"></head>
 
-<body id="page-top">
+    <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-        
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
-        <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Sidebar -->
+            <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
+            <!-- End of Sidebar -->
 
-            <!-- Main Content -->
-            <div id="content">
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
 
-                <!-- Topbar -->
-                <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
-                
-                <!-- End of Topbar -->
+                <!-- Main Content -->
+                <div id="content">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                    <!-- Topbar -->
+                    <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Experience</h6>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Experience</h6>
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#experienceModal" th:onclick="btnAdd()">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Add</span>
+                                </button>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="experienceTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Experience Name</th>
+                                                <th>Year</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Experience Name</th>
-                                            <th>Year</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Aslab</td>
-                                            <td>2019/01/01</td>
-                                            <td class='form-inline'>
-                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editEmployeeExperience"></a>
-                                                <form class='form-inline' action="#" method="">
-                                                    <button class="btn btn-danger delete-confirm mx-1 deleteEmployeeExperience" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
-                                                </form>            
-                                                
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+                <!-- MODAL -->
+                <div class="modal fade" id="experienceModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title experienceTitle" id="experienceModalLabel">Edit Experience</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="">
+                                    <input type="hidden" class="form-control" id="id" th:name="id">
+                                    <div class="form-group">
+                                        <label for="experienceName"> Experience Name</label>
+                                        <input type="text" class="form-control" id="name" th:name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="expYear"> Year </label>
+                                        <input type="date" class="form-control" th:name="year" id="year">
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary btnModalTitle" th:onclick="save()">Save changes</button>
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- /.container-fluid -->
+                <!--end-->
+                <!-- Footer -->
+                <footer th:replace="layout/footer-layout::footer_layout"></footer>
 
+                <!-- End of Footer -->
+                <script th:src="@{../js/employee/employee-experience.js}" ></script>
             </div>
-            <!-- End of Main Content -->
-            <!-- MODAL -->
-                            <div class="modal fade" id="editEmployeeExperience" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="experienceModalLabel">Edit Experience</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="" method="POST">
-                                                <div class="form-group">
-                                                    <label for="experienceName"> Experience Name</label>
-                                                    <input type="text" class="form-control" id="id" th:name="experienceName">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="expYear"> Year </label>
-                                                    <input type="date" class="form-control" th:name="expYear" id="name">
+            <!-- End of Content Wrapper -->
 
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-            <!--end-->
-            <!-- Footer -->
-            <footer th:replace="layout/footer-layout::footer_layout"></footer>
-            
-            <!-- End of Footer -->
-            <script th:src="@{../js/employeeexperience.js}" ></script>
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
 
-    
-    
 
-</body>
+
+
+    </body>
 
 </html>
 

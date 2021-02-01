@@ -6,10 +6,10 @@
 package com.mii.cvlibraryclient.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mii.cvlibraryclient.modals.Login;
-import com.mii.cvlibraryclient.modals.auth.AuthResponse;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
-import com.mii.cvlibraryclient.modals.response.LoginResponse;
+import com.mii.cvlibraryclient.models.Login;
+import com.mii.cvlibraryclient.models.auth.AuthResponse;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.response.LoginResponse;
 import com.mii.cvlibraryclient.services.LoginService;
 import java.util.List;
 import javax.xml.ws.http.HTTPException;

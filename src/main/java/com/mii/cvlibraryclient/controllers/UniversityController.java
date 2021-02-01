@@ -5,8 +5,8 @@
  */
 package com.mii.cvlibraryclient.controllers;
 
-import com.mii.cvlibraryclient.modals.University;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.University;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import com.mii.cvlibraryclient.services.UniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

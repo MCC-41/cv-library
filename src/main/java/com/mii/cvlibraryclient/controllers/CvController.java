@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("")
 public class CvController {
     
-    @Autowired
-    private LevelService service;
+//    @Autowired
+//    private LevelService service;
     @Autowired
     private MajorService serviceMajor;
     @Autowired
@@ -55,29 +55,29 @@ public class CvController {
         return "admin-religion";
     }
     
-    @GetMapping("adminedu")
-    public String adminEdu(Model model) {
-        model.addAttribute("levels",service.getAll().getData());
-        model.addAttribute("majors",serviceMajor.getAll().getData());
-        model.addAttribute("universities",serviceUniversity.getAll().getData());
-        System.out.println(service.getAll().getData());
-        return "admin-edu";
-    }
+//    @GetMapping("adminedu")
+//    public String adminEdu(Model model) {
+//        model.addAttribute("levels",service.getAll().getData());
+//        model.addAttribute("majors",serviceMajor.getAll().getData());
+//        model.addAttribute("universities",serviceUniversity.getAll().getData());
+//        System.out.println(service.getAll().getData());
+//        return "admin-edu";
+//    }
     
     @GetMapping("admintech")
     public String adminTech() {
         return "admin-tech";
     }
     
-    @GetMapping("admintraining")
-    public String adminTraining() {
-        return "admin-training";
-    }
+//    @GetMapping("admintraining")
+//    public String adminTraining() {
+//        return "admin-training";
+//    }
     
-    @GetMapping("employee")
-    public String employeePersonal(){
-        return "employee";
-    }
+//    @GetMapping("employee")
+//    public String employeePersonal(){
+//        return "employee";
+//    }
     
     @GetMapping("employee-edu")
     public String employeeEducation(){

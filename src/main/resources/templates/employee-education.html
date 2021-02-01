@@ -7,123 +7,129 @@ and open the template in the editor.
 <html>
     <head th:replace="layout/head-layout :: head_layout"></head>
 
-<body id="page-top">
+    <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-        
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
-        <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Sidebar -->
+            <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
+            <!-- End of Sidebar -->
 
-            <!-- Main Content -->
-            <div id="content">
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
 
-                <!-- Topbar -->
-                <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
-                
-                <!-- End of Topbar -->
+                <!-- Main Content -->
+                <div id="content">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                    <!-- Topbar -->
+                    <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
 
-                    
-                    <div class="card">
-                        <div class="card-header">Education</div>
-                        <div class="card-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">University</label><select class="form-control" id="exampleFormControlSelect1" readonly>
-                                        <option>UDINUS</option>
-                                        <option>UNIMA</option>
-                                    </select>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+
+                        <div class="card">
+                            <div class="card-header">Education</div>
+                            <div class="card-body">
+                                <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#educationModal" th:onclick="btnAdd()">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Add</span>
+                                </button>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="educationTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>University</th>
+                                                <th>Major</th>
+                                                <th>Level</th>
+                                                <th>Year</th>
+                                                <th>GPA</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Major</label><select class="form-control" id="exampleFormControlSelect1" readonly>
-                                        <option>Teknik Informatika</option>
-                                        <option>Akuntansi</option>
-                                    </select>
+                            </div>
+                        </div>
+
+
+                        <!-- /.container-fluid -->
+
+                    </div>
+
+
+                    <!-- End of Main Content -->
+                    <div class="modal fade" id="educationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title educationTitle" id="exampleModalLabel"></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Level</label><select class="form-control" id="exampleFormControlSelect1" readonly>
-                                        <option>S1</option>
-                                        <option>S2</option>
-                                        <option>S3</option>
-                                    </select>
-                                    
+                                <div class="modal-body">
+                                    <form>
+                                        <input type="hidden" class="form-control" id="id" th:name="id">
+                                        <div class="form-group">
+                                            <label for="university">University</label>
+                                            <select class="form-control" th:id="university">
+                                                <option value="">Select Type</option>
+                                                <option th:each="university : ${universities}" th:text="${university.name}" th:value="${university.id}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="major">Major</label>
+                                            <select class="form-control" th:id="major">
+                                                <option value="">Select Type</option>
+                                                <option th:each="major : ${majors}" th:text="${major.name}" th:value="${major.id}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="level">Level</label>
+                                            <select class="form-control" th:id="level">
+                                                <option value="">Select Type</option>
+                                                <option th:each="level : ${levels}" th:text="${level.name}" th:value="${level.id}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="year">Year</label>
+                                            <input type="date" class="form-control" th:name="year" th:id="year">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ipk">GPA</label>
+                                            <input type="text" class="form-control" th:id="ipk" th:name="ipk">
+                                        </div>
+                                    </form>
                                 </div>
-                                <button type="button" class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editModal" ></button>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary btnModalTitle" th:onclick="save()">Send message</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                            </form>
-                           
-                        </div>
-                    </div>
-                    
-                     
-                <!-- /.container-fluid -->
+                    <!-- Footer -->
 
-            </div>
-
-                
-            <!-- End of Main Content -->
-            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Edit Education</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">University</label>
-                          <select class="form-control" id="exampleFormControlSelect1">
-                                <option>UDINUS</option>
-                                <option>UNIMA</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">Major</label>
-                          <select class="form-control" id="exampleFormControlSelect1">
-                                <option>Teknik Informatika</option>
-                                <option>Akuntansi</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">Level</label>
-                          <select class="form-control" id="exampleFormControlSelect1">
-                                <option>S1</option>
-                                <option>S2</option>
-                                <option>S3</option>
-                          </select>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Send message</button>
-                    </div>
-                  </div>
+                    <footer th:replace="layout/footer-layout::footer_layout"></footer>
+                    <!-- End of Footer -->
+                    <script th:src="@{../js/employee/employee-education.js}" ></script>
                 </div>
+                <!-- End of Content Wrapper -->
+
+
             </div>
-            
-            <!-- Footer -->
-            
-            
-            <!-- End of Footer -->
+            <!-- End of Page Wrapper -->
 
-        </div>
-        <!-- End of Content Wrapper -->
-        
-        <footer th:replace="layout/footer-layout::footer_layout"></footer>
-    </div>
-    <!-- End of Page Wrapper -->
-
-</body>
+    </body>
 </html>

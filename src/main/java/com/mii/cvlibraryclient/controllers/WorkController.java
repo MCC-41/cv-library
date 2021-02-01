@@ -5,14 +5,20 @@
  */
 package com.mii.cvlibraryclient.controllers;
 
-import com.mii.cvlibraryclient.modals.Work;
-import com.mii.cvlibraryclient.modals.data.ResponseMessage;
+import com.mii.cvlibraryclient.models.Employee;
+import com.mii.cvlibraryclient.models.Work;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
+import com.mii.cvlibraryclient.services.LoginService;
 import com.mii.cvlibraryclient.services.WorkService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,25 +30,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("work")
+//@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class WorkController {
     
     @Autowired
     private WorkService service;
+    @Autowired
+    private LoginService loginService;
     
     @GetMapping("")
-    public String getAll(Model model){
+    public String workPage(Model model){
         model.addAttribute("works",service.getAll().getData());
-        
         return "employee-work";
+    }
+    
+    @GetMapping("/all")
+    public @ResponseBody List<Work> getAll(){
+        return service.getAllWork().getData();
     }
     
     @PostMapping("/add")
     public @ResponseBody ResponseMessage<Work> insert(@RequestBody Work work){
+        Employee employee = new Employee();
+        employee.setId(loginService.getIdEmployee());
+        work.setEmployee(employee);
         return service.postWork(work);
     }
     
-    
-    
-        
-    
+    @PutMapping("/{id}")
+    public @ResponseBody ResponseMessage<Work> update(@PathVariable String id,@RequestBody Work work){
+        work.setId(Integer.parseInt(id));
+        return service.putWork(Integer.parseInt(id),work);
+    }
+
+    @DeleteMapping("/{id}")
+    public @ResponseBody ResponseMessage<Work> delete(@PathVariable Integer id){
+        return service.deleteWork(id);
+    }
 }
