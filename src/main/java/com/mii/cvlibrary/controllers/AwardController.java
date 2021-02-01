@@ -7,6 +7,7 @@ package com.mii.cvlibrary.controllers;
 
 import com.mii.cvlibrary.controllers.icontrollers.IController;
 import com.mii.cvlibrary.models.Award;
+import com.mii.cvlibrary.models.Education;
 import com.mii.cvlibrary.models.data.ResponseList;
 import com.mii.cvlibrary.models.data.ResponseRest;
 import com.mii.cvlibrary.services.AwardService;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +79,12 @@ public class AwardController implements IController<Award, Integer>{
         }else{
             return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);
         }
+    }
+    
+    @GetMapping("award/{id}/employee")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    public ResponseList<Award> getByEmployee(@PathVariable Integer id) {
+        return new ResponseList(as.getByEmployee(id));
     }
     
 }

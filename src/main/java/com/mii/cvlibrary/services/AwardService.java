@@ -6,6 +6,7 @@
 package com.mii.cvlibrary.services;
 
 import com.mii.cvlibrary.models.Award;
+import com.mii.cvlibrary.models.Education;
 import com.mii.cvlibrary.models.Employee;
 import com.mii.cvlibrary.repositories.AwardRepository;
 import com.mii.cvlibrary.services.iservices.IService;
@@ -33,6 +34,10 @@ public class AwardService implements IService<Award, Integer>{
     @Override
     public Award getById(Integer id) {
         return ar.getOne(id);
+    }
+    
+    public List<Award> getByEmployee(Integer id) {
+        return ar.getByEmployee(id);
     }
 
     @Override

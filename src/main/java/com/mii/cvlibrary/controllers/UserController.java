@@ -7,16 +7,19 @@ package com.mii.cvlibrary.controllers;
 
 import com.mii.cvlibrary.configs.PasswordConfig;
 import com.mii.cvlibrary.controllers.icontrollers.IController;
+import com.mii.cvlibrary.models.Employee;
 import com.mii.cvlibrary.models.Status;
 import com.mii.cvlibrary.models.User;
 import com.mii.cvlibrary.models.data.ResponseList;
 import com.mii.cvlibrary.models.data.ResponseRest;
+import com.mii.cvlibrary.services.EmployeeService;
 import com.mii.cvlibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +36,8 @@ public class UserController implements IController<User, Integer>{
 
     @Autowired
     private UserService us;
-    
+    @Autowired
+    private EmployeeService es;
     @Autowired
     private PasswordConfig passwordConfig;
     
@@ -50,13 +54,21 @@ public class UserController implements IController<User, Integer>{
     public ResponseRest<User> getById(Integer id) {
         return ResponseRest.success(us.getById(id));
     }
+    
+    @GetMapping("user/{username}/id")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    public Integer getByUsername(@PathVariable String username) {
+        return us.getByUsername(username).getId();
+    }
 
     @PostMapping("user")
     @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
     public ResponseRest<User> insert(User data) {
         try {
-            data.setPassword(passwordConfig.passwordEncoder().encode(data.getPassword()));
+            Employee employee = es.getById(data.getId());
+            data.setUsername(makeUsername(employee.getName()));
+            data.setPassword(passwordConfig.passwordEncoder().encode(makeUsername(employee.getName())));
             data.setStatus(new Status(0));
             data.setVerified(true);
             return ResponseRest.success(us.insert(data), "Success");
@@ -94,6 +106,16 @@ public class UserController implements IController<User, Integer>{
             return ResponseRest.success(us.update(id,data), "Success");
         } catch (Exception e) {
             return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);
+        }
+    }
+    private String makeUsername(String name){
+        String arr[] = name.split(" ");
+        if(arr.length>1){
+            String firstWord = arr[0];
+            String theRest = arr[arr.length-1];
+            return firstWord+"."+theRest;
+        }else{
+            return name;
         }
     }
 }

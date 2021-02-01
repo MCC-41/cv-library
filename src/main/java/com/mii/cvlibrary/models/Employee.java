@@ -165,6 +165,4 @@ public class Employee implements Serializable {
     public void setOrganizationList(List<Organization> organizationList) {
         this.organizationList = organizationList;
     }
-
-    
 }

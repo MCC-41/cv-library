@@ -6,7 +6,10 @@
 package com.mii.cvlibrary.repositories;
 
 import com.mii.cvlibrary.models.Education;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,5 +18,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface EducationRepository extends JpaRepository<Education, Integer>{
-    
+    @Query(value = "select * from education where id_employee = :id",nativeQuery = true)
+    List<Education> getByEmployee(@Param("id") Integer id);
 }

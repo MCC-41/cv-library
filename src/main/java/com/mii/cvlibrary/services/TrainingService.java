@@ -8,7 +8,6 @@ package com.mii.cvlibrary.services;
 import com.mii.cvlibrary.models.Employee;
 import com.mii.cvlibrary.models.Training;
 import com.mii.cvlibrary.repositories.TrainingRepository;
-import com.mii.cvlibrary.repositories.UserRepository;
 import com.mii.cvlibrary.services.iservices.IService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,7 @@ public class TrainingService implements IService<Training, Integer>{
 
     @Autowired
     private TrainingRepository tr;
+    
     @Autowired
     private UserService us;
     
@@ -35,7 +35,9 @@ public class TrainingService implements IService<Training, Integer>{
     public Training getById(Integer id) {
         return tr.getOne(id);
     }
-
+    public List<Training> getByEmployee(Integer id) {
+        return tr.getByEmployee(id);
+    }
     @Override
     public Training insert(Training data) {
         return tr.save(data);

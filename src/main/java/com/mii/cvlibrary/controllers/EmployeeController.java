@@ -51,7 +51,7 @@ public class EmployeeController implements IController<Employee, Integer>{
     public ResponseRest<Employee> getById(Integer id) {
         return ResponseRest.success(service.getById(id));
     }
-
+    
     @PostMapping("employee")
     @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override

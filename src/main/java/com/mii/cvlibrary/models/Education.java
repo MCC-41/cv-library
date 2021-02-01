@@ -61,5 +61,13 @@ public class Education implements Serializable {
     @JoinColumn(name = "id_employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employee;
+
+    public Education() {
+    }
+
+    public Education(Employee employee) {
+        this.employee = employee;
+    }
+    
     
 }

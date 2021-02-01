@@ -34,7 +34,9 @@ public class ExperienceService implements IService<Experience, Integer>{
     public Experience getById(Integer id) {
         return er.getOne(id);
     }
-
+    public List<Experience> getByEmployee(Integer id) {
+        return er.getByEmployee(id);
+    }
     @Override
     public Experience insert(Experience data) {
         return er.save(data);

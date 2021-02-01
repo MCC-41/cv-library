@@ -34,7 +34,9 @@ public class TechnicalService implements IService<Technical, Integer>{
     public Technical getById(Integer id) {
         return tr.getOne(id);
     }
-
+    public List<Technical> getByEmployee(Integer id) {
+        return tr.getByEmployee(id);
+    }
     @Override
     public Technical insert(Technical data) {
         return tr.save(data);

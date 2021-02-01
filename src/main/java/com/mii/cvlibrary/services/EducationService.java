@@ -34,6 +34,10 @@ public class EducationService implements IService<Education, Integer>{
     public Education getById(Integer id) {
         return er.getOne(id);
     }
+    
+    public List<Education> getByEmployee(Integer id) {
+        return er.getByEmployee(id);
+    }
 
     @Override
     public Education insert(Education data) {

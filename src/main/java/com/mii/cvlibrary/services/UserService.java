@@ -56,6 +56,11 @@ public class UserService implements IService<User, Integer>{
         return user;
     }
 
+    public Integer getIdByUsername(String username){
+        User id = getByUsername(username);
+        return id.getId();
+    }
+    
     @Override
     public List<User> getAll() {
         return ur.findAll();

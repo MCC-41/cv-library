@@ -9,7 +9,12 @@ import com.mii.cvlibrary.models.Employee;
 import com.mii.cvlibrary.models.Work;
 import com.mii.cvlibrary.repositories.WorkRepository;
 import com.mii.cvlibrary.services.iservices.IService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +27,7 @@ public class WorkService implements IService<Work, Integer>{
 
     @Autowired
     private WorkRepository wr;
+    
     @Autowired
     private UserService us;
     
@@ -34,7 +40,9 @@ public class WorkService implements IService<Work, Integer>{
     public Work getById(Integer id) {
         return wr.getOne(id);
     }
-
+    public List<Work> getByEmployee(Integer id) {
+        return wr.getByEmployee(id);
+    }
     @Override
     public Work insert(Work data) {
         return wr.save(data);

@@ -6,6 +6,7 @@
 package com.mii.cvlibrary.controllers;
 
 import com.mii.cvlibrary.controllers.icontrollers.IController;
+import com.mii.cvlibrary.models.Education;
 import com.mii.cvlibrary.models.Experience;
 import com.mii.cvlibrary.models.data.ResponseList;
 import com.mii.cvlibrary.models.data.ResponseRest;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,4 +81,9 @@ public class ExperienceController implements IController<Experience, Integer>{
         }
     }
     
+    @GetMapping("experience/{id}/employee")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    public ResponseList<Experience> getByEmployee(@PathVariable Integer id) {
+        return new ResponseList(es.getByEmployee(id));
+    }
 }

@@ -34,7 +34,9 @@ public class OrganizationService implements IService<Organization, Integer>{
     public Organization getById(Integer id) {
         return or.getOne(id);
     }
-
+    public List<Organization> getByEmployee(Integer id) {
+        return or.getByEmployee(id);
+    }
     @Override
     public Organization insert(Organization data) {
         return or.save(data);

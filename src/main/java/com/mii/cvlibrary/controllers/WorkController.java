@@ -6,15 +6,19 @@
 package com.mii.cvlibrary.controllers;
 
 import com.mii.cvlibrary.controllers.icontrollers.IController;
+import com.mii.cvlibrary.models.Education;
 import com.mii.cvlibrary.models.Work;
 import com.mii.cvlibrary.models.data.ResponseList;
 import com.mii.cvlibrary.models.data.ResponseRest;
 import com.mii.cvlibrary.services.WorkService;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +66,7 @@ public class WorkController implements IController<Work, Integer>{
     @Override
     public ResponseRest<Work> update(Integer id, Work data) {
         try {
-            return ResponseRest.success(ws.insert(data), "Success");
+            return ResponseRest.success(ws.update(id,data), "Success");
         } catch (Exception e) {
             return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);
         }
@@ -79,4 +83,9 @@ public class WorkController implements IController<Work, Integer>{
         }
     }
     
+    @GetMapping("work/{id}/employee")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    public ResponseList<Work> getByEmployee(@PathVariable Integer id) {
+        return new ResponseList(ws.getByEmployee(id));
+    }
 }
