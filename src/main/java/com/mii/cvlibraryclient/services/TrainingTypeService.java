@@ -42,7 +42,7 @@ public class TrainingTypeService {
         return response.getBody();
     }
     
-    public ResponseData<TrainingType> getLevelById(Integer id){
+    public ResponseData<TrainingType> getById(Integer id){
         ResponseEntity<ResponseData<TrainingType>> response
                 = restTemplate.exchange(url + "/training_type" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
@@ -50,7 +50,7 @@ public class TrainingTypeService {
         return response.getBody();
     }
     
-    public ResponseMessage<TrainingType> postLevel(TrainingType trainingType){
+    public ResponseMessage<TrainingType> insert(TrainingType trainingType){
         ResponseEntity<ResponseMessage<TrainingType>> response
                 = restTemplate.exchange(url + "/training_type", HttpMethod.POST, 
                         new HttpEntity<>(trainingType, service.createHeaders()), 
@@ -58,18 +58,18 @@ public class TrainingTypeService {
         return response.getBody();
     }
     
-    public ResponseMessage<TrainingType> putLevel(TrainingType trainingType){
+    public ResponseMessage<TrainingType> update(Integer id, TrainingType trainingType){
         ResponseEntity<ResponseMessage<TrainingType>> response
-                = restTemplate.exchange(url + "/training_type", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/training_type/" +id, HttpMethod.PUT, 
                         new HttpEntity<>(trainingType, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<TrainingType>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<TrainingType> deleteLevel(Integer id){
+    public ResponseMessage<TrainingType> delete(Integer id){
         ResponseEntity<ResponseMessage<TrainingType>> response 
-                = restTemplate.exchange(url + "/training_type" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/training_type/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<TrainingType>>() {});
         return response.getBody();

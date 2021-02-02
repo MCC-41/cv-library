@@ -43,15 +43,15 @@ public class RoleService {
         return response.getBody();
     }
     
-    public ResponseData<Role> getLevelById(Integer id){
+    public ResponseData<Role> getById(Integer id){
         ResponseEntity<ResponseData<Role>> response
-                = restTemplate.exchange(url + "/role" + id, HttpMethod.GET, 
+                = restTemplate.exchange(url + "/role/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseData<Role>>(){});
         return response.getBody();
     }
     
-    public ResponseMessage<Role> postLevel(Role role){
+    public ResponseMessage<Role> insert(Role role){
         ResponseEntity<ResponseMessage<Role>> response
                 = restTemplate.exchange(url + "/role", HttpMethod.POST, 
                         new HttpEntity<>(role, service.createHeaders()), 
@@ -59,18 +59,18 @@ public class RoleService {
         return response.getBody();
     }
     
-    public ResponseMessage<Role> putLevel(Role role){
+    public ResponseMessage<Role> update(Integer id,Role role){
         ResponseEntity<ResponseMessage<Role>> response
-                = restTemplate.exchange(url + "/role", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/role/" + id, HttpMethod.PUT, 
                         new HttpEntity<>(role, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Role>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<Role> deleteLevel(Integer id){
+    public ResponseMessage<Role> delete(Integer id){
         ResponseEntity<ResponseMessage<Role>> response 
-                = restTemplate.exchange(url + "/role" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/role/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Role>>() {});
         return response.getBody();

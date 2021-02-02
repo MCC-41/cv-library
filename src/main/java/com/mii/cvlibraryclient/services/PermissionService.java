@@ -5,8 +5,10 @@
  */
 package com.mii.cvlibraryclient.services;
 
-import com.mii.cvlibraryclient.models.data.ResponseData;
+
 import com.mii.cvlibraryclient.models.Permission;
+import com.mii.cvlibraryclient.models.data.ResponseData;
+import com.mii.cvlibraryclient.models.data.ResponseList;
 import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,40 +36,40 @@ public class PermissionService {
     @Autowired
     private LoginService service;
     
-    public ResponseData<Permission> getAll(){
-        ResponseEntity<ResponseData<Permission>> response
+    public ResponseList<Permission> getAll(){
+        ResponseEntity<ResponseList<Permission>> response
                 = restTemplate.exchange(url + "/permission", HttpMethod.GET, 
                         new HttpEntity<>(service.createHeaders()), 
-                        new ParameterizedTypeReference<ResponseData<Permission>>(){});
+                        new ParameterizedTypeReference<ResponseList<Permission>>(){});
         return response.getBody();
     }
     
-    public ResponseData<Permission> getPermissionById(Integer id){
+    public ResponseData<Permission> getById(Integer id){
         ResponseEntity<ResponseData<Permission>> response
-                = restTemplate.exchange(url + "/permission" + id, HttpMethod.GET, 
+                = restTemplate.exchange(url + "/permission/" + id, HttpMethod.GET, 
                         new HttpEntity<>(service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseData<Permission>>() {});
         return response.getBody();
     }
     
-    public ResponseMessage<Permission> postPermission(String name){
+    public ResponseMessage<Permission> insert(Permission permission){
         ResponseEntity<ResponseMessage<Permission>> response
                 = restTemplate.exchange(url + "/permission", HttpMethod.POST, 
-                        new HttpEntity<>(name, service.createHeaders()), 
+                        new HttpEntity<>(permission, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Permission>>() {});
         return response.getBody();
     }
     
-    public ResponseMessage<Permission> putPermission(String name){
+    public ResponseMessage<Permission> update(Integer id, Permission permission){
         ResponseEntity<ResponseMessage<Permission>> response
-                = restTemplate.exchange(url + "/permission", HttpMethod.PUT, 
-                        new HttpEntity<>(name, service.createHeaders()), 
+                = restTemplate.exchange(url + "/permission/" +id, HttpMethod.PUT, 
+                        new HttpEntity<>(permission, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Permission>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<Permission> deletePermission(Integer id){
+    public ResponseMessage<Permission> delete(Integer id){
         ResponseEntity<ResponseMessage<Permission>> response 
                 = restTemplate.exchange(url + "/permission" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),

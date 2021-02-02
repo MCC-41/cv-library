@@ -5,7 +5,6 @@
  */
 package com.mii.cvlibraryclient.models;
 
-import lombok.Data;
 
 /**
  *
@@ -39,5 +38,6 @@ public class Major {
     public void setName(String name) {
         this.name = name;
     }
+
     
 }

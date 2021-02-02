@@ -55,6 +55,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+<!--	 <dependency>
+	  <groupId>com.mii</groupId>
+	  <artifactId>cv-library-client</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+	  <type>jar</type>
+	 </dependency>-->
 	</dependencies>
 
 	<build>

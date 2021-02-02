@@ -11,6 +11,7 @@ import lombok.Data;
  *
  * @author Adhi
  */
+
 public class University {
     
     private Integer id;
@@ -39,4 +40,5 @@ public class University {
     public void setName(String name) {
         this.name = name;
     }
+
 }

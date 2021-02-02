@@ -38,21 +38,21 @@ public class ReligionService {
     
     public ResponseList<Religion> getAll(){
         ResponseEntity<ResponseList<Religion>> response 
-                = restTemplate.exchange(url + "/religion", HttpMethod.GET, 
+                = restTemplate.exchange(url + "/religion/", HttpMethod.GET, 
                         new HttpEntity<>(service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseList<Religion>>(){});
         return response.getBody();
     }
     
-    public ResponseData<Religion> getLevelById(Integer id){
+    public ResponseData<Religion> getById(Integer id){
         ResponseEntity<ResponseData<Religion>> response
-                = restTemplate.exchange(url + "/religion" + id, HttpMethod.GET, 
+                = restTemplate.exchange(url + "/religion/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseData<Religion>>(){});
         return response.getBody();
     }
     
-    public ResponseMessage<Religion> postLevel(Religion religion){
+    public ResponseMessage<Religion> insert(Religion religion){
         ResponseEntity<ResponseMessage<Religion>> response
                 = restTemplate.exchange(url + "/religion", HttpMethod.POST, 
                         new HttpEntity<>(religion, service.createHeaders()), 
@@ -60,18 +60,18 @@ public class ReligionService {
         return response.getBody();
     }
     
-    public ResponseMessage<Religion> putLevel(Religion religion){
+    public ResponseMessage<Religion> update(Integer id, Religion religion){
         ResponseEntity<ResponseMessage<Religion>> response
-                = restTemplate.exchange(url + "/religion", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/religion/" +id, HttpMethod.PUT, 
                         new HttpEntity<>(religion, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Religion>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<Religion> deleteLevel(Integer id){
+    public ResponseMessage<Religion> delete(Integer id){
         ResponseEntity<ResponseMessage<Religion>> response 
-                = restTemplate.exchange(url + "/religion" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/religion/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Religion>>() {});
         return response.getBody();

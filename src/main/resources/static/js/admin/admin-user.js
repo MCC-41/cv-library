@@ -48,6 +48,9 @@ function btnEdit(employee, username, status, isVerified) {
     setEnabledField(false);
 //    setForm(employee, username, status, isVerified);
     console.log(employee);
+    console.log(username);
+    console.log(status);
+    console.log(isVerified);
     $('#employee').change(function (){
         $('#employee').val(employee);
         $('#employee').select2().trigger('change');

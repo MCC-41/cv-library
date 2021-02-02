@@ -22,84 +22,212 @@
                 <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
                 
                 <!-- End of Topbar -->
-
+                <div class="">
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-20 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-white border-1 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div><br>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <div class="card">
-                        <div class="card-body">
-                            <table width="950px">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-80 py-2">
+                                <div class="card-body">
+                                    <table width="250px">
                               <tbody>
                                 <tr>
-                                    <td rowspan="7" width="200px" align="left"><img src="https://tmssl.akamaized.net/images/portrait/originals/88103-1540568385.jpg" alt="Me with Rini Sugianto" title="Me with Rini Sugianto" height="200px" width="150px"></td>
+                                    <td rowspan="3" width="100px" align="left"><img src="https://tmssl.akamaized.net/images/portrait/originals/88103-1540568385.jpg" alt="" title="" height="100px" width="75px"></td>
                                   
-                                  <td>Habib</td>
-                                  <td align="right" width="40%">
-                                       <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-eye"></i></button>
-                                  </td>
+                                  <td >James</td>
+                                  
                                 </tr>
                                 <tr>
                                   <td >19 july 1997</td>
-                                  <td align="right" width="40%">
-                                      <button class="btn btn-warning" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-print"></i></button> 
-                                  </td>
+                                  
                                 </tr>
                                 <tr>
                                   <td>Indonesia</td>
                                 </tr>
-                                  <td>habibabdul@gmail.com</td>
-                                </tr>
-                                </tr>
-                                  <td>Single</td>
-                                </tr>
-                                </tr>
-                                  <td>Male</td>
-                                </tr>
-                                </tr>
-                                  <td>Moslem</td>
+                                <tr>
+                                  <td colspan="2" align="left" th:height="50px">
+                                       <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-eye"></i></button>
+                                       <button class="btn btn-warning" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-print"></i></button>
+                                  </td>
                                 </tr>
 
                               </tbody>
                             </table>
+                                </div>
+                            </div>
                         </div>
-                    </div><br>
-                    <div class="card">
-                        <div class="card-body">
-                            <table width="950px">
+                        
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-80 py-2">
+                                <div class="card-body">
+                                    <table width="250px">
                               <tbody>
                                 <tr>
-                                    <td rowspan="7" width="200px" align="left"><img src="https://tmssl.akamaized.net/images/portrait/originals/88103-1540568385.jpg" alt="Me with Rini Sugianto" title="Me with Rini Sugianto" height="200px" width="150px"></td>
+                                    <td rowspan="3" width="100px" align="left"><img src="https://tmssl.akamaized.net/images/portrait/originals/88103-1540568385.jpg" alt="" title="" height="100px" width="75px"></td>
                                   
-                                  <td>Habib</td>
-                                  <td align="right" width="40%">
-                                       <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-eye"></i></button>
-                                  </td>
+                                  <td >Arthur</td>
+                                  
                                 </tr>
                                 <tr>
                                   <td >19 july 1997</td>
-                                  <td align="right" width="40%">
-                                      <button class="btn btn-warning" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-print"></i></button> 
-                                  </td>
+                                  
                                 </tr>
                                 <tr>
                                   <td>Indonesia</td>
                                 </tr>
-                                  <td>habibabdul@gmail.com</td>
-                                </tr>
-                                </tr>
-                                  <td>Single</td>
-                                </tr>
-                                </tr>
-                                  <td>Male</td>
-                                </tr>
-                                </tr>
-                                  <td>Moslem</td>
+                                <tr>
+                                  <td colspan="2" align="left" th:height="50px">
+                                       <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-eye"></i></button>
+                                       <button class="btn btn-warning" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-print"></i></button>
+                                  </td>
                                 </tr>
 
                               </tbody>
                             </table>
+                                </div>
+                            </div>
                         </div>
-                    </div><br>
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-80 py-2">
+                                <div class="card-body">
+                                    <table width="250px">
+                              <tbody>
+                                <tr>
+                                    <td rowspan="3" width="100px" align="left"><img src="https://tmssl.akamaized.net/images/portrait/originals/88103-1540568385.jpg" alt="" title="" height="100px" width="75px"></td>
+                                  
+                                  <td >Sam</td>
+                                  
+                                </tr>
+                                <tr>
+                                  <td >19 july 1997</td>
+                                  
+                                </tr>
+                                <tr>
+                                  <td>Indonesia</td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2" align="left" th:height="50px">
+                                       <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-eye"></i></button>
+                                       <button class="btn btn-warning" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-print"></i></button>
+                                  </td>
+                                </tr>
+
+                              </tbody>
+                            </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-80 py-2">
+                                <div class="card-body">
+                                    <table width="250px">
+                              <tbody>
+                                <tr>
+                                    <td rowspan="3" width="100px" align="left"><img src="https://tmssl.akamaized.net/images/portrait/originals/88103-1540568385.jpg" alt="" title="" height="100px" width="75px"></td>
+                                  
+                                  <td >James</td>
+                                  
+                                </tr>
+                                <tr>
+                                  <td >19 july 1997</td>
+                                  
+                                </tr>
+                                <tr>
+                                  <td>Indonesia</td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2" align="left" th:height="50px">
+                                       <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-eye"></i></button>
+                                       <button class="btn btn-warning" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-print"></i></button>
+                                  </td>
+                                </tr>
+
+                              </tbody>
+                            </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-80 py-2">
+                                <div class="card-body">
+                                    <table width="250px">
+                              <tbody>
+                                <tr>
+                                    <td rowspan="3" width="100px" align="left"><img src="https://tmssl.akamaized.net/images/portrait/originals/88103-1540568385.jpg" alt="" title="" height="100px" width="75px"></td>
+                                  
+                                  <td >Arthur</td>
+                                  
+                                </tr>
+                                <tr>
+                                  <td >19 july 1997</td>
+                                  
+                                </tr>
+                                <tr>
+                                  <td>Indonesia</td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2" align="left" th:height="50px">
+                                       <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-eye"></i></button>
+                                       <button class="btn btn-warning" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-print"></i></button>
+                                  </td>
+                                </tr>
+
+                              </tbody>
+                            </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-80 py-2">
+                                <div class="card-body">
+                                    <table width="250px">
+                              <tbody>
+                                <tr>
+                                    <td rowspan="3" width="100px" align="left"><img src="https://tmssl.akamaized.net/images/portrait/originals/88103-1540568385.jpg" alt="" title="" height="100px" width="75px"></td>
+                                  
+                                  <td >Sam</td>
+                                  
+                                </tr>
+                                <tr>
+                                  <td >19 july 1997</td>
+                                  
+                                </tr>
+                                <tr>
+                                  <td>Indonesia</td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2" align="left" th:height="50px">
+                                       <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-eye"></i></button>
+                                       <button class="btn btn-warning" href="#" data-toggle="modal" data-target="#editModal"><i class="fas fa-print"></i></button>
+                                  </td>
+                                </tr>
+
+                              </tbody>
+                            </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <!-- Pending Requests Card Example -->
+                        
+                    </div>
+                    
                 </div>
                 <!-- /.container-fluid -->
 

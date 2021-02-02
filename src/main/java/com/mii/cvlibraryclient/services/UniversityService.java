@@ -5,7 +5,9 @@
  */
 package com.mii.cvlibraryclient.services;
 
+
 import com.mii.cvlibraryclient.models.University;
+import com.mii.cvlibraryclient.models.data.ResponseData;
 import com.mii.cvlibraryclient.models.data.ResponseList;
 import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,15 +44,15 @@ public class UniversityService {
         return response.getBody();
     }
     
-    public ResponseList<University> getUniversityById(Integer id){
-        ResponseEntity<ResponseList<University>> response
+    public ResponseData<University> getById(Integer id){
+        ResponseEntity<ResponseData<University>> response
                 = restTemplate.exchange(url + "/university" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
-                        new ParameterizedTypeReference<ResponseList<University>>(){});
+                        new ParameterizedTypeReference<ResponseData<University>>(){});
         return response.getBody();
     }
     
-    public ResponseMessage<University> postUniversity(University university){
+    public ResponseMessage<University> insert(University university){
         ResponseEntity<ResponseMessage<University>> response
                 = restTemplate.exchange(url + "/university", HttpMethod.POST, 
                         new HttpEntity<>(university, service.createHeaders()), 
@@ -58,16 +60,16 @@ public class UniversityService {
         return response.getBody();
     }
     
-    public ResponseMessage<University> putUniversity(University university){
+    public ResponseMessage<University> update(Integer id, University university){
         ResponseEntity<ResponseMessage<University>> response
-                = restTemplate.exchange(url + "/university", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/university/" +id, HttpMethod.PUT, 
                         new HttpEntity<>(university, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<University>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<University> deleteUniversity(Integer id){
+    public ResponseMessage<University> delete(Integer id){
         ResponseEntity<ResponseMessage<University>> response 
                 = restTemplate.exchange(url + "/major" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),

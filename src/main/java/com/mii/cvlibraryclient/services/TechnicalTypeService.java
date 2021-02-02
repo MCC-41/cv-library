@@ -22,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Adhi
  */
+
 @Service
 public class TechnicalTypeService {
     @Autowired
@@ -41,7 +42,7 @@ public class TechnicalTypeService {
         return response.getBody();
     }
     
-    public ResponseData<TechnicalType> getLevelById(Integer id){
+    public ResponseData<TechnicalType> getById(Integer id){
         ResponseEntity<ResponseData<TechnicalType>> response
                 = restTemplate.exchange(url + "/technical_type" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
@@ -49,26 +50,26 @@ public class TechnicalTypeService {
         return response.getBody();
     }
     
-    public ResponseMessage<TechnicalType> postLevel(TechnicalType technicalType){
+    public ResponseMessage<TechnicalType> insert(TechnicalType technicalType){
         ResponseEntity<ResponseMessage<TechnicalType>> response
                 = restTemplate.exchange(url + "/technical_type", HttpMethod.POST, 
                         new HttpEntity<>(technicalType, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<TechnicalType>>() {});
         return response.getBody();
     }
-    
-    public ResponseMessage<TechnicalType> putLevel(TechnicalType technicalType){
+
+    public ResponseMessage<TechnicalType> update(Integer id, TechnicalType technicalType){
         ResponseEntity<ResponseMessage<TechnicalType>> response
-                = restTemplate.exchange(url + "/technical_type", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/technical_type/" + id, HttpMethod.PUT, 
                         new HttpEntity<>(technicalType, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<TechnicalType>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<TechnicalType> deleteLevel(Integer id){
+    public ResponseMessage<TechnicalType> delete(Integer id){
         ResponseEntity<ResponseMessage<TechnicalType>> response 
-                = restTemplate.exchange(url + "/technical_type" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/technical_type/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<TechnicalType>>() {});
         return response.getBody();

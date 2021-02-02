@@ -22,48 +22,44 @@
                 <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
                 
                 <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                    <div class="container-fluid">
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Technical</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Experience</h6>
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#technicalTypeModal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Add</span>
+                                </button>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="technicalTypeTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
                                             <th>Technical Type</th>
                                             <th>Action</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Programming</td>
-                                            <td class='form-inline'>
-                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editModal"></a>
-                                                <form class='form-inline' action="#" method="">
-                                                    <button class="btn btn-danger delete-confirm mx-1 deleteTechnical" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
-                                                </form>            
-                                                
-                                            </td>
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
+
                     </div>
-                </div>
+
                 <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
             <!-- MODAL -->
-                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="technicalTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -73,33 +69,32 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="" method="POST">
+                                            <form action="">
                                                 <div class="form-group">
-                                                    <label for="regionId"> ID</label>
-                                                    <input type="text" class="form-control" id="id" th:name="regionId">
+                                                    <input type="hidden" class="form-control" id="id" th:name="id">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="regionName"> Technical Type </label>
-                                                    <input type="text" class="form-control" th:name="regionName" id="name">
+                                                    <input type="text" class="form-control" th:name="name" id="name">
 
                                                 </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary" th:onclick="save()">Save changes</button>
+                                                </div>
                                             </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
             <!--end-->
-
+            <script th:src="@{../js/admin/admin-technical-type.js}" ></script>
             <!-- Footer -->
             <footer th:replace="layout/footer-layout::footer_layout"></footer>
             
             <!-- End of Footer -->
             
-            <script th:src="@{../js/admintech.js}" ></script>
+            
 
         </div>
         <!-- End of Content Wrapper -->

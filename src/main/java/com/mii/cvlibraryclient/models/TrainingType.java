@@ -40,5 +40,6 @@ public class TrainingType {
     public void setName(String name) {
         this.name = name;
     }
+
     
 }

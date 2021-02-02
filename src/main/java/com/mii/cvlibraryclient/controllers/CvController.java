@@ -116,7 +116,7 @@ public class CvController {
     
     @GetMapping("employee-detail")
     public String tesCV(){
-        return "coba";
+        return "employee-detail";
     }
     
     @GetMapping("rm-employee")

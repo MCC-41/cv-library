@@ -6,6 +6,7 @@
 package com.mii.cvlibraryclient.services;
 
 import com.mii.cvlibraryclient.models.Level;
+import com.mii.cvlibraryclient.models.data.ResponseData;
 import com.mii.cvlibraryclient.models.data.ResponseList;
 import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +42,15 @@ public class LevelService {
         return response.getBody();
     }
     
-    public ResponseList<Level> getLevelById(Integer id){
-        ResponseEntity<ResponseList<Level>> response
-                = restTemplate.exchange(url + "/level" + id, HttpMethod.GET, 
+    public ResponseData<Level> getById(Integer id){
+        ResponseEntity<ResponseData<Level>> response
+                = restTemplate.exchange(url + "/level/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
-                        new ParameterizedTypeReference<ResponseList<Level>>(){});
+                        new ParameterizedTypeReference<ResponseData<Level>>(){});
         return response.getBody();
     }
     
-    public ResponseMessage<Level> postLevel(Level level){
+    public ResponseMessage<Level> insert(Level level){
         ResponseEntity<ResponseMessage<Level>> response
                 = restTemplate.exchange(url + "/level", HttpMethod.POST, 
                         new HttpEntity<>(level, service.createHeaders()), 
@@ -57,18 +58,18 @@ public class LevelService {
         return response.getBody();
     }
     
-    public ResponseMessage<Level> putLevel(Level level){
+    public ResponseMessage<Level> update(Integer id, Level level){
         ResponseEntity<ResponseMessage<Level>> response
-                = restTemplate.exchange(url + "/level", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/level/"+ id, HttpMethod.PUT, 
                         new HttpEntity<>(level, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Level>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<Level> deleteLevel(Integer id){
+    public ResponseMessage<Level> delete(Integer id){
         ResponseEntity<ResponseMessage<Level>> response 
-                = restTemplate.exchange(url + "/level" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/level/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Level>>() {});
         return response.getBody();

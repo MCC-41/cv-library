@@ -5,7 +5,9 @@
  */
 package com.mii.cvlibraryclient.services;
 
-    import com.mii.cvlibraryclient.models.Major;
+
+import com.mii.cvlibraryclient.models.Major;
+import com.mii.cvlibraryclient.models.data.ResponseData;
 import com.mii.cvlibraryclient.models.data.ResponseList;
 import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +43,15 @@ public class MajorService {
         return response.getBody();
     }
     
-    public ResponseList<Major> getMajorById(Integer id){
-        ResponseEntity<ResponseList<Major>> response
-                = restTemplate.exchange(url + "/major" + id, HttpMethod.GET, 
+    public ResponseData<Major> getById(Integer id){
+        ResponseEntity<ResponseData<Major>> response
+                = restTemplate.exchange(url + "/major/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
-                        new ParameterizedTypeReference<ResponseList<Major>>(){});
+                        new ParameterizedTypeReference<ResponseData<Major>>(){});
         return response.getBody();
     }
     
-    public ResponseMessage<Major> postMajor(Major major){
+    public ResponseMessage<Major> insert(Major major){
         ResponseEntity<ResponseMessage<Major>> response
                 = restTemplate.exchange(url + "/major", HttpMethod.POST, 
                         new HttpEntity<>(major, service.createHeaders()), 
@@ -57,18 +59,18 @@ public class MajorService {
         return response.getBody();
     }
     
-    public ResponseMessage<Major> putMajor(Major major){
+    public ResponseMessage<Major> update(Integer id, Major major){
         ResponseEntity<ResponseMessage<Major>> response
-                = restTemplate.exchange(url + "/major", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/major/" + id, HttpMethod.PUT, 
                         new HttpEntity<>(major, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<Major>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<Major> deleteMajor(Integer id){
+    public ResponseMessage<Major> delete(Integer id){
         ResponseEntity<ResponseMessage<Major>> response 
-                = restTemplate.exchange(url + "/major" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/major/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Major>>() {});
         return response.getBody();
