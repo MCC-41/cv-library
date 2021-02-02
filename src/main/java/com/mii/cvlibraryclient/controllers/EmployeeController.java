@@ -13,6 +13,7 @@ import com.mii.cvlibraryclient.services.LoginService;
 import com.mii.cvlibraryclient.services.ReligionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("employee")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class EmployeeController {
     
     @Autowired 
@@ -40,6 +42,7 @@ public class EmployeeController {
     private ReligionService religionService;
     
     @GetMapping("")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     public String page(Model model){
         model.addAttribute("religions", religionService.getAll().getData());
         model.addAttribute("employees", service.getById(loginService.getIdEmployee()).getData());
@@ -47,16 +50,19 @@ public class EmployeeController {
     }
     
     @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     public @ResponseBody List<Employee> getAll(){
         return service.getAll().getData();
     }
     
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     public @ResponseBody ResponseData<Employee> getAll(@PathVariable Integer id){
         return service.getById(id);
     }
     
     @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     public @ResponseBody ResponseMessage<Employee> insert(@RequestBody Employee employee){
 //        Employee employee = new Employee();
 //        employee.setId(loginService.getIdEmployee());
@@ -65,11 +71,13 @@ public class EmployeeController {
     }
     
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     public @ResponseBody ResponseMessage<Employee> update(@PathVariable Integer id,@RequestBody Employee employee){
         return service.update(id,employee);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     public @ResponseBody ResponseMessage<Employee> delete(@PathVariable Integer id){
         return service.delete(id);
     }

@@ -40,8 +40,17 @@ public class LoginController {
     public String postLogin(Login lg) throws JsonProcessingException {
         try {
             ResponseMessage<AuthResponse> lr = service.postLogin(lg);
-            System.out.println(lr.getMessage());
-            return "redirect:/dashboard";
+            System.out.println(lr.getData().getAuthority().get(0));
+            switch (lr.getData().getAuthority().get(0)) {
+                case "ROLE_ADMIN":
+                    return "redirect:/dashboard";
+                case "ROLE_USER":
+                    return "redirect:/employee";
+                case "ROLE_RM":
+                    return "redirect:/rm";
+                default:
+                    return "redirect:/";
+            }
         } catch (HttpClientErrorException e) {
             int response = e.getRawStatusCode();
             switch (response) {

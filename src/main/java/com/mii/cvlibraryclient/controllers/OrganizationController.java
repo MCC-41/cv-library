@@ -12,6 +12,7 @@ import com.mii.cvlibraryclient.services.LoginService;
 import com.mii.cvlibraryclient.services.OrganizationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("organization")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class OrganizationController {
     
     @Autowired
@@ -36,16 +38,19 @@ public class OrganizationController {
     private LoginService loginService;
     
     @GetMapping("")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     public String experiencePage(){
         return "employee-organization";
     }
     
     @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     public @ResponseBody List<Organization> getAll(){
         return service.getAllOrganization().getData();
     }
     
     @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     public @ResponseBody ResponseMessage<Organization> insert(@RequestBody Organization organization){
         Employee employee = new Employee();
         employee.setId(loginService.getIdEmployee());
@@ -54,11 +59,13 @@ public class OrganizationController {
     }
     
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     public @ResponseBody ResponseMessage<Organization> update(@PathVariable Integer id,@RequestBody Organization organization){
         return service.update(id,organization);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     public @ResponseBody ResponseMessage<Organization> delete(@PathVariable Integer id){
         return service.delete(id);
     }

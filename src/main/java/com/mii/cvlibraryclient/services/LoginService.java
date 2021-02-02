@@ -56,7 +56,7 @@ public class LoginService {
     public ResponseMessage<AuthResponse> postLogin(Login loginData) {
             ResponseEntity<ResponseMessage<AuthResponse>> response= restTemplate.exchange(url + "/login", HttpMethod.POST, new HttpEntity<>(loginData), new ParameterizedTypeReference<ResponseMessage<AuthResponse>>() {
             });
-            System.out.println(response.getStatusCode());
+//            System.out.println(response.getStatusCode());
             AuthResponse auth = response.getBody().getData();
             if (response.getStatusCodeValue() == 200) {
                 setAuthority(loginData.getUsername(), loginData.getPassword(), auth.getAuthority());
@@ -81,6 +81,19 @@ public class LoginService {
                 String authHeader = "Basic " + new String(encodedAuth);
                 set("Authorization", authHeader);
                 set("Content-Type", "application/json");
+            }
+        };
+    }
+    
+    HttpHeaders createHeader() {
+        Authentication sc = SecurityContextHolder.getContext().getAuthentication();
+        return new HttpHeaders() {
+            {
+                String auth = sc.getName() + ":" + sc.getCredentials();
+                byte[] encodedAuth = Base64.encodeBase64(
+                        auth.getBytes(Charset.forName("US-ASCII")));
+                String authHeader = "Basic " + new String(encodedAuth);
+                set("Authorization", authHeader);
             }
         };
     }

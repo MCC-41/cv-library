@@ -20,12 +20,12 @@ public class Training {
     private String year;
     private Employee employee;
     private TrainingType trainingType;
-    private byte[] file;
+    private String file;
 
     public Training() {
     }
 
-    public Training(Integer id, String name, String institution, String year, Employee employee, TrainingType trainingType, byte[] file) {
+    public Training(Integer id, String name, String institution, String year, Employee employee, TrainingType trainingType, String file) {
         this.id = id;
         this.name = name;
         this.institution = institution;
@@ -83,11 +83,11 @@ public class Training {
         this.trainingType = trainingType;
     }
 
-    public byte[] getFile() {
+    public String getFile() {
         return file;
     }
 
-    public void setFile(byte[] file) {
+    public void setFile(String file) {
         this.file = file;
     }
     

@@ -31,12 +31,6 @@ function setForm(title, id, name, institution, year, trainingType, isEnable, fil
         console.log(file);
 //        $("#fileName").val('file');
     }
-
-
-    console.log(name);
-    console.log(institution);
-    console.log(year);
-    console.log(trainingType);
 }
 function getAll() {
     table = $('#trainingTable').DataTable({
@@ -65,6 +59,9 @@ function getAll() {
                                 <button class="btn btn-danger delete-confirm mx-1" 
                                         id="${row.id}" 
                                         onclick="deleted(this.getAttribute('id'))"><i class="fa fa-sm fa-trash mx-1 "></i></button>
+                                <button class="btn btn-danger delete-confirm" 
+                                        id="${row.id}" 
+                                        onclick="download()"><i class="fa fa-sm fa-trash mx-1 "></i></button>
                             </td>
                         </tr>
                     `;
@@ -79,15 +76,19 @@ function save() {
     let institution = $("#institution").val();
     let year = $("#year").val();
     let type = $("#trainingType").val();
-    let file = $("#fileName").val();
-    var form = $("#trainingForm").serialize();
-    var data = new FormData($("#trainingForm")[0]);
+//    let file = $("#fileName").text();
+    
+    let data = new FormData();
+    data.append('file',$('#fileName')[0].files[0]);
+//    jQuery.each(jQuery('#fileName')[0].files, function (i, file) {
+//        data.append('file', file);
+//    });
     console.log(id);
     console.log(name);
     console.log(institution);
     console.log(year);
     console.log(type);
-    console.log(file);
+//    console.log(file);
     console.log(data);
     var award = {
         "name": name,
@@ -98,18 +99,19 @@ function save() {
         }
     };
     if (id === "") {
-        insert(award, file);
+        insert(name,institution, year, type, data);
     } else {
-        update(id, award);
+        update(id, name, institution, year, type, data);
     }
 }
-function insert(work, file) {
+function insert(name, institution, year, trainingType,data) {
+    
     $.ajax({
-        contentType: 'application/json',
+        contentType: false,
         enctype: 'multipart/form-data',
         type: 'POST',
-        url: "/training/add",
-        data: JSON.stringify({work, file}),
+        url: "/training/add?"+$.param({name: name,institution: institution,year: year,trainingType: trainingType}),
+        data: data,
         processData: false,
         success: function (data) {
             Swal.fire(
@@ -130,12 +132,14 @@ function insert(work, file) {
         }
     });
 }
-function update(id, work) {
+function update(id, name, institution, year, type, data) {
     $.ajax({
-        contentType: 'application/json',
+        enctype: 'multipart/form-data',
+        contentType: false,
+        processData: false,
         type: 'PUT',
-        url: "/training/" + id,
-        data: JSON.stringify(work),
+        url: "/training/" + id + "?" + $.param({name: name, institution: institution, year: year, trainingType: type}),
+        data: data,
         success: function (data) {
             Swal.fire(
                     'Added!',
@@ -191,6 +195,27 @@ function deleted(id) {
 
             });
 
+        }
+    });
+}
+function download() {
+    $.ajax({
+        type: 'GET',
+        url: "/training/download",
+        success: function (data) {
+//            Swal.fire(
+//                    'Added!',
+//                    'Your file has been Added.',
+//                    'success'
+//                    );
+        },
+        error: function (data) {
+            console.log(data);
+            Swal.fire(
+                    'Failed!',
+                    'Your file cannot be downloaded.',
+                    'error'
+                    );
         }
     });
 }

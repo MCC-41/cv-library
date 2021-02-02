@@ -15,6 +15,7 @@ import com.mii.cvlibraryclient.services.MajorService;
 import com.mii.cvlibraryclient.services.UniversityService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("education")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 public class EducationController {
     
     @Autowired
@@ -46,6 +48,7 @@ public class EducationController {
     private LevelService levelService;
     
     @GetMapping("")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     public String page(Model model){
         model.addAttribute("universities", universityService.getAll().getData());
         model.addAttribute("majors", majorService.getAll().getData());
@@ -54,11 +57,13 @@ public class EducationController {
     }
     
     @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     public @ResponseBody List<Education> getAll(){
         return service.getAllEducation().getData();
     }
     
     @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     public @ResponseBody ResponseMessage<Education> insert(@RequestBody Education education){
         Employee employee = new Employee();
         employee.setId(loginService.getIdEmployee());
@@ -67,11 +72,13 @@ public class EducationController {
     }
     
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('UPDATE_ADMIN','UPDATE_USER')")
     public @ResponseBody ResponseMessage<Education> update(@PathVariable Integer id,@RequestBody Education education){
         return service.update(id,education);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     public @ResponseBody ResponseMessage<Education> delete(@PathVariable Integer id){
         return service.delete(id);
     }

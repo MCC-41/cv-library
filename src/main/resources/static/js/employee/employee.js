@@ -3,19 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/* global Swal */
+
 var table;
 
 $('document').ready(() => {
-    getAll();
+    setForms(true);
+    $('#Cancel').hide();
+    $('#Save').hide();
 });
-
-function btnAdd() {
-    $('.btnModalTitle').text('Add');
-    setForm('Add', '', '', '', '', '', false, '');
+function cancel(){
+    setForms(true);
+    $('#Cancel').hide();
+    $('#Save').hide();
+    $('#Edit').show();
 }
-function btnEdit(id, name, institution, year, trainingType, file) {
-    $('.btnModalTitle').text('Update');
-    setForm('Update', id, name, institution, year, trainingType, true, file);
+function btnEdit() {
+    setForms(false);
+    $('#Edit').hide();
+    $('#Cancel').show();
+    $('#Save').show();
+}
+function setForms(isEnabled) {
+    $('#name').prop('disabled', isEnabled);
+    $('#email').prop('disabled', isEnabled);
+    $('#birth').prop('disabled', isEnabled);
+    $('#nation').prop('disabled', isEnabled);
+    $('#status').prop('disabled', isEnabled);
+    $('#gender').prop('disabled', isEnabled);
+    $('#religion').prop('disabled', isEnabled);
+    $('#photo').prop('disabled', isEnabled);
 }
 function setForm(title, id, name, institution, year, trainingType, isEnable, file) {
     $('.trainingTitle').text(title);
@@ -24,95 +41,51 @@ function setForm(title, id, name, institution, year, trainingType, isEnable, fil
     $("#institution").val(institution);
     $("#year").val(year);
     $("#trainingType").val(trainingType);
-    if(file!==''){
-        console.log(file);
-//        $("#fileName").val('file');
-    }
-    
-    
-    console.log(name);
-    console.log(institution);
-    console.log(year);
-    console.log(trainingType);
-}
-function getAll() {
-    table = $('#trainingTable').DataTable({
-        'sAjaxSource': '/training/all',
-        'sAjaxDataProp': '',
-        'columns': [
-            {'data': 'id'},
-            {'data': 'name'},
-            {'data': 'institution'},
-            {'data': 'year'},
-            {'data': 'trainingType.name'},
-            {'data': 'file'},
-            {
-                'render': function (data, type, row, meta) {
-                    return `
-                        <tr>
-                            <td>
-                                <button class="btn btn-warning" href="#" data-toggle="modal" data-target="#trainingModal" 
-                                        id="${row.id}"
-                                        name="${row.name}"
-                                        institution="${row.institution}"
-                                        year="${row.year}"
-                                        trainingType="${row.trainingType.id}"
-                                        file="${row.file}"
-                                        onclick="btnEdit(this.getAttribute('id'),this.getAttribute('name'),this.getAttribute('institution'),this.getAttribute('year'),this.getAttribute('trainingType'),this.getAttribute('file'))"><i class="fa fa-sm fa-edit mx-1"></i></button>
-                                <button class="btn btn-danger delete-confirm mx-1" 
-                                        id="${row.id}" 
-                                        onclick="deleted(this.getAttribute('id'))"><i class="fa fa-sm fa-trash mx-1 "></i></button>
-                            </td>
-                        </tr>
-                    `;
-                }
-            }
-        ]
-    });
 }
 function save() {
-    let id = $("#id").val();
-    let name = $("#name").val();
-    let institution = $("#institution").val();
-    let year = $("#year").val();
-    let type = $("#trainingType").val();
-    let file = $("#fileName").val();
+    let id = $('#id').val();
+    let name = $('#name').val();
+    let email = $('#email').val();
+    let birth = $('#birth').val();
+    let nation = $('#nation').val();
+    let status = $('#status').val();
+    let gender = $('#gender').val();
+    let religion = $('#religion').val();
+    let photo = $('#photo').val();
     console.log(id);
     console.log(name);
-    console.log(institution);
-    console.log(year);
-    console.log(type);
-    console.log(file);
-    var award = {
+    console.log(email);
+    console.log(birth);
+    console.log(nation);
+    console.log(status);
+    console.log(gender);
+    console.log(religion);
+    console.log(photo);
+    
+    var employee = {
         "name": name,
         "institution": institution,
         "year": year,
-        "trainingType" : {
-            "id" : type
+        "trainingType": {
+            "id": type
         },
-        "file" : file
+        "file": file
     };
-    if (id === "") {
-        insert(award);
-    } else {
-        update(id, award);
-    }
+
+//    update(id, employee);
 }
-function update(id, work) {
+function update(id, employee) {
     $.ajax({
         contentType: 'application/json',
         type: 'PUT',
-        url: "/training/" + id,
-        data: JSON.stringify(work),
+        url: "/employee/" + id,
+        data: JSON.stringify(employee),
         success: function (data) {
             Swal.fire(
                     'Added!',
                     'Your file has been Updated.',
                     'success'
                     );
-            $('#trainingModal').modal('hide');
-            table.destroy();
-            getAll();
         },
         error: function (data) {
             Swal.fire(

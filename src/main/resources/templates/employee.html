@@ -35,34 +35,8 @@ and open the template in the editor.
                         <div class="card">
                             <div class="card-header">Personal</div>
                             <div class="card-body" >
-                                <form>
-                                    <!--                                    <div class="form-group">
-                                                                            <label>Nama</label>
-                                                                            <input class="form-control" id="name" type="text" placeholder="Insert your name..." value="Habib" readonly>
-                                                                            <label>Date of Birth</label>
-                                                                            <input class="form-control" id="dateBirth" type="date" value="19/01/2020" readonly>
-                                                                            <label>Nationality</label>
-                                                                            <input class="form-control" id="nation" type="text" placeholder="Insert your nationality..." value="Indonesia" readonly>
-                                                                            <label>Email address</label>
-                                                                            <input class="form-control" id="email" type="email" placeholder="name@example.com" value="habibabdul@gmail.com" readonly>
-                                                                            <label for="statusRelation">Status</label>
-                                                                            <select class="form-control" id="exampleFormControlSelect1" readonly>
-                                                                                <option>Single</option>
-                                                                                <option>Married</option>
-                                                                            </select>
-                                                                            <label for="Gender">Gender</label>
-                                                                            <select class="form-control" id="exampleFormControlSelect1" readonly>
-                                                                                <option>Male</option>
-                                                                                <option>Female</option>
-                                                                            </select>
-                                                                            <label for="Religion">Religion</label>
-                                                                            <select class="form-control" id="exampleFormControlSelect1" readonly>
-                                                                                <option>Moslem</option>
-                                                                                <option>Christian</option>
-                                                                                <option>Catolic</option>
-                                                                            </select>
-                                    
-                                                                        </div>-->
+                                <form action="#" method="#">
+                                    <input type="hidden" class="form-control" th:id="id" th:name="id" th:value="${employees.id}">
                                     <div class="form-group">
                                         <label for="name">Name</label>
                                         <input type="text" class="form-control" th:id="name" th:name="name" th:value="${employees.name}">
@@ -106,37 +80,32 @@ and open the template in the editor.
                                         <label for="photo">Photo</label>
                                         <input type="file" class="form-control" th:id="photo" th:name="photo" >
                                     </div>
-
-                                    <!--                                    <div>
-                                                                            <button type="button" class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editEmployee">Edit</button>
-                                    
-                                                                        </div>-->
                                     <div>
                                         <div class="float-left">
-                                            <button class="btn btn-warning btn-icon-split mb-2 float-right" th:onclick="btnAdd()">
+                                            <button type="button" class="btn btn-warning btn-icon-split mb-2 float-right" th:id="Edit" th:onclick="btnEdit()">
                                                 <span class="icon text-white-50">
                                                     <i class="fa fa-sm fa-edit"></i>
                                                 </span>
                                                 <span class="text">Edit</span>
                                             </button>
                                         </div>
-<!--                                        <div class="float-left">
-                                            <button class="btn btn-warning btn-icon-split mb-2 float-right" th:onclick="btnAdd()">
+                                        <div class="float-left">
+                                            <button type="button" class="btn btn-secondary btn-icon-split mr-2 float-left" th:id="Cancel" th:onclick="cancel()">
                                                 <span class="icon text-white-50">
                                                     <i class="fa fa-sm fa-edit"></i>
                                                 </span>
-                                                <span class="text">Edit</span>
+                                                <span class="text">Cancel</span>
                                             </button>
-                                            <button class="btn btn-warning btn-icon-split mb-2 float-right" th:onclick="btnAdd()">
+                                            <button type="button" class="btn btn-primary btn-icon-split mb-2 float-right" th:id="Save" th:onclick="save()">
                                                 <span class="icon text-white-50">
                                                     <i class="fa fa-sm fa-edit"></i>
                                                 </span>
-                                                <span class="text">Edit</span>
+                                                <span class="text">Save</span>
                                             </button>
-                                        </div>-->
+                                        </div>
                                     </div>
                                 </form>
-
+                                
                             </div>
                         </div>
                         <br>
@@ -159,7 +128,7 @@ and open the template in the editor.
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="" method="POST">
+                                    <form action="">
                                         <div class="form-group">
                                             <label>Nama</label>
                                             <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Insert your name..." value="Habib">
@@ -201,12 +170,13 @@ and open the template in the editor.
                                                 <option>Catolic</option>
                                             </select>
                                         </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
                                     </form>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -214,13 +184,13 @@ and open the template in the editor.
 
                     <!-- Footer -->
 
-
+                    <footer th:replace="layout/footer-layout::footer_layout"></footer>
                     <!-- End of Footer -->
-
+                    <script th:src="@{../js/employee/employee.js}" ></script>
                 </div>
                 <!-- End of Content Wrapper -->
 
-                <footer th:replace="layout/footer-layout::footer_layout"></footer>
+                
             </div>
             <!-- End of Page Wrapper -->
 
