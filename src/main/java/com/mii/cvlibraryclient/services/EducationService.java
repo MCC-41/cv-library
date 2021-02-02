@@ -83,4 +83,14 @@ public class EducationService {
         return response.getBody();
     }
     
+    
+    public ResponseList<Education> getAllById(Integer id){
+        ResponseEntity<ResponseList<Education>> response 
+                = restTemplate.exchange(url + "/education/" + id +"/employee", HttpMethod.GET, 
+                        new HttpEntity<>(service.createHeaders()), 
+                        new ParameterizedTypeReference<ResponseList<Education>>(){});
+        return response.getBody();
+    }
 }
+
+    
