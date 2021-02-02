@@ -5,6 +5,8 @@
  */
 package com.mii.cvlibraryclient.controllers;
 
+import com.mii.cvlibraryclient.services.EducationService;
+import com.mii.cvlibraryclient.services.EmployeeService;
 import com.mii.cvlibraryclient.services.LevelService;
 import com.mii.cvlibraryclient.services.MajorService;
 import com.mii.cvlibraryclient.services.UniversityService;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -23,12 +26,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("")
 public class CvController {
     
-//    @Autowired
-//    private LevelService service;
+    @Autowired
+    private LevelService service;
     @Autowired
     private MajorService serviceMajor;
     @Autowired
     private UniversityService serviceUniversity;
+    @Autowired
+    private EmployeeService employeeService;
+    
     
     @GetMapping("dashboard")
     public String dash() {
@@ -55,14 +61,14 @@ public class CvController {
         return "admin-religion";
     }
     
-//    @GetMapping("adminedu")
-//    public String adminEdu(Model model) {
-//        model.addAttribute("levels",service.getAll().getData());
-//        model.addAttribute("majors",serviceMajor.getAll().getData());
-//        model.addAttribute("universities",serviceUniversity.getAll().getData());
-//        System.out.println(service.getAll().getData());
-//        return "admin-edu";
-//    }
+    @GetMapping("adminedu")
+    public String adminEdu(Model model) {
+        model.addAttribute("levels",service.getAll().getData());
+        model.addAttribute("majors",serviceMajor.getAll().getData());
+        model.addAttribute("universities",serviceUniversity.getAll().getData());
+        System.out.println(service.getAll().getData());
+        return "admin-edu";
+    }
     
     @GetMapping("admintech")
     public String adminTech() {
@@ -119,9 +125,26 @@ public class CvController {
         return "employee-detail";
     }
     
-    @GetMapping("rm-employee")
-    public String rmEmployee(){
-        return "rm-employee";
+//    @GetMapping("rm-employee")
+//    public String rmEmployee(Model model){
+////        model.addAttribute("employees" , employeeService.getAll());
+//        return "rm-employee";
+//    }
+    
+//    @GetMapping("rm-employee-eye/{id}")
+//    public String rmDetail(Model model,@PathVariable Integer id){
+//        model.addAttribute("levels",service.getAll().getData());
+//        model.addAttribute("majors",serviceMajor.getAll().getData());
+//        model.addAttribute("universities",serviceUniversity.getAll().getData());
+//        return "rm-employee-detail";
+//    }
+    
+    @GetMapping("print")
+    public String print(){
+        return "page-cv";
     }
+    
+    
+    
     
 }
