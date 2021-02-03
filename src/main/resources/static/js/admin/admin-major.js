@@ -45,17 +45,17 @@ function add(){
 }
 
 function setForm(id, name) {
-    $('#id').val(id);
-    $('#name').val(name);
+    $('#idMajor').val(id);
+    $('#nameMajor').val(name);
 }
 
 function setEnabledField(isEnabled) {
-    $('#name').prop('disabled', isEnabled);
+    $('#nameMajor').prop('disabled', isEnabled);
 }
 
 function saveMajor(){
-    let id = $('#id').val();
-    let name = $('#name').val();
+    let id = $('#idMajor').val();
+    let name = $('#nameMajor').val();
     var major = {
         "name":name
     };
@@ -95,6 +95,7 @@ function addMajor(major){
 
 function updateBtnMajor(id, name){
     setForm(id,name);
+    console.log(id,name);
     setEnabledField(false);
 }
 
@@ -102,7 +103,7 @@ function updateMajor(id,major){
     $.ajax({
         contentType: 'application/json',
         type: 'PUT',
-        url: "/major/add/" + id,
+        url: "/major/" + id,
         data: JSON.stringify(major),
         success: function(data){
             Swal.fire(

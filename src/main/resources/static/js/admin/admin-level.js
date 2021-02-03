@@ -23,11 +23,11 @@ function getAllLevel() {
                                 <button class="btn btn-warning float-left mr-1" 
                                         id="${row.id}"
                                         name="${row.name}"
-                                        onclick="updateBtn(this.getAttribute('id'),this.getAttribute('name'))"
+                                        onclick="updateBtnLevel(this.getAttribute('id'),this.getAttribute('name'))"
                                         data-toggle="modal" data-target="#levelModal"><i class="fas fa-edit"></i></button>
                                 <button class="btn btn-danger float-left" 
                                         id="${row.id}"
-                                        onclick="deleted(this.getAttribute('id'))"><i class="fas fa-trash-alt"></i></button>
+                                        onclick="deleteLevel(this.getAttribute('id'))"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr>
                     `;
@@ -58,18 +58,18 @@ function saveLevel(){
         "name":name
     };
     if (id === "") {
-        add(level);
+        addLevel(level);
     } else {
-        update(id, level);
+        updateLevel(id, level);
     }
     
 }
-function add(level){
+function addLevel(level){
     $.ajax({
         contentType: 'application/json',
         type: 'POST',
         url: "/level",
-        data: JSON.stringify(technicalType),
+        data: JSON.stringify(level),
         success: function(data){
             Swal.fire(
                     'Added!',
@@ -90,18 +90,19 @@ function add(level){
     });
 }
 
-function updateBtn(id, name){
+function updateBtnLevel(id, name){
     setForm(id,name);
     console.log(name);
+    console.log(id);
     setEnabledField(false);
 }
 
-function update(id,level){
+function updateLevel(id,level){
     $.ajax({
         contentType: 'application/json',
         type: 'PUT',
         url: "/level/" + id,
-        data: JSON.stringify(technicalType),
+        data: JSON.stringify(level),
         success: function(data){
             Swal.fire(
                     'Update!',
@@ -109,7 +110,7 @@ function update(id,level){
                     'success'
                     );
             $('#levelModal').modal('hide');
-            tableLEvel.destroy;
+            tableLevel.destroy;
             getAll();
         },
         error: function (data) {
@@ -122,7 +123,7 @@ function update(id,level){
     });
 }
 
-function deleted(id) {
+function deleteLevel(id) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",

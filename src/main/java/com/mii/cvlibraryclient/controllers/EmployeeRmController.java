@@ -70,7 +70,7 @@ public class EmployeeRmController {
     }
     
     @GetMapping("detail")
-    public String detail(){
+    public String detail(Model model){
         return "rm-employee-detail";
     }
     

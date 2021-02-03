@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-var tabelPermission;
+var tablePermission;
 
 $('document').ready(() => {
     getAllPermission();
 });
 
 function getAllPermission() {
-    tabelPermission = $('#permis').DataTable({
+    tablePermission = $('#permissionTable').DataTable({
         'sAjaxSource': '/permission',
         'sAjaxDataProp': '',
         'columns': [
@@ -25,11 +25,11 @@ function getAllPermission() {
                                 <button class="btn btn-warning float-left mr-1" 
                                         id="${row.id}"
                                         name="${row.name}"
-                                        onclick="update(this.getAttribute('id'),this.getAttribute('name'))"
-                                        data-toggle="modal" data-target="#universityModal"><i class="fas fa-edit"></i></button>
+                                        onclick="updateBtn(this.getAttribute('id'),this.getAttribute('name'))"
+                                        data-toggle="modal" data-target="#permissionModal"><i class="fas fa-edit"></i></button>
                                 <button class="btn btn-danger float-left" 
                                         id="${row.id}"
-                                        onclick="deleteUniversity(this.getAttribute('id'))"><i class="fas fa-trash-alt"></i></button>
+                                        onclick="deletePermission(this.getAttribute('id'))"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr>
                     `;
@@ -40,38 +40,34 @@ function getAllPermission() {
 }
 
 function add(){
-    setForm('','');
-    setEnabledField(false, false);
+    setFormPermission('','');
+    setEnabledField(false);
 }
 
-function setForm(id, name) {
+function setFormPermission(id, name) {
     $('#idPermission').val(id);
     $('#namePermission').val(name);
 }
 
-//function setFormEdit(id, name) {
-//    $('#idLevelEdit').val(id);
-//    $('#nameLevelEdit').val(name);
-//}
-
 function setEnabledField(isEnabled) {
-    $('#btn-save-permission').prop('disabled', isEnabled);
     $('#namePermission').prop('disabled', isEnabled);
 }
 
-function addPermission(){
+function savePermission(){
     let id = $('#idPermission').val();
     let name = $('#namePermission').val();
     var permission = {
         "name":name
     };
-//    if(id == undefined){
-//        console.log(id); 
-//    }
-//    else{
-//        console.log(id);
-//    }
+    if(id === ""){
+        addPermission(permission);
+    } else {
+        updatePermission(id, permission);
+    }
     
+}
+
+function addPermission(permission){
     $.ajax({
         contentType: 'application/json',
         type: 'POST',
@@ -83,7 +79,7 @@ function addPermission(){
                    'Your file has been Added.',
                     'success');
                 $('#permissionModal').modal('hide');
-                tabelPermission.destroy();
+                tablePermission.destroy();
                 getAllPermission();
                 },
         error: function(data){
@@ -94,9 +90,77 @@ function addPermission(){
                     );
         }
         
-    });
-    
-    
-    
+    }); 
 }
 
+function updateBtn(id, name){
+    setFormPermission(id,name);
+    console.log(id,name);
+    setEnabledField(false);
+}
+
+function updatePermission(id, permission){
+    $.ajax({
+        contentType: 'application/json',
+        type: 'PUT',
+        url: "/permission/" + id,
+        data: JSON.stringify(permission),
+        success: function(data){
+            Swal.fire(
+                    'Update!',
+                    'Your file has been Update',
+                    'success'
+                    );
+            $('#permissionModal').modal('hide');
+            tablePermission.destroy;
+            getAllPermission();
+        },
+        error: function (data) {
+            Swal.fire(
+                    'Failed!',
+                    'Your file cannot be Update.',
+                    'error'
+                    );
+        }
+    });
+}
+
+function deletePermission(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'DELETE',
+                url: "/permission/" + id,
+                success: function () {
+                    Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                            );
+                    $('#permissionModal').modal('hide');
+                    tablePermission.destroy();
+                    getAllPermission();
+                },
+
+                error: function (data) {
+                    console.log(data);
+                    Swal.fire(
+                            'Failed!',
+                            'Your file cannot be deleted.',
+                            'error'
+                            );
+                }
+
+            });
+
+        }
+    });
+}

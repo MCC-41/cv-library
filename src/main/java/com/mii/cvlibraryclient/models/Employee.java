@@ -90,11 +90,13 @@ public class Employee {
         this.gender = gender;
     }
 
-    public Religion getIdReligion() {
+    public Religion getReligion() {
         return religion;
     }
 
-    public void setIdReligion(Religion religion) {
+    public void setReligion(Religion religion) {
         this.religion = religion;
     }
+
+   
 }

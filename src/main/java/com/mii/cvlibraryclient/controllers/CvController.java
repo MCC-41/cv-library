@@ -5,11 +5,17 @@
  */
 package com.mii.cvlibraryclient.controllers;
 
+import com.mii.cvlibraryclient.models.Permission;
+import com.mii.cvlibraryclient.models.Religion;
 import com.mii.cvlibraryclient.services.EducationService;
 import com.mii.cvlibraryclient.services.EmployeeService;
 import com.mii.cvlibraryclient.services.LevelService;
+import com.mii.cvlibraryclient.services.LoginService;
 import com.mii.cvlibraryclient.services.MajorService;
+import com.mii.cvlibraryclient.services.PermissionService;
+import com.mii.cvlibraryclient.services.RoleService;
 import com.mii.cvlibraryclient.services.UniversityService;
+import com.mii.cvlibraryclient.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +40,14 @@ public class CvController {
     private UniversityService serviceUniversity;
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PermissionService userPermissionService;
+    @Autowired
+    private LoginService loginService;
     
     
     @GetMapping("dashboard")
@@ -47,12 +61,16 @@ public class CvController {
 //    }
     
     @GetMapping("adminrole")
-    public String adminRole() {
+    public String adminRole(Model model) {
+        model.addAttribute("roles", roleService.getAll().getData());
+        model.addAttribute("users" , userService.getAll().getData());
         return "admin-role";
     }
     
     @GetMapping("adminpermission")
-    public String adminPermission() {
+    public String adminPermission(Model model) {
+        model.addAttribute("permissions", userPermissionService.getAll().getData());
+        model.addAttribute("users" , userService.getAll().getData());
         return "admin-permission";
     }
     
@@ -75,10 +93,10 @@ public class CvController {
         return "admin-tech";
     }
     
-//    @GetMapping("admintraining")
-//    public String adminTraining() {
-//        return "admin-training";
-//    }
+    @GetMapping("admintraining")
+    public String adminTraining() {
+        return "admin-training";
+    }
     
 //    @GetMapping("employee")
 //    public String employeePersonal(){
@@ -120,10 +138,14 @@ public class CvController {
         return "employee-awards";
     }
     
-    @GetMapping("employee-detail")
-    public String tesCV(){
-        return "employee-detail";
-    }
+//    @GetMapping("employee-detail")
+//    public String tesCV(Model model){
+//        model.addAttribute("employees", employeeService.getById(loginService.getIdEmployee()).getData());
+//        System.out.println(employeeService.getById(6).getData());
+//        
+//        
+//        return "employee-detail";
+//    }
     
 //    @GetMapping("rm-employee")
 //    public String rmEmployee(Model model){

@@ -52,7 +52,7 @@ public class MajorController {
         return majorService.insert(major);
     }
     
-    @PutMapping("add/{id}")
+    @PutMapping("/{id}")
     @ResponseBody
     public ResponseMessage<Major> update(@PathVariable Integer id, Major major){
         return majorService.update(id, major);

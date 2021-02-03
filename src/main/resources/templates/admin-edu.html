@@ -126,11 +126,11 @@
                                         <div class="modal-body">
                                             <form action='#'>
                                                 <div class="form-group">
-                                                    <input type="hidden" class="form-control" th:name="id" th:id="id">
+                                                    <input type="hidden" class="form-control" th:name="idMajor" th:id="idMajor">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="name"> Name </label>
-                                                    <input type="text" class="form-control" th:name="name" th:id="name">
+                                                    <input type="text" class="form-control" th:name="nameMajor" th:id="nameMajor">
 
                                                 </div>
                                             </form>
@@ -185,7 +185,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action='#' th:id="formUniversity">
+                                            <form action='#'>
                                                 <div class="form-group">
                                                     <input type="hidden" class="form-control" th:name="idUniversity" th:id="idUniversity">
                                                 </div>
@@ -198,7 +198,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary" id="btn-save-university" th:onclick="addUniversity()">Save changes</button>
+                                            <button type="button" class="btn btn-primary" id="btn-save-university" th:onclick="saveUniversity()">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -208,10 +208,10 @@
                             
             
             
-            
+            <script th:src="@{../js/admin/admin-university.js}" ></script>
             <script th:src="@{../js/admin/admin-major.js}" ></script>
             <script th:src="@{../js/admin/admin-level.js}" ></script>
-            <script th:src="@{../js/admin/admin-university.js}" ></script>
+            
             
             <!-- Footer -->
             <footer th:replace="layout/footer-layout::footer_layout"></footer>

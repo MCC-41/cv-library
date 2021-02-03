@@ -44,7 +44,7 @@ public class TechnicalTypeService {
     
     public ResponseData<TechnicalType> getById(Integer id){
         ResponseEntity<ResponseData<TechnicalType>> response
-                = restTemplate.exchange(url + "/technical_type" + id, HttpMethod.GET, 
+                = restTemplate.exchange(url + "/technical_type/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseData<TechnicalType>>(){});
         return response.getBody();

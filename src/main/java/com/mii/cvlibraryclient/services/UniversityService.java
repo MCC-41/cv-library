@@ -71,7 +71,7 @@ public class UniversityService {
     
     public ResponseMessage<University> delete(Integer id){
         ResponseEntity<ResponseMessage<University>> response 
-                = restTemplate.exchange(url + "/major" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/university/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<University>>() {});
         return response.getBody();

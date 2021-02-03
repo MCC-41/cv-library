@@ -6,40 +6,27 @@ and open the template in the editor.
 -->
 <html>
     <head th:replace="layout/head-layout :: head_layout"></head>
-
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
-        
-
         <!-- Sidebar -->
         <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
         <!-- End of Sidebar -->
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
-                
                 <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        
                     </div>
-
                     <!-- Content Row -->
                     <div class="row">
-
                         <!-- Total Employees -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
@@ -48,16 +35,15 @@ and open the template in the editor.
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Total Employees</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" th:id='employee'></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                            <i class="fas fa-users fa-3x"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <!-- Total Roles -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
@@ -65,70 +51,30 @@ and open the template in the editor.
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total Role</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+                                                User</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" th:id='user'></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                            <i class="fas fa-user-friends fa-3x"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Total Permission -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Total Permission</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        </div>s
                         <!-- Pending Requests Card Example -->
-                        
                     </div>
                      <div class="container-fluid">
                          </div>
                 <!-- /.container-fluid -->
-
             </div>
-
-                
             <!-- End of Main Content -->
-
             <!-- Footer -->
-            
-            
             <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
         <footer th:replace="layout/footer-layout::footer_layout"></footer>
+        <script th:src="@{../js/dashboard.js}" ></script>
     </div>
     <!-- End of Page Wrapper -->
-
-
-
-    
-<!--
-     Page level plugins 
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-     Page level custom scripts 
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-    -->
-    
-
 </body>
 </html>

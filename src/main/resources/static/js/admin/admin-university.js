@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-var tabelUniversity;
+var tableUniversity;
 
 $('document').ready(() => {
     getAllUniv();
 });
 
 function getAllUniv() {
-    tabelUniversity = $('#univTable').DataTable({
+    tableUniversity = $('#univTable').DataTable({
         'sAjaxSource': '/university',
         'sAjaxDataProp': '',
         'columns': [
@@ -25,7 +25,7 @@ function getAllUniv() {
                                 <button class="btn btn-warning float-left mr-1" 
                                         id="${row.id}"
                                         name="${row.name}"
-                                        onclick="update(this.getAttribute('id'),this.getAttribute('name'))"
+                                        onclick="updateBtnUniversity(this.getAttribute('id'),this.getAttribute('name'))"
                                         data-toggle="modal" data-target="#universityModal"><i class="fas fa-edit"></i></button>
                                 <button class="btn btn-danger float-left" 
                                         id="${row.id}"
@@ -41,41 +41,37 @@ function getAllUniv() {
 
 function add(){
     setForm('','');
-    setEnabledField(false, false);
+    setEnabledField(false);
 }
 
 function setForm(id, name) {
-    $('#id').val(id);
-    $('#name').val(name);
+    $('#idUniversity').val(id);
+    $('#nameUniversity').val(name);
 }
 
-//function setFormEdit(id, name) {
-//    $('#idLevelEdit').val(id);
-//    $('#nameLevelEdit').val(name);
-//}
 
 function setEnabledField(isEnabled) {
-    $('#btn-save').prop('disabled', isEnabled);
-    $('#name').prop('disabled', isEnabled);
+    $('#nameUniversity').prop('disabled', isEnabled);
 }
 
-function addUniversity(){
+function saveUniversity(){
     let id = $('#idUniversity').val();
     let name = $('#nameUniversity').val();
     var university = {
         "name":name
     };
-//    if(id == undefined){
-//        console.log(id); 
-//    }
-//    else{
-//        console.log(id);
-//    }
+    if(id === ""){
+        addUniversity(university);
+    } else {
+        updateUniversity(id, university);
+    }
     
-    $.ajax({
+}
+function addUniversity(university){
+        $.ajax({
         contentType: 'application/json',
         type: 'POST',
-       url: "/university",
+        url: "/university",
         data: JSON.stringify(university),
         success: function(data){
             Swal.fire(
@@ -83,7 +79,7 @@ function addUniversity(){
                    'Your file has been Added.',
                     'success');
                 $('#universityModal').modal('hide');
-                tabelUniversity.destroy();
+                tableUniversity.destroy();
                 getAllUniv();
                 },
         error: function(data){
@@ -94,8 +90,77 @@ function addUniversity(){
                     );
         }
         
+    });   
+}
+
+function updateBtnUniversity(id, name){
+    setForm(id,name);
+    console.log(id,name);
+    setEnabledField(false);
+}
+
+function updateUniversity(id,university){
+    $.ajax({
+        contentType: 'application/json',
+        type: 'PUT',
+        url: "/university/" + id,
+        data: JSON.stringify(university),
+        success: function(data){
+            Swal.fire(
+                    'Update!',
+                    'Your file has been Update',
+                    'success'
+                    );
+            $('#universityModal').modal('hide');
+            tableUniversity.destroy;
+            getAllUniv();
+        },
+        error: function (data) {
+            Swal.fire(
+                    'Failed!',
+                    'Your file cannot be Update.',
+                    'error'
+                    );
+        }
     });
-    
-    
-    
+}
+
+function deleteUniversity(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'DELETE',
+                url: "/university/" + id,
+                success: function () {
+                    Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                            );
+                    $('#universityModal').modal('hide');
+                    tableUniversity.destroy();
+                    getAllUniv();
+                },
+
+                error: function (data) {
+                    console.log(data);
+                    Swal.fire(
+                            'Failed!',
+                            'Your file cannot be deleted.',
+                            'error'
+                            );
+                }
+
+            });
+
+        }
+    });
 }

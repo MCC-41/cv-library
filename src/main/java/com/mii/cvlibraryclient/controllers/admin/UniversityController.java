@@ -60,7 +60,7 @@ public class UniversityController {
         return universityService.update(id,university);
     }
     
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseMessage<University> delete(@PathVariable Integer id){
         return universityService.delete(id);
