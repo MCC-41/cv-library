@@ -1,110 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="layout/head-layout :: head_layout"></head>
+    <head th:replace="layout/head-layout :: head_layout"></head>
 
-<body id="page-top">
+    <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-        
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
-        <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Sidebar -->
+            <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
+            <!-- End of Sidebar -->
 
-            <!-- Main Content -->
-            <div id="content">
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
 
-                <!-- Topbar -->
-                <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
-                
-                <!-- End of Topbar -->
+                <!-- Main Content -->
+                <div id="content">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                    <!-- Topbar -->
+                    <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#trainingTypeModal">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                                <span class="text">Add</span>
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="trainingTypeTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Training Type</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#trainingTypeModal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Add</span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="trainingTypeTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Training Type</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- /.container-fluid -->
+
                 </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-            
-            <script th:src="@{../js/admin/admin-training-type.js}" ></script>
-            <!-- Footer -->
-            <footer th:replace="layout/footer-layout::footer_layout"></footer>
-            
-            <!-- End of Footer -->
-            <script th:src="@{../js/admintraining.js}" ></script>
-
-        </div>
-        <!-- End of Content Wrapper -->
-        <!-- MODAL -->
-                            <div class="modal fade" id="trainingTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Training Type</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="" th:id="formTrainingType">
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" id="id" th:name="id">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="name"> Training Type </label>
-                                                    <input type="text" class="form-control" th:name="name" id="name">
-
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary" th:onclick="save()" >Save changes</button>
+                <!-- End of Main Content -->
+                <!-- MODAL -->
+                <div class="modal fade" id="trainingTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Training Type</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" th:id="formTrainingType" class="needs-validation" novalidate>
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" id="id" th:name="id">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name"> Training Type </label>
+                                        <input type="text" class="form-control" th:name="name" id="name" required>
+                                        <div class="invalid-feedback">
+                                            Please input Training Type.
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" >Save</button>
+                                    </div>
+                                </form>
                             </div>
-            <!--end-->
 
-    </div>
-    <!-- End of Page Wrapper -->
+                        </div>
+                    </div>
+                </div>
+                <!--end-->
+                <script th:src="@{../js/admin/admin-training-type.js}" ></script>
+                <!-- Footer -->
+                <footer th:replace="layout/footer-layout::footer_layout"></footer>
 
-    
+                <!-- End of Footer -->
+                <script th:src="@{../js/admintraining.js}" ></script>
 
-    
-    
-
-</body>
-
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
+    </body>
 </html>

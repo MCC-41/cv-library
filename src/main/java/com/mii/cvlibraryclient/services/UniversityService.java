@@ -46,7 +46,7 @@ public class UniversityService {
     
     public ResponseData<University> getById(Integer id){
         ResponseEntity<ResponseData<University>> response
-                = restTemplate.exchange(url + "/university" + id, HttpMethod.GET, 
+                = restTemplate.exchange(url + "/university/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseData<University>>(){});
         return response.getBody();
@@ -71,7 +71,7 @@ public class UniversityService {
     
     public ResponseMessage<University> delete(Integer id){
         ResponseEntity<ResponseMessage<University>> response 
-                = restTemplate.exchange(url + "/major" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/university/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<University>>() {});
         return response.getBody();

@@ -34,6 +34,11 @@ public class ReligionController {
     private ReligionService religionService;
     
     @GetMapping("")
+    public String adminReligion() {
+        return "admin-religion";
+    }
+    
+    @GetMapping("all")
     @ResponseBody
     public List<Religion> religion(){
         List<Religion> religion = religionService.getAll().getData();

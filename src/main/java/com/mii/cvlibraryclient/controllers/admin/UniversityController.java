@@ -14,6 +14,7 @@ import com.mii.cvlibraryclient.services.UniversityService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,12 @@ public class UniversityController {
     private UniversityService universityService;
     
     @GetMapping("")
+    public String page(Model model){
+        model.addAttribute("universities", universityService.getAll().getData());
+        return "admin-university";
+    }
+    
+    @GetMapping("all")
     @ResponseBody
     public List<University> university(){
         List<University> university = universityService.getAll().getData();
@@ -60,9 +67,8 @@ public class UniversityController {
         return universityService.update(id,university);
     }
     
-    @DeleteMapping("delete/{id}")
-    @ResponseBody
-    public ResponseMessage<University> delete(@PathVariable Integer id){
+    @DeleteMapping("{id}")
+    public @ResponseBody ResponseMessage<University> delete(@PathVariable Integer id){
         return universityService.delete(id);
     }
     

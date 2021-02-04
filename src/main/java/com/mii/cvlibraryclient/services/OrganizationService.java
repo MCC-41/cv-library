@@ -83,4 +83,11 @@ public class OrganizationService {
         return response.getBody();
     }
     
+    public ResponseList<Organization> getAllByEmployee(Integer id){
+        ResponseEntity<ResponseList<Organization>> response 
+                = restTemplate.exchange(url + "/organization/" + id + "/employee", HttpMethod.GET, 
+                        new HttpEntity<>(service.createHeaders()), 
+                        new ParameterizedTypeReference<ResponseList<Organization>>(){});
+        return response.getBody();
+    }
 }

@@ -67,38 +67,15 @@ public class TechnicalService {
     }
 
     public ResponseMessage<Technical> insert(Technical technical) {
-        TechnicalType tT = new TechnicalType();
-        tT.setId(technical.getTechnicalType().getId());
-
-        Employee em = new Employee();
-        em.setId(technical.getEmployee().getId());
-
-        Technical tech = new Technical();
-        tech.setName(technical.getName());
-        tech.setTechnicalType(tT);
-        tech.setEmployee(em);
-
         ResponseEntity<ResponseMessage<Technical>> response
                 = restTemplate.exchange(url + "/technical", HttpMethod.POST,
-                        new HttpEntity<>(tech, service.createHeaders()),
+                        new HttpEntity<>(technical, service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Technical>>() {
                 });
         return response.getBody();
     }
 
     public ResponseMessage<Technical> update(Integer id, Technical technical) {
-
-        TechnicalType tT = new TechnicalType();
-        tT.setId(technical.getTechnicalType().getId());
-
-        Employee em = new Employee();
-        em.setId(technical.getEmployee().getId());
-
-        Technical tech = new Technical();
-        tech.setId(technical.getId());
-        tech.setName(technical.getName());
-        tech.setTechnicalType(tT);
-        tech.setEmployee(em);
         ResponseEntity<ResponseMessage<Technical>> response
                 = restTemplate.exchange(url + "/technical/" + id, HttpMethod.PUT,
                         new HttpEntity<>(technical, service.createHeaders()),
@@ -116,5 +93,13 @@ public class TechnicalService {
                 });
         return response.getBody();
     }
-
+    
+    public ResponseList<Technical> getAllByEmployee(Integer id) {
+        ResponseEntity<ResponseList<Technical>> response
+                = restTemplate.exchange(url + "/technical/" + id + "/employee", HttpMethod.GET,
+                        new HttpEntity<>(service.createHeaders()),
+                        new ParameterizedTypeReference<ResponseList<Technical>>() {
+                });
+        return response.getBody();
+    }
 }

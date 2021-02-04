@@ -27,10 +27,7 @@ function setForm(title, id, name, institution, year, trainingType, isEnable, fil
     $("#institution").val(institution);
     $("#year").val(year);
     $("#trainingType").val(trainingType);
-    if (file !== '') {
-        console.log(file);
-//        $("#fileName").val('file');
-    }
+    $("#fileName").val(file);
 }
 function getAll() {
     table = $('#trainingTable').DataTable({
@@ -59,9 +56,10 @@ function getAll() {
                                 <button class="btn btn-danger delete-confirm mx-1" 
                                         id="${row.id}" 
                                         onclick="deleted(this.getAttribute('id'))"><i class="fa fa-sm fa-trash mx-1 "></i></button>
-                                <button class="btn btn-danger delete-confirm" 
+                                <button class="btn btn-info" 
                                         id="${row.id}" 
-                                        onclick="download()"><i class="fa fa-sm fa-trash mx-1 "></i></button>
+                                        fname="${row.file}"
+                                        onclick="download(this.getAttribute('id'),this.getAttribute('fname'))"><i class="fa fa-sm fa-print mx-1 "></i></button>
                             </td>
                         </tr>
                     `;
@@ -105,7 +103,6 @@ function save() {
     }
 }
 function insert(name, institution, year, trainingType,data) {
-    
     $.ajax({
         contentType: false,
         enctype: 'multipart/form-data',
@@ -134,12 +131,11 @@ function insert(name, institution, year, trainingType,data) {
 }
 function update(id, name, institution, year, type, data) {
     $.ajax({
-        enctype: 'multipart/form-data',
         contentType: false,
         processData: false,
         type: 'PUT',
         url: "/training/" + id + "?" + $.param({name: name, institution: institution, year: year, trainingType: type}),
-        data: data,
+        data: data === null ? '' : data,
         success: function (data) {
             Swal.fire(
                     'Added!',
@@ -198,10 +194,11 @@ function deleted(id) {
         }
     });
 }
-function download() {
+function download(id, file) {
     $.ajax({
-        type: 'GET',
-        url: "/training/download",
+        contentType: 'application/json',
+        type: 'POST',
+        url: "/training/"+ id +"/download?"+$.param({file: file}),
         success: function (data) {
 //            Swal.fire(
 //                    'Added!',

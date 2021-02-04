@@ -69,15 +69,14 @@ public class TrainingService {
         return response.getBody();
     }
 
-    public ByteArrayResource getdown() {
-        Integer id = 2;
+    public ByteArrayResource getdown(Integer id) {
         ResponseEntity<ByteArrayResource> response
-                = restTemplate.exchange(url + "/training/2/download", HttpMethod.GET,
+                = restTemplate.exchange(url + "/training/"+ id +"/download", HttpMethod.POST,
                         new HttpEntity<>(service.createHeaders()),
                         ByteArrayResource.class);
         return response.getBody();
     }
-
+    
     public ResponseMessage<Training> insert(Training training, MultipartFile file) throws IOException {
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
         ByteArrayResource resource = new ByteArrayResource(file.getBytes()) {
@@ -127,8 +126,12 @@ public class TrainingService {
         map.set("year", training.getYear());
         map.set("trainingType", training.getTrainingType().getId().toString());
         map.set("employee", training.getEmployee().getId().toString());
-        map.set("file", new HttpEntity<>(resource,fileHeaders));
-        
+        if (file.isEmpty()) {
+            map.set("file", null);
+        } else {
+            map.set("file", new HttpEntity<>(resource, fileHeaders));
+        }
+
         ResponseEntity<ResponseMessage<Training>> response
                 = restTemplate.exchange(url + "/trainings/" + id, HttpMethod.PUT,
                         requestEntity,
@@ -143,6 +146,15 @@ public class TrainingService {
                 = restTemplate.exchange(url + "/training/" + id, HttpMethod.DELETE,
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Training>>() {
+                });
+        return response.getBody();
+    }
+    
+    public ResponseList<Training> getAllByEmployee(Integer id) {
+        ResponseEntity<ResponseList<Training>> response
+                = restTemplate.exchange(url + "/training/" + id + "/employee", HttpMethod.GET,
+                        new HttpEntity<>(service.createHeaders()),
+                        new ParameterizedTypeReference<ResponseList<Training>>() {
                 });
         return response.getBody();
     }

@@ -11,6 +11,7 @@ import com.mii.cvlibraryclient.services.LevelService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,11 @@ public class LevelController {
     private LevelService levelService;
     
     @GetMapping("")
+    public String page(Model model){
+        return "admin-level";
+    }
+    
+    @GetMapping("all")
     @ResponseBody
     public List<Level> level(){
         List<Level> level = levelService.getAll().getData();
@@ -57,9 +63,6 @@ public class LevelController {
       
         return levelService.update(id,level);
     }
-    
-    
-    
     
     @DeleteMapping("/{id}")
     @ResponseBody

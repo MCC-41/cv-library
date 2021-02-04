@@ -84,4 +84,11 @@ public class ExperienceService {
         return response.getBody();
     }
     
+    public ResponseList<Experience> getAllByEmployee(Integer id){
+        ResponseEntity<ResponseList<Experience>> response 
+                = restTemplate.exchange(url + "/experience/" + id + "/employee", HttpMethod.GET, 
+                        new HttpEntity<>(service.createHeaders()), 
+                        new ParameterizedTypeReference<ResponseList<Experience>>(){});
+        return response.getBody();
+    }
 }

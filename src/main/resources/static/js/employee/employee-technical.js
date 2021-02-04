@@ -42,7 +42,7 @@ function getAll() {
                                 <button class="btn btn-warning" href="#" data-toggle="modal" data-target="#technicalModal" 
                                         id="${row.id}"
                                         name="${row.name}"
-                                        technicalType="${row.technicalType.name}"
+                                        technicalType="${row.technicalType.id}"
                                         onclick="btnEdit(this.getAttribute('id'),this.getAttribute('name'),this.getAttribute('technicalType'))"><i class="fa fa-sm fa-edit mx-1"></i></button>
                                 <button class="btn btn-danger delete-confirm mx-1" 
                                         id="${row.id}" 

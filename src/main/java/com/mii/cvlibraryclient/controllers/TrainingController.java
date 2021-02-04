@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -64,13 +64,13 @@ public class TrainingController {
         return service.getAllTraining().getData();
     }
     
-    @GetMapping("/download")
-    public @ResponseBody ResponseEntity getDown() {
+    @PostMapping("/{id}/download")
+    public @ResponseBody ResponseEntity getDown(@PathVariable Integer id, @RequestParam String file) {
         try {
-            ByteArrayResource data = service.getdown();
+            ByteArrayResource data = service.getdown(id);
             return ResponseEntity.ok()
                     .contentType(MediaType.parseMediaType("application/pdf"))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + "Muhamad_Habib_Abdul_Aziz.pdf" + "\"")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file + "\"")
                     .contentLength(data.contentLength())
                     .body(data);
         } catch (Exception e) {
@@ -110,7 +110,7 @@ public class TrainingController {
             @RequestParam String institution,
             @RequestParam String year,
             @RequestParam Integer trainingType,
-            @RequestParam MultipartFile file) throws IOException {
+            @RequestParam(value = "file",required = false) MultipartFile file) throws IOException {
         Training training = new Training();
         training.setName(name);
         training.setInstitution(institution);

@@ -29,21 +29,20 @@
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3 ">
-                                <h6 class="m-0 font-weight-bold text-primary">List of Users</h6>
-                            </div>
-                            <div class="card-body">
                                 <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#userModal" th:onclick="btnAdd()">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>
                                     <span class="text">Add</span>
                                 </button>
+                            </div>
+                            <div class="card-body">
+                                
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered" id="userTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Employee</th>
                                                 <th>Username</th>
                                                 <th>Status</th>
                                                 <th>IsVerif</th>
@@ -51,35 +50,64 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="user : ${users}">
-                                                <td th:text="${user.id}"></td>
-                                                <td th:text="${user.employee.name}"></td>
-                                                <td th:text="${user.username}"></td>
-                                                <td th:text="${user.status.name}"></td>
-                                                <td th:text="${user.isVerified}==true ? Active : NonActive"></td>
-                                                <td class='form-inline'>
-                                                    <button class="btn btn-warning fa fa-sm fa-eye" href="#" data-toggle="modal" data-target="#userModal"
-                                                            th:em="${user.employee.name}"
-                                                            th:username="${user.username}"
-                                                            th:status="${user.status.name}"
-                                                            th:isVerified="${user.isVerified}"
-                                                            th:onclick="btnEdit(this.getAttribute('em'),this.getAttribute('username'),this.getAttribute('status'),this.getAttribute('isVerified'))"></button>
-                                                    <!--<button class="btn btn-danger delete-confirm mx-1 deleteUser"><i class="fa fa-sm fa-trash  mx-1"></i></button>-->        
-
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                      
+                        <!--modal-->
+                        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Create</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="#" >
+                                            <input type="hidden" class="form-control" th:id="id" th:name="id">
+                                            <div class="form-group" id="employeeItem">
+                                                <label for="employee">Employee</label><br>
+                                                <select class="form-control userEmployee col-xl-2" th:name="employee" th:id="employee">
+                                                    <option value="">Select Employee</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group" id="statusItem">
+                                                <label for="status">Status</label><br>
+                                                <select class="form-control" th:name="status" th:id="status">
+                                                    <!--<option value="">Select Status</option>-->
+                                                    <option th:each="stat:${statuses}" th:text="${stat.name}" th:value="${stat.id}"></option>
+                                                </select>
+                                            </div>
 
+                                            <div class="form-group" id="verifItem">
+                                                <label for="isVerified">Verified</label><br>
+                                                <select class="form-control" th:name="isVerified" th:id="isVerified">
+                                                    <!--<option value="">Select Verified</option>-->
+                                                    <option value="true">Active</option>
+                                                    <option value="false">NonActive</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary save" th:onclick="btnSave()">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end modal-->
                     </div>
                     <!-- /.container-fluid -->
 
                 </div>
                 <!-- End of Main Content -->
-
+                <script th:src="@{../js/admin/admin-user.js}" ></script>
                 <!-- Footer -->
                 <footer th:replace="layout/footer-layout::footer_layout"></footer>
 
@@ -87,70 +115,6 @@
 
             </div>
             <!-- End of Content Wrapper -->
-
-            <!--modal-->
-            <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Create</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form th:id="formRegion" th:object="${user}" class="needs-validation" novalidate>
-                                
-                                <div class="form-group">
-                                    <label for="employee">Employee</label><br>
-                                    <select class="form-control userEmployee" th:name="employee" th:id="employee" w-100 required>
-                                        <option>Select Status</option>
-                                        <!--<option th:each="employee:${employees}" th:text="${employee.name}" th:id="employee" th:value="${employee.id}" ></option>-->
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please input Name.
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="status">Status</label><br>
-                                    <select class="form-control userStatus" th:name="status" th:id="status" required>
-                                        <option value="">Select Status</option>
-                                        <option th:each="stat:${statuses}" th:text="${stat.name}" th:id="status"></option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please input Name.
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" th:name="username" th:id="username" required>
-                                    <div class="invalid-feedback">
-                                        Please input ID.
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="isVerified">Verified</label><br>
-                                    <select class="form-control userisVerified" th:name="isVerified" th:id="isVerified" required>
-                                        <option value="">Select Verified</option>
-                                        <option value="true">Active</option>
-                                        <option value="false">NonActive</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please input Name.
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary save" th:onclick="add()">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--end modal-->
-            <script th:src="@{../js/admin/admin-user.js}" ></script>
         </div>
         <!-- End of Page Wrapper -->
 

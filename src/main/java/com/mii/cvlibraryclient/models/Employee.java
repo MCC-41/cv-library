@@ -10,7 +10,7 @@ package com.mii.cvlibraryclient.models;
  * @author Adhi
  */
 public class Employee {
-    
+
     private Integer id;
     private String email;
     private String name;
@@ -19,11 +19,12 @@ public class Employee {
     private String status;
     private String gender;
     private Religion religion;
+    private String photo;
 
     public Employee() {
     }
 
-    public Employee(Integer id, String email, String name, String dateBirth, String nation, String status, String gender, Religion religion) {
+    public Employee(Integer id, String email, String name, String dateBirth, String nation, String status, String gender, Religion religion, String photo) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -32,6 +33,11 @@ public class Employee {
         this.status = status;
         this.gender = gender;
         this.religion = religion;
+        this.photo = photo;
+    }
+
+    public Employee(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Integer getId() {
@@ -90,11 +96,20 @@ public class Employee {
         this.gender = gender;
     }
 
-    public Religion getIdReligion() {
+    public Religion getReligion() {
         return religion;
     }
 
-    public void setIdReligion(Religion religion) {
+    public void setReligion(Religion religion) {
         this.religion = religion;
     }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+    
 }

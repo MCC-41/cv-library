@@ -58,9 +58,9 @@ public class UserService {
         return response.getBody();
     }
     
-    public ResponseMessage<User> update(User user){
+    public ResponseMessage<User> update(Integer id,User user){
         ResponseEntity<ResponseMessage<User>> response
-                = restTemplate.exchange(url + "/user", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/user/"+id, HttpMethod.PUT, 
                         new HttpEntity<>(user, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<User>>() {});
         return response.getBody();
@@ -68,8 +68,8 @@ public class UserService {
     }
     
     public ResponseMessage<User> delete(Integer id){
-        ResponseEntity<ResponseMessage<User>> response 
-                = restTemplate.exchange(url + "/user" + id, HttpMethod.DELETE, 
+        ResponseEntity<ResponseMessage<User>> response
+                = restTemplate.exchange(url + "/user/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<User>>() {});
         return response.getBody();

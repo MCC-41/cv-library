@@ -4,15 +4,32 @@
  * and open the template in the editor.
  */
 
+/* global Swal */
+
 var table;
 
 $('document').ready(() => {
+    window.addEventListener('load', function () {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }else{
+                    save();
+                }
+                form.classList.add('was-validated');
+                
+            }, false);
+        });
+    }, false);
     getAll();
 });
 
 function getAll() {
     table = $('#religionTable').DataTable({
-        'sAjaxSource': '/religion',
+        'sAjaxSource': '/religion/all',
         'sAjaxDataProp': '',
         'columns': [
             {'data': 'name'},
@@ -39,8 +56,8 @@ function getAll() {
     });
 }
 
-function add(){
-    setForm('','');
+function btnAdd() {
+    setForm('', '');
     setEnabledField(false);
 }
 
@@ -54,64 +71,64 @@ function setEnabledField(isEnabled) {
     $('#name').prop('disabled', isEnabled);
 }
 
-function save(){
+function save() {
     let id = $('#id').val();
     let name = $('#name').val();
     var religion = {
-        "name":name
+        "name": name
     };
     if (id === "") {
         add(religion);
     } else {
         update(id, religion);
     }
-    
+
 }
-function add(religion){
+function add(religion) {
     $.ajax({
         contentType: 'application/json',
         type: 'POST',
         url: "/religion",
         data: JSON.stringify(religion),
-        success: function(data){
+        success: function (data) {
             Swal.fire(
                     'Added!',
-                   'Your file has been Added.',
+                    'Your file has been Added.',
                     'success');
-                $('#religionModal').modal('hide');
-                table.destroy();
-                getAll();
-                },
-        error: function(data){
+            $('#religionModal').modal('hide');
+            table.destroy();
+            getAll();
+        },
+        error: function (data) {
             Swal.fire(
                     'Failed!',
                     'Your file cannot be Added.',
                     'error'
                     );
         }
-        
+
     });
 }
 
-function updateBtn(id, name){
-    setForm(id,name);
+function updateBtn(id, name) {
+    setForm(id, name);
     setEnabledField(false);
 }
 
-function update(id,religion){
+function update(id, religion) {
     $.ajax({
         contentType: 'application/json',
         type: 'PUT',
         url: "/religion/" + id,
         data: JSON.stringify(religion),
-        success: function(data){
+        success: function (data) {
             Swal.fire(
                     'Update!',
                     'Your file has been Update',
                     'success'
                     );
             $('#religionModal').modal('hide');
-            table.destroy;
+            table.destroy();
             getAll();
         },
         error: function (data) {

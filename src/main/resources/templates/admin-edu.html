@@ -1,234 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="layout/head-layout :: head_layout"></head>
+    <head th:replace="layout/head-layout :: head_layout"></head>
 
-<body id="page-top">
+    <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-        
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
-        <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Sidebar -->
+            <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
+            <!-- End of Sidebar -->
 
-            <!-- Main Content -->
-            <div id="content">
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
 
-                <!-- Topbar -->
-                <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
-                
-                <!-- End of Topbar -->
+                <!-- Main Content -->
+                <div id="content">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                    <!-- Topbar -->
+                    <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#universityModal" th:id="btn-add-universitas">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                                <span class="text">Add</span>
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="univTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>University</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#universityModal" th:onclick="add()">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Add</span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="univTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>University</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        
-                        <div class="card-header py-3">
-                        </div>
-                        <div class="card-body">
-                            <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#majorModal">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                                <span class="text">Add</span>
-                            </button>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="majorTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Major</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+
+                            <div class="card-header py-3">
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#majorModal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Add</span>
+                                </button>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="majorTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Major</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            
-                        </div>
-                        <div class="card-body">
-                            <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#levelModal">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                                <span class="text">Add</span>
-                            </button>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="levelTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Level</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#levelModal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Add</span>
+                                </button>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="levelTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Level</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
+
+
                     </div>
-                    
+                    <!-- /.container-fluid -->
 
                 </div>
-                <!-- /.container-fluid -->
+                <!-- End of Main Content -->
+
+                <!-- MODAL MAJOR -->
+                <div class="modal fade" id="majorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Major</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action='#'>
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" th:name="id" th:id="id">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name"> Name </label>
+                                        <input type="text" class="form-control" th:name="name" th:id="name">
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="btn-save-major" th:onclick="saveMajor()">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end-->
+
+                <!-- LEVEL MODAL -->
+                <div class="modal fade" id="levelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Level</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action='#'>
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" th:name="idLevel" th:id="idLevel">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nameLevel"> Name </label>
+                                        <input type="text" class="form-control" th:name="nameLevel" th:id="nameLevel">
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="btn-save" th:onclick="saveLevel()">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end-->
+                <!--MODAL UNIVERSITY-->
+                <div class="modal fade" id="universityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">University</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action='#' th:id="formUniversity">
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" th:name="idUniversity" th:id="idUniversity">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name"> Name </label>
+                                        <input type="text" class="form-control" th:name="nameUniversity" th:id="nameUniversity">
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" th:onclick="saveUniversity()">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--END MODAL UNIVERSITY-->
+
+
+
+                <script th:src="@{../js/admin/admin-university.js}" ></script>
+                <script th:src="@{../js/admin/admin-major.js}" ></script>
+                <script th:src="@{../js/admin/admin-level.js}" ></script>
+                <!-- Footer -->
+                <footer th:replace="layout/footer-layout::footer_layout"></footer>
+
+
+                <!-- End of Footer -->
 
             </div>
-            <!-- End of Main Content -->
-            
-            <!-- MODAL MAJOR -->
-                            <div class="modal fade" id="majorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Major</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action='#'>
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" th:name="id" th:id="id">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="name"> Name </label>
-                                                    <input type="text" class="form-control" th:name="name" th:id="name">
-
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary" id="btn-save-major" th:onclick="saveMajor()">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end-->
-                            
-                            <!-- LEVEL MODAL -->
-                            <div class="modal fade" id="levelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Level</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action='#'>
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" th:name="idLevel" th:id="idLevel">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="nameLevel"> Name </label>
-                                                    <input type="text" class="form-control" th:name="nameLevel" th:id="nameLevel">
-
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary" id="btn-save" th:onclick="saveLevel()">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end-->
-                            <!--MODAL UNIVERSITY-->
-                            <div class="modal fade" id="universityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">University</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action='#' th:id="formUniversity">
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" th:name="idUniversity" th:id="idUniversity">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="name"> Name </label>
-                                                    <input type="text" class="form-control" th:name="nameUniversity" th:id="nameUniversity">
-
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary" id="btn-save-university" th:onclick="addUniversity()">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!--END MODAL UNIVERSITY-->
-                            
-            
-            
-            
-            <script th:src="@{../js/admin/admin-major.js}" ></script>
-            <script th:src="@{../js/admin/admin-level.js}" ></script>
-            <script th:src="@{../js/admin/admin-university.js}" ></script>
-            
-            <!-- Footer -->
-            <footer th:replace="layout/footer-layout::footer_layout"></footer>
-            
-            
-            <!-- End of Footer -->
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
 
-    
-    
-    
 
-</body>
+
+
+    </body>
 
 </html>

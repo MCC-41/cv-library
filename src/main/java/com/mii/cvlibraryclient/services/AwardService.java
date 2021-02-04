@@ -86,4 +86,11 @@ public class AwardService {
         return response.getBody();
     }
     
+    public ResponseList<Award> getAllByEmployee(Integer id){
+        ResponseEntity<ResponseList<Award>> response 
+                = restTemplate.exchange(url + "/award/" + id + "/employee", HttpMethod.GET, 
+                        new HttpEntity<>(service.createHeaders()), 
+                        new ParameterizedTypeReference<ResponseList<Award>>(){});
+        return response.getBody();
+    }
 }

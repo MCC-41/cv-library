@@ -4,15 +4,32 @@
  * and open the template in the editor.
  */
 
-var table;
+/* global Swal */
+
+var tableMajor;
 
 $('document').ready(() => {
+    window.addEventListener('load', function () {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    save();
+                }
+                form.classList.add('was-validated');
+
+            }, false);
+        });
+    }, false);
     getAll();
 });
 
 function getAll() {
-    table = $('#majorTable').DataTable({
-        'sAjaxSource': '/major',
+    tableMajor = $('#majorTable').DataTable({
+        'sAjaxSource': '/major/all',
         'sAjaxDataProp': '',
         'columns': [
             {'data': 'name'},
@@ -25,11 +42,11 @@ function getAll() {
                                 <button class="btn btn-warning float-left mr-1" 
                                         id="${row.id}"
                                         name="${row.name}"
-                                        onclick="updateBtnMajor(this.getAttribute('id'),this.getAttribute('name'))"
+                                        onclick="edit(this.getAttribute('id'),this.getAttribute('name'))"
                                         data-toggle="modal" data-target="#majorModal"><i class="fas fa-edit"></i></button>
                                 <button class="btn btn-danger float-left" 
                                         id="${row.id}"
-                                        onclick="deletedMajor(this.getAttribute('id'))"><i class="fas fa-trash-alt"></i></button>
+                                        onclick="deleted(this.getAttribute('id'))"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr>
                     `;
@@ -39,79 +56,71 @@ function getAll() {
     });
 }
 
-function add(){
-    setForm('','');
-    setEnabledField(false);
+function add() {
+    setForm('', '');
 }
 
 function setForm(id, name) {
     $('#id').val(id);
     $('#name').val(name);
 }
-
-function setEnabledField(isEnabled) {
-    $('#name').prop('disabled', isEnabled);
-}
-
-function saveMajor(){
+function save() {
     let id = $('#id').val();
     let name = $('#name').val();
     var major = {
-        "name":name
+        "name": name
     };
-    if(id===""){
+    if (id === "") {
         addMajor(major);
+    } else {
+        updateMajor(id, major);
     }
-    else {
-        updateMajor(id, major)
-    }
-    
+
 }
-function addMajor(major){
+function addMajor(major) {
     $.ajax({
         contentType: 'application/json',
         type: 'POST',
-       url: "/major",
+        url: "/major",
         data: JSON.stringify(major),
-        success: function(data){
+        success: function (data) {
             Swal.fire(
                     'Added!',
-                   'Your file has been Added.',
+                    'Your file has been Added.',
                     'success');
-                $('#majorModal').modal('hide');
-                table.destroy();
-                getAll();
-                },
-        error: function(data){
+            $('#majorModal').modal('hide');
+            tableMajor.destroy();
+            getAll();
+        },
+        error: function (data) {
             Swal.fire(
                     'Failed!',
                     'Your file cannot be Added.',
                     'error'
                     );
         }
-        
+
     });
 }
 
-function updateBtnMajor(id, name){
-    setForm(id,name);
-    setEnabledField(false);
+function edit(id, name) {
+    setForm(id, name);
 }
 
-function updateMajor(id,major){
+function updateMajor(id, major) {
     $.ajax({
         contentType: 'application/json',
         type: 'PUT',
-        url: "/major/add/" + id,
+        url: "/major/" + id,
         data: JSON.stringify(major),
-        success: function(data){
+        success: function (data) {
             Swal.fire(
                     'Update!',
                     'Your file has been Update',
                     'success'
                     );
             $('#majorModal').modal('hide');
-            table.destroy;
+            tableMajor.destroy();
             getAll();
         },
         error: function (data) {
@@ -124,7 +133,7 @@ function updateMajor(id,major){
     });
 }
 
-function deletedMajor(id) {
+function deleted(id) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -145,7 +154,7 @@ function deletedMajor(id) {
                             'success'
                             );
                     $('#majorModal').modal('hide');
-                    table.destroy();
+                    tableMajor.destroy();
                     getAll();
                 },
 

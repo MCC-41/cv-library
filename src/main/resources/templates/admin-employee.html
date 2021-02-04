@@ -1,114 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="layout/head-layout :: head_layout"></head>
+    <head th:replace="layout/head-layout :: head_layout"></head>
 
-<body id="page-top">
+    <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-        
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
-        <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Sidebar -->
+            <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
+            <!-- End of Sidebar -->
 
-            <!-- Main Content -->
-            <div id="content">
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
 
-                <!-- Topbar -->
-                <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
-                
-                <!-- End of Topbar -->
+                <!-- Main Content -->
+                <div id="content">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                    <!-- Topbar -->
+                    <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#employeeModal">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                                <span class="text">Add</span>
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="religionTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Email</th>
-                                            <th>Name</th>
-                                            <th>Date Birth</th>
-                                            <th>Nation</th>
-                                            <th>Status</th>
-                                            <th>Gender</th>
-                                            <th>Religion</th>
-                                            <th>Photo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#employeeModal" th:onclick="btnAdd()">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Add</span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="employeeTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Date Birth</th>
+                                                <th>Nation</th>
+                                                <th>Status</th>
+                                                <th>Gender</th>
+                                                <th>Religion</th>
+                                                <th>Photo</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
+
+
                     </div>
-                    
-
-                </div>
-                <!-- /.container-fluid -->
-                <!-- MODAL -->
-                            <div class="modal fade" id="religionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Religion</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                    <!-- /.container-fluid -->
+                    <!-- MODAL -->
+                    <div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Personal</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="#" class="needs-validation" novalidate>
+                                        <input type="hidden" class="form-control" th:id="id" th:name="id">
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" th:id="name" th:name="name" required>
+                                            <div class="invalid-feedback">
+                                                Please input Name.
+                                            </div>
                                         </div>
-                                        <div class="modal-body">
-                                            <form action="#">
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" id="id" th:name="id">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="name"> Religion </label>
-                                                    <input type="text" class="form-control" th:name="name" id="name">
-
-                                                </div>
-                                            </form>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" th:id="email" th:name="email" required>
+                                            <div class="invalid-feedback">
+                                                Please input Email.
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="birth">Date Birth</label>
+                                            <input type="date" class="form-control" th:id="dateBirth" th:name="dateBirth" required>
+                                            <div class="invalid-feedback">
+                                                Please input Date Birth.
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nation">Nation</label>
+                                            <input type="text" class="form-control" th:id="nation" th:name="nation" required>
+                                            <div class="invalid-feedback">
+                                                Please input Nation.
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="status">Status</label>
+                                            <select class="form-control" th:id="status" th:name="status" required>
+                                                <option value="">Select Type</option>
+                                                <option value="Single" >Single</option>
+                                                <option value="Married" >Married</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please input Status.
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="gender">Gender</label>
+                                            <select class="form-control" th:id="gender" th:name="gender" required>
+                                                <option value="">Select Type</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please input Gender.
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="religion">Religion</label>
+                                            <select class="form-control" th:id="religion" th:name="religion" required>
+                                                <option value="">Select Type</option>
+                                                <option th:each="religion : ${religions}" th:text="${religion.name}" th:value="${religion.id}" ></option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please input Religion.
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="photo">Photo</label>
+                                            <input type="file" class="form-control" th:id="photo" th:name="photo" >
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary" th:onclick="save()">Save changes</button>
+                                            <button type="submit" class="btn btn-primary" >Save</button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
+
                             </div>
-            <!--end-->
+                        </div>
+                    </div>
+                    <!--end-->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <script th:src="@{../js/admin/admin-employee.js}" ></script>
+                <!-- Footer -->
+                <footer th:replace="layout/footer-layout::footer_layout"></footer>
+
+                <!-- End of Footer -->
+
 
             </div>
-            <!-- End of Main Content -->
-            
-            <script th:src="@{../js/admin/admin-religion.js}" ></script>
-            <!-- Footer -->
-            <footer th:replace="layout/footer-layout::footer_layout"></footer>
-            
-            <!-- End of Footer -->
-            
+            <!-- End of Content Wrapper -->
+
 
         </div>
-        <!-- End of Content Wrapper -->
-         
+        <!-- End of Page Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
-
-</body>
+    </body>
 
 </html>

@@ -91,6 +91,14 @@ public class EducationService {
                         new ParameterizedTypeReference<ResponseList<Education>>(){});
         return response.getBody();
     }
+    
+    public ResponseList<Education> getAllByEmployee(Integer id){
+        ResponseEntity<ResponseList<Education>> response 
+                = restTemplate.exchange(url + "/education/" + id +"/employee", HttpMethod.GET, 
+                        new HttpEntity<>(service.createHeaders()), 
+                        new ParameterizedTypeReference<ResponseList<Education>>(){});
+        return response.getBody();
+    }
 }
 
     

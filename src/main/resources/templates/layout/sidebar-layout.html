@@ -23,6 +23,11 @@ and open the template in the editor.
             </li>
             
            <!-- Nav Item - Pages Collapse Menu -->
+           <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-link" th:href="@{employee-master}">
+                    <i class="fas fa-eye"></i>
+                    <span>Employee</span></a>
+            </li>
             <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -50,8 +55,11 @@ and open the template in the editor.
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Master Data:</h6>
-                        <a class="collapse-item" th:href="@{adminreligion}">Religion</a>
-                        <a class="collapse-item" th:href="@{adminedu}">Education</a>
+                        <a class="collapse-item" th:href="@{religion}">Religion</a>
+                        <!--<a class="collapse-item" th:href="@{education-master}">Education</a>-->
+                        <a class="collapse-item" th:href="@{university}">University</a>
+                        <a class="collapse-item" th:href="@{major}">Major</a>
+                        <a class="collapse-item" th:href="@{level}">Level</a>
                         <a class="collapse-item" th:href="@{admintech}">Technical Type</a>
                         <a class="collapse-item" th:href="@{admintraining}">Training Type</a>
                     </div>
@@ -79,17 +87,14 @@ and open the template in the editor.
                     </div>
                 </div>
             </li>
-            
-            
-
             <li class="nav-item" sec:authorize="hasRole('USER')">
-                <a class="nav-link" th:href="@{employee-detail}">
+                <a class="nav-link" th:href="@{detail}">
                     <i class="fas fa-eye"></i>
                     <span>Detail CV</span></a>
             </li>
             
             <li class="nav-item" sec:authorize="hasRole('RM')">
-                <a class="nav-link" th:href="@{rm-employee}">
+                <a class="nav-link" th:href="@{rm}">
                     <i class="fas fa-eye"></i>
                     <span>Employee</span></a>
             </li>

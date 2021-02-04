@@ -17,6 +17,7 @@ import com.mii.cvlibraryclient.services.TrainingService;
 import com.mii.cvlibraryclient.services.WorkService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +29,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author Adhi
  */
-@RequestMapping("rm-employee")
 @Controller
+@RequestMapping("")
+@PreAuthorize("hasAnyRole('ROLE_RM')")
 public class EmployeeRmController {
     
     @Autowired
@@ -51,30 +53,33 @@ public class EmployeeRmController {
     @Autowired
     private LoginService loginService;
     
-    @GetMapping("/{id}")
+    @GetMapping("rm-employee/{id}")
     public String page(Model model, @PathVariable Integer id){
-//        model.addAttribute("employees", employeeService.getAll());
-        model.addAttribute("educations", educationService.getAllById(id));
-//        model.addAttribute("levels",service.getAll().getData());
-//        model.addAttribute("majors",serviceMajor.getAll().getData());
-//        model.addAttribute("universities",serviceUniversity.getAll().getData());
+        model.addAttribute("employees", employeeService.getById(id).getData());
+        model.addAttribute("educations", educationService.getAllByEmployee(id).getData());
+        model.addAttribute("technicals", technicalService.getAllByEmployee(id).getData());
+        model.addAttribute("works", workService.getAllByEmployee(id).getData());
+        model.addAttribute("trainings", trainingService.getAllByEmployee(id).getData());
+        model.addAttribute("organizations", organizationService.getAllByEmployee(id).getData());
+        model.addAttribute("experiences", experienceService.getAllByEmployee(id).getData());
+        model.addAttribute("awards", awardService.getAllByEmployee(id).getData());
         return "rm-employee-detail";
     }
     
     
-    @GetMapping("")
+    @GetMapping("rm-employee")
     public String home(Model model){
         model.addAttribute("employees" , employeeService.getAll().getData());
         System.out.println(employeeService.getAll().getData());
         return "rm-employee";
     }
     
-    @GetMapping("detail")
+    @GetMapping("rm-employee-detail")
     public String detail(){
         return "rm-employee-detail";
     }
     
-    @GetMapping("all")
+    @GetMapping("rm-employee/all")
     public @ResponseBody List<Employee> getAll(){
         return employeeService.getAll().getData();
     }

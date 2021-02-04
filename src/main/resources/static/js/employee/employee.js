@@ -5,8 +5,6 @@
  */
 /* global Swal */
 
-var table;
-
 $('document').ready(() => {
     setForms(true);
     $('#Cancel').hide();
@@ -51,7 +49,10 @@ function save() {
     let status = $('#status').val();
     let gender = $('#gender').val();
     let religion = $('#religion').val();
-    let photo = $('#photo').val();
+//    let photo = $('#photo').val();
+    let photo = new FormData();
+    photo.append('file',$('#photo')[0].files[0]);
+    
     console.log(id);
     console.log(name);
     console.log(email);
@@ -61,31 +62,52 @@ function save() {
     console.log(gender);
     console.log(religion);
     console.log(photo);
+    if(photo===null){
+        update2(id, name, email, birth, nation, status, gender, religion, photo);
+    }else{
+        update(id, name, email, birth, nation, status, gender, religion, photo);
+    }
     
-    var employee = {
-        "name": name,
-        "institution": institution,
-        "year": year,
-        "trainingType": {
-            "id": type
-        },
-        "file": file
-    };
-
-//    update(id, employee);
 }
-function update(id, employee) {
+function update(id, name, email, birth, nation, status, gender, religion, photo) {
     $.ajax({
-        contentType: 'application/json',
+        enctype: 'multipart/form-data',
+        contentType: false,
+        processData: false,
         type: 'PUT',
-        url: "/employee/" + id,
-        data: JSON.stringify(employee),
+        url: "/employee/" + id + "?" + $.param({name: name,email: email,dateBirth: birth, nation: nation, status: status, gender: gender, religion: religion}),
+        data: photo,
+        success: function (data) {
+            console.log(data);
+            Swal.fire(
+                    'Added!',
+                    'Your file has been Updated.',
+                    'success'
+                    );
+            cancel();
+        },
+        error: function (data) {
+            Swal.fire(
+                    'Failed!',
+                    'Your file cannot be Updated.',
+                    'error'
+                    );
+        }
+    });
+}
+function update2(id, name, email, birth, nation, status, gender, religion, photo) {
+    $.ajax({
+        contentType: false,
+        processData: false,
+        type: 'PUT',
+        url: "/employee/" + id + "?" + $.param({name: name,email: email,dateBirth: birth, nation: nation, status: status, gender: gender, religion: religion}),
         success: function (data) {
             Swal.fire(
                     'Added!',
                     'Your file has been Updated.',
                     'success'
                     );
+            cancel();
         },
         error: function (data) {
             Swal.fire(

@@ -5,7 +5,6 @@
  */
 package com.mii.cvlibraryclient.controllers;
 
-import com.mii.cvlibraryclient.services.EducationService;
 import com.mii.cvlibraryclient.services.EmployeeService;
 import com.mii.cvlibraryclient.services.LevelService;
 import com.mii.cvlibraryclient.services.MajorService;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -56,29 +54,29 @@ public class CvController {
         return "admin-permission";
     }
     
-    @GetMapping("adminreligion")
-    public String adminReligion() {
-        return "admin-religion";
-    }
+//    @GetMapping("adminreligion")
+//    public String adminReligion() {
+//        return "admin-religion";
+//    }
     
-    @GetMapping("adminedu")
-    public String adminEdu(Model model) {
-        model.addAttribute("levels",service.getAll().getData());
-        model.addAttribute("majors",serviceMajor.getAll().getData());
-        model.addAttribute("universities",serviceUniversity.getAll().getData());
-        System.out.println(service.getAll().getData());
-        return "admin-edu";
-    }
+//    @GetMapping("adminedu")
+//    public String adminEdu(Model model) {
+//        model.addAttribute("levels",service.getAll().getData());
+//        model.addAttribute("majors",serviceMajor.getAll().getData());
+//        model.addAttribute("universities",serviceUniversity.getAll().getData());
+//        System.out.println(service.getAll().getData());
+//        return "admin-edu";
+//    }
     
     @GetMapping("admintech")
     public String adminTech() {
         return "admin-tech";
     }
     
-//    @GetMapping("admintraining")
-//    public String adminTraining() {
-//        return "admin-training";
-//    }
+    @GetMapping("admintraining")
+    public String adminTraining() {
+        return "admin-training";
+    }
     
 //    @GetMapping("employee")
 //    public String employeePersonal(){

@@ -3,15 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/* global Swal */
+
 var tableLevel;
 
 $('document').ready(() => {
+    window.addEventListener('load', function () {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    save();
+                }
+                form.classList.add('was-validated');
+
+            }, false);
+        });
+    }, false);
     getAllLevel();
 });
 
 function getAllLevel() {
     tableLevel = $('#levelTable').DataTable({
-        'sAjaxSource': '/level',
+        'sAjaxSource': '/level/all',
         'sAjaxDataProp': '',
         'columns': [
             {'data': 'name'},
@@ -37,80 +54,73 @@ function getAllLevel() {
     });
 }
 
-function add(){
-    setForm('','');
-    setEnabledField(false);
+function add() {
+    setForm('', '');
 }
 
 function setForm(id, name) {
-    $('#idLevel').val(id);
-    $('#nameLevel').val(name);
+    $('#id').val(id);
+    $('#name').val(name);
 }
 
-function setEnabledField(isEnabled) {
-    $('#nameLevel').prop('disabled', isEnabled);
-}
-
-function saveLevel(){
-    let id = $('#idLevel').val();
-    let name = $('#nameLevel').val();
+function save() {
+    let id = $('#id').val();
+    let name = $('#name').val();
     var level = {
-        "name":name
+        "name": name
     };
     if (id === "") {
-        add(level);
+        insert(level);
     } else {
         update(id, level);
     }
-    
+
 }
-function add(level){
+function insert(level) {
     $.ajax({
         contentType: 'application/json',
         type: 'POST',
         url: "/level",
-        data: JSON.stringify(technicalType),
-        success: function(data){
+        data: JSON.stringify(level),
+        success: function (data) {
             Swal.fire(
                     'Added!',
-                   'Your file has been Added.',
+                    'Your file has been Added.',
                     'success');
-                $('#levelModal').modal('hide');
-                tableLevel.destroy();
-                getAllLevel();
-                },
-        error: function(data){
+            $('#levelModal').modal('hide');
+            tableLevel.destroy();
+            getAllLevel();
+        },
+        error: function (data) {
             Swal.fire(
                     'Failed!',
                     'Your file cannot be Added.',
                     'error'
                     );
         }
-        
+
     });
 }
 
-function updateBtn(id, name){
-    setForm(id,name);
-    console.log(name);
-    setEnabledField(false);
+function updateBtn(id, name) {
+    setForm(id, name);
 }
 
-function update(id,level){
+function update(id, level) {
     $.ajax({
         contentType: 'application/json',
         type: 'PUT',
         url: "/level/" + id,
-        data: JSON.stringify(technicalType),
-        success: function(data){
+        data: JSON.stringify(level),
+        success: function (data) {
             Swal.fire(
                     'Update!',
                     'Your file has been Update',
                     'success'
                     );
             $('#levelModal').modal('hide');
-            tableLEvel.destroy;
-            getAll();
+            tableLevel.destroy();
+            getAllLevel();
         },
         error: function (data) {
             Swal.fire(

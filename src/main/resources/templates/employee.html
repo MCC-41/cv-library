@@ -35,7 +35,7 @@ and open the template in the editor.
                         <div class="card">
                             <div class="card-header">Personal</div>
                             <div class="card-body" >
-                                <form action="#" method="#">
+                                <form action="#">
                                     <input type="hidden" class="form-control" th:id="id" th:name="id" th:value="${employees.id}">
                                     <div class="form-group">
                                         <label for="name">Name</label>
@@ -57,28 +57,28 @@ and open the template in the editor.
                                         <label for="status">Status</label>
                                         <select class="form-control" th:id="status" th:value="${employees.status}">
                                             <option value="">Select Type</option>
-                                            <option value="0">Single</option>
-                                            <option value="1">Married</option>
+                                            <option value="Single" th:selected="Single==${employees.status}">Single</option>
+                                            <option value="Married" th:selected="Married==${employees.status}">Married</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="gender">Gender</label>
                                         <select class="form-control" th:id="gender" th:value="${employees.gender}">
                                             <option value="">Select Type</option>
-                                            <option value="0">Male</option>
-                                            <option value="1">Female</option>
+                                            <option value="Male" th:selected="Male==${employees.gender}">Male</option>
+                                            <option value="Female" th:selected="Female==${employees.gender}">Female</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="religion">Religion</label>
                                         <select class="form-control" th:id="religion">
                                             <option value="">Select Type</option>
-                                            <option th:each="religion : ${religions}" th:text="${religion.name}" th:value="${religion.id}" ></option>
+                                            <option th:each="religion : ${religions}" th:text="${religion.name}" th:value="${religion.id}" th:selected="${religion.id}==${employees.religion.id}"></option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="photo">Photo</label>
-                                        <input type="file" class="form-control" th:id="photo" th:name="photo" >
+                                        <input type="file" class="form-control" th:id="photo" th:name="photo" th:value="${employees.photo}">
                                     </div>
                                     <div>
                                         <div class="float-left">
@@ -118,7 +118,7 @@ and open the template in the editor.
 
                     <!-- End of Main Content -->
                     <!-- MODAL -->
-                    <div class="modal fade" id="editEmployee" tabindex="-1" role="dialog" aria-labelledby="modalEmployeeLabel" aria-hidden="true">
+<!--                    <div class="modal fade" id="editEmployee" tabindex="-1" role="dialog" aria-labelledby="modalEmployeeLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -179,7 +179,7 @@ and open the template in the editor.
 
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <!--end-->
 
                     <!-- Footer -->

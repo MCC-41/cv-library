@@ -12,6 +12,7 @@ import com.mii.cvlibraryclient.services.MajorService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,11 @@ public class MajorController {
     private MajorService majorService;
     
     @GetMapping("")
+    public String page(Model model){
+        return "admin-major";
+    }
+    
+    @GetMapping("all")
     @ResponseBody
     public List<Major> major(){
         List<Major> major = majorService.getAll().getData();
@@ -52,9 +58,9 @@ public class MajorController {
         return majorService.insert(major);
     }
     
-    @PutMapping("add/{id}")
+    @PutMapping("/{id}")
     @ResponseBody
-    public ResponseMessage<Major> update(@PathVariable Integer id, Major major){
+    public ResponseMessage<Major> update(@PathVariable Integer id,@RequestBody Major major){
         return majorService.update(id, major);
     }
     

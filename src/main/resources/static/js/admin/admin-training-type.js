@@ -5,9 +5,26 @@
  */
 
 
+/* global Swal */
+
 var table;
 
 $('document').ready(() => {
+    window.addEventListener('load', function () {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    save();
+                }
+                form.classList.add('was-validated');
+
+            }, false);
+        });
+    }, false);
     getAll();
 });
 
@@ -40,8 +57,8 @@ function getAll() {
     });
 }
 
-function add(){
-    setForm('','');
+function add() {
+    setForm('', '');
     setEnabledField(false);
 }
 
@@ -56,64 +73,64 @@ function setEnabledField(isEnabled) {
 }
 
 
-function save(){
+function save() {
     let id = $('#id').val();
     let name = $('#name').val();
     var trainingType = {
-        "name":name
+        "name": name
     };
     if (id === "") {
         add(trainingType);
     } else {
         update(id, trainingType);
     }
-    
+
 }
-function add(trainingType){
+function add(trainingType) {
     $.ajax({
         contentType: 'application/json',
         type: 'POST',
         url: "/training_type",
         data: JSON.stringify(trainingType),
-        success: function(data){
+        success: function (data) {
             Swal.fire(
                     'Added!',
-                   'Your file has been Added.',
+                    'Your file has been Added.',
                     'success');
-                $('#trainingTypeModal').modal('hide');
-                table.destroy();
-                getAll();
-                },
-        error: function(data){
+            $('#trainingTypeModal').modal('hide');
+            table.destroy();
+            getAll();
+        },
+        error: function (data) {
             Swal.fire(
                     'Failed!',
                     'Your file cannot be Added.',
                     'error'
                     );
         }
-        
+
     });
 }
 
-function updateBtn(id, name){
-    setForm(id,name);
+function updateBtn(id, name) {
+    setForm(id, name);
     setEnabledField(false);
 }
 
-function update(id,trainingType){
+function update(id, trainingType) {
     $.ajax({
         contentType: 'application/json',
         type: 'PUT',
         url: "/training_type/" + id,
         data: JSON.stringify(trainingType),
-        success: function(data){
+        success: function (data) {
             Swal.fire(
                     'Update!',
                     'Your file has been Update',
                     'success'
                     );
             $('#trainingTypeModal').modal('hide');
-            table.destroy;
+            table.destroy();
             getAll();
         },
         error: function (data) {

@@ -5,8 +5,6 @@
  */
 package com.mii.cvlibraryclient.models;
 
-import lombok.Data;
-
 /**
  *
  * @author Adhi

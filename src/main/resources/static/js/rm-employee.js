@@ -43,7 +43,7 @@ function getAll() {
                                       </tr>
                                       <tr>
                                         <td colspan="2" align="center" th:height="50px">
-                                             <a class="btn btn-primary btn-block" href="rm-employee/detail" ><i class="fas fa-eye"></i>Detail</a>
+                                             <a class="btn btn-primary btn-block" href="rm-employee/${data[item].id}" ><i class="fas fa-eye"></i>Detail</a>
                                         </td>
                                       </tr>
 
