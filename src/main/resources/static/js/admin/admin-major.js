@@ -61,8 +61,8 @@ function add() {
 }
 
 function setForm(id, name) {
-    $('#id').val(id);
-    $('#name').val(name);
+    $('#idMajor').val(id);
+    $('#nameMajor').val(name);
 }
 function save() {
     let id = $('#id').val();

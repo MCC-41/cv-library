@@ -44,7 +44,7 @@ public class UserService {
     
     public ResponseData<User> getById(Integer id){
         ResponseEntity<ResponseData<User>> response
-                = restTemplate.exchange(url + "/user" + id, HttpMethod.GET, 
+                = restTemplate.exchange(url + "/user/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseData<User>>(){});
         return response.getBody();

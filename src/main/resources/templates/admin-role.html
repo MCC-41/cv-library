@@ -29,7 +29,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#roleModal" th:id="btn-add-religion">
+                            <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#roleModal">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-plus"></i>
                                 </span>
@@ -54,11 +54,16 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">User Role</h6>
+                            <button class="btn btn-success btn-icon-split mb-2" data-toggle="modal" data-target="#userRoleModal" th:onclick="btnAdd()">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span class="text">Add</span>
+                            </button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="userRoleTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Username</th>
@@ -67,17 +72,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Gon</td>
-                                            <td>Admin</td>
-                                            <td class='form-inline'>
-                                                <a class="btn btn-warning fa fa-sm fa-edit" href="#" data-toggle="modal" data-target="#editModal2"></a>
-                                                <form class='form-inline' action="#" method="">
-                                                    <button class="btn btn-danger delete-confirm mx-1 deleteListUserRole" type='submit'><i class="fa fa-sm fa-trash mx-1 "></i>
-                                                </form>            
-                                                
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -89,17 +83,7 @@
 
             </div>
             <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer th:replace="layout/footer-layout::footer_layout"></footer>
-            
-            <!-- End of Footer -->
-            <script th:src="@{../js/adminrole.js}" ></script>
-            <script th:src="@{../js/admin/admin-role.js}" ></script>
-
-        </div>
-        <!-- End of Content Wrapper -->
-        <!-- MODAL -->
+            <!-- MODAL -->
                             <div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -123,43 +107,65 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary" th:onclick="addRole()">Save changes</button>
+                                            <button type="button" class="btn btn-primary" th:onclick="saveRole()">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
             <!--end-->
             <!-- MODAL -->
-                            <div class="modal fade" id="editModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="userRoleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">User Role</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="" method="POST">
+                                            <form ath:id="userRoleForm">
                                                 <div class="form-group">
-                                                    <label for="regionId"> ID</label>
-                                                    <input type="text" class="form-control" id="id" th:name="regionId">
+                                                    <input type="hidden" class="form-control" id="id" th:name="id">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="regionName"> Role </label>
-                                                    <input type="text" class="form-control" th:name="regionName" id="name">
+                                                    <label for="role"> Username </label>
+                                                    <select class="form-control" th:id="user">
+                                                        <option value="">Select Type</option>
+                                                        <option th:each="user : ${users}" th:text="${user.username}" th:value="${user.id}" th:name="user"></option>
+                                                    </select>
 
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="role"> Role </label>
+                                                    <select class="form-control" th:id="role">
+                                                        <option value="">Select Type</option>
+                                                        <option th:each="role : ${roles}" th:text="${role.name}" th:value="${role.id}" th:name="role"></option>
+                                                    </select>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary" th:onclick="save()">Save changes</button>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
             <!--end-->
+            <!-- Footer -->
+            <footer th:replace="layout/footer-layout::footer_layout"></footer>
+            
+            <!-- End of Footer -->
+            
+            <script th:src="@{../js/admin/admin-role.js}" ></script>
+            <script th:src="@{../js/admin/admin-role-user.js}" ></script>
+
+        </div>
+        <!-- End of Content Wrapper -->
+        
 
     </div>
     <!-- End of Page Wrapper -->

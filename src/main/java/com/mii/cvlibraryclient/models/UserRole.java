@@ -5,13 +5,12 @@
  */
 package com.mii.cvlibraryclient.models;
 
-import lombok.Data;
 
 /**
  *
  * @author Adhi
  */
-@Data
+
 public class UserRole {
     
     private Integer id;
@@ -27,5 +26,30 @@ public class UserRole {
         this.role = role;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    
     
 }

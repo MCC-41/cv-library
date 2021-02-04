@@ -62,12 +62,11 @@ function edit(id, name){
     setForm(id, name);
 }
 function setForm(id, name) {
-    $('#id').val(id);
-    $('#name').val(name);
+    $('#idUniversity').val(id);
+    $('#nameUniversity').val(name);
 }
 function setEnabledField(isEnabled) {
-    $('#btn-save').prop('disabled', isEnabled);
-    $('#name').prop('disabled', isEnabled);
+    $('#nameUniversity').prop('disabled', isEnabled);
 }
 
 function save(){

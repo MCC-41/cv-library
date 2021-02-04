@@ -15,12 +15,14 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
  *
  * @author Adhi
  */
+@Service
 public class UserPermissionService {
     
     @Autowired
@@ -40,15 +42,15 @@ public class UserPermissionService {
         return response.getBody();
     }
     
-    public ResponseData<UserPermission> getLevelById(Integer id){
+    public ResponseData<UserPermission> getById(Integer id){
         ResponseEntity<ResponseData<UserPermission>> response
-                = restTemplate.exchange(url + "/user_permission" + id, HttpMethod.GET, 
+                = restTemplate.exchange(url + "/user_permission/" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseData<UserPermission>>(){});
         return response.getBody();
     }
     
-    public ResponseMessage<UserPermission> postLevel(UserPermission userPermission){
+    public ResponseMessage<UserPermission> insert(UserPermission userPermission){
         ResponseEntity<ResponseMessage<UserPermission>> response
                 = restTemplate.exchange(url + "/user_permission", HttpMethod.POST, 
                         new HttpEntity<>(userPermission, service.createHeaders()), 
@@ -56,18 +58,18 @@ public class UserPermissionService {
         return response.getBody();
     }
     
-    public ResponseMessage<UserPermission> putLevel(UserPermission userPermission){
+    public ResponseMessage<UserPermission> update(Integer id, UserPermission userPermission){
         ResponseEntity<ResponseMessage<UserPermission>> response
-                = restTemplate.exchange(url + "/user_permission", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/user_permission/" + id, HttpMethod.PUT, 
                         new HttpEntity<>(userPermission, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<UserPermission>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<UserPermission> deleteLevel(Integer id){
+    public ResponseMessage<UserPermission> delete(Integer id){
         ResponseEntity<ResponseMessage<UserPermission>> response 
-                = restTemplate.exchange(url + "/user_permission" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/user_permission/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<UserPermission>>() {});
         return response.getBody();

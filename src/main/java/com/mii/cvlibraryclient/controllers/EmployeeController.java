@@ -9,10 +9,16 @@ import com.mii.cvlibraryclient.models.Employee;
 import com.mii.cvlibraryclient.models.Religion;
 import com.mii.cvlibraryclient.models.data.ResponseData;
 import com.mii.cvlibraryclient.models.data.ResponseMessage;
+import com.mii.cvlibraryclient.services.AwardService;
+import com.mii.cvlibraryclient.services.EducationService;
 import com.mii.cvlibraryclient.services.EmployeeService;
+import com.mii.cvlibraryclient.services.ExperienceService;
 import com.mii.cvlibraryclient.services.LoginService;
+import com.mii.cvlibraryclient.services.OrganizationService;
 import com.mii.cvlibraryclient.services.ReligionService;
-import java.io.IOException;
+import com.mii.cvlibraryclient.services.TechnicalService;
+import com.mii.cvlibraryclient.services.TrainingService;
+import com.mii.cvlibraryclient.services.WorkService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -50,7 +56,21 @@ public class EmployeeController {
     private LoginService loginService;
     @Autowired
     private ReligionService religionService;
-
+    @Autowired
+    private EducationService educationService;
+    @Autowired
+    private TechnicalService technicalService;
+    @Autowired
+    private WorkService workService;
+    @Autowired
+    private ExperienceService experienceService;
+    @Autowired
+    private TrainingService trainingService;
+    @Autowired
+    private AwardService awardService;
+    @Autowired
+    private OrganizationService organizationService;
+    
     @GetMapping("")
     @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     public String page(Model model) {
@@ -58,7 +78,21 @@ public class EmployeeController {
         model.addAttribute("employees", service.getById(loginService.getIdEmployee()).getData());
         return "employee";
     }
-
+    
+    @GetMapping("/detail")
+    public String detail(Model model){
+        model.addAttribute("employees", service.getById(loginService.getIdEmployee()).getData());
+        model.addAttribute("educations", educationService.getAllEducation().getData());
+        model.addAttribute("technicals", technicalService.getAllTechnical().getData());
+        model.addAttribute("works", workService.getAllWork().getData());
+        model.addAttribute("trainings", trainingService.getAllTraining().getData());
+        model.addAttribute("organizations", organizationService.getAllOrganization().getData());
+        model.addAttribute("experiences", experienceService.getAllExperience().getData());
+        model.addAttribute("awards", awardService.getAllAward().getData());
+        System.out.println(educationService.getAllEducation());
+        return "employee-detail";
+    }
+    
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
     public @ResponseBody

@@ -74,8 +74,8 @@ public class EmployeeRmController {
         return "rm-employee";
     }
     
-    @GetMapping("rm-employee-detail")
-    public String detail(){
+    @GetMapping("detail")
+    public String detail(Model model){
         return "rm-employee-detail";
     }
     

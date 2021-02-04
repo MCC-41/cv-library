@@ -15,7 +15,7 @@
             <div id="content">
                 <!-- Topbar -->
                 <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
-                <!-- End of Topbar -->
+                <!-- End of Topbar -a->
                 <!-- Begin Page Content -->
                 
                 
@@ -29,42 +29,43 @@
                         </div>
                         
                         <div class="card-body" th:id="profile-cv">
-                            <table width="800px">
-                              <tbody>
-                                <tr>
+                            <table width="800px" >
+                              <tbody th:each="employee : ${employees}">
+                              
+                              <tr>
                                   <td width="25%">Name</td>
                                   <td width="1%">:</td>
-                                  <td>Habib</td>
-                                  <td rowspan="7" width="350px" align="right"><img th:src="@{employee/3/photo}" alt="Me with Rini Sugianto" title="Me with Rini Sugianto" height="200px" width="150px"></td>
+                                  <td th:text="${employee.name}"></td>
+                                  <td rowspan="7" width="350px" align="right"><img src="https://tmssl.akamaized.net/images/portrait/originals/88103-1540568385.jpg" height="200px" width="150px"></td>
                                 </tr>
                                 <tr>
                                   <td>Date of Birth</td>
                                   <td>:</td>
-                                  <td>19 july 1997</td>
+                                  <td th:text="${employee.dateBirth}"></td>
                                 </tr>
                                 <tr>
                                   <td>Nationality</td>
                                   <td>:</td>
-                                  <td>Indonesia</td>
+                                  <td th:text="${employee.nation}"></td>
                                 </tr>
                                   <td>Email</td>
                                   <td>:</td>
-                                  <td>habibabdul@gmail.com</td>
+                                  <td th:text="${employee.email}"></td>
                                 </tr>
                                 </tr>
                                   <td>Status</td>
                                   <td>:</td>
-                                  <td>Single</td>
+                                  <td th:text="${employee.status}"></td>
                                 </tr>
                                 </tr>
                                   <td>Gender</td>
                                   <td>:</td>
-                                  <td>Male</td>
+                                  <td th:text="${employee.gender}"></td>
                                 </tr>
-                                </tr>
+                                <tr>
                                   <td>Religion</td>
                                   <td>:</td>
-                                  <td>Moslem</td>
+                                  <td th:text="${employee.religion.name}"></td>
                                 </tr>
 
                               </tbody>
@@ -72,67 +73,68 @@
                           <h4>Education</h4>
                             <table th:cellpadding="3">
                               <tbody>
-                                <!--<tr th:each="employee : ${employees}">-->
-<!--                                  <td th:value="${employee.level}"></td>
-                                  <td th:value="${employee.university}"></td>
-                                  <td th:value="${employee.major}">Informatics</td>
-                                  <td th:value="${employee.year}">2015</td>
-                                  <td th:value="${employee.ipk}">3.44</td>-->
+                                <tr th:each="education : ${educations}">
+                                  
+                                  <td th:text="${education.university.name}"></td>
+                                  <td>,</td>
+                                  <td th:text="${education.level.name}"></td>
+                                  <td>,</td>
+                                  <td th:text="${education.major.name}"></td>
+                                  <td>(</td>
+                                  <td th:text="${education.year}"></td>
+                                  <td>),</td>
+                                  <td th:text="${education.ipk}"></td>
                                 </tr>
                               </tbody>
                             </table><br>
                           <h4>Technical</h4>
                             <table th:cellpadding="3">
                              <tbody>
-                                <tr>
-                                  <td>Programming</td>
-                                  <td>Java, SQL</td>
-                                </tr>
-                                <tr>
-                                  <td>Platform</td>
-                                  <td>Windows 10</td>
+                                <tr th:each="technical : ${technicals}">
+                                    <td th:text="${technical.technicalType.name}"></td><td>-</td>
+                                  <td th:text="${technical.name}"></td>
                                 </tr>
                               </tbody>
                             </table><br>
                           <h4>Work</h4>
                             <table th:cellpadding="3">
                              <tbody>
-                                 <tr>
-                                     <td>Metrodata</td>
-                                     <td>Programmer</td>
-                                     <td>Programmer Java</td>
-                                     <td>2019-12-01</td>
-                                     <td>2020-12-01</td>
+                                 <tr th:each="work : ${works}">
+                                     <td th:text="${work.companyName}"></td><td>,</td>
+                                     <td th:text="${work.position}"></td><td>,</td>
+                                     <td th:text="${work.jobDesc}"></td><td>(</td>
+                                     <td th:text="${work.startDate}"></td><td>-</td>
+                                     <td th:text="${work.endDate}"></td><td>)</td>
                                  </tr>
                              </tbody>
                             </table><br>
                           <h4>Training</h4>
                             <table th:cellpadding="3">
                               <tbody>
-                                <tr>
-                                  <td>TOEFL Preparation</td>
-                                  <td>Lembaga Bahasa dan Pendidikan Profesional LBPP LIA </td>
-                                  <td>2020-01-01</td>
+                                <tr th:each="training : ${trainings}">
+                                    <td th:text="${training.name}"></td><td>,</td>
+                                  <td th:text="${training.institution}"></td><td>(</td>
+                                  <td th:text="${training.year}"></td><td>)</td>
                                 </tr>
                               </tbody>
                             </table><br>
                           <h4>Organization</h4>
                             <table th:cellpadding="3">
                               <tbody>
-                                <tr>
-                                  <td>Asosiasi Matematika Terapan</td>
-                                  <td>Matematika Universitas Diponegoro </td>
-                                  <td>2019-01-01</td>
-                                  <td>2020-01-01</td>
+                                <tr th:each="organization : ${organizations}">
+                                    <td th:text="${organization.name}"></td><td>,</td>
+                                  <td th:text="${organization.institution}"></td><td>(</td>
+                                  <td th:text="${organization.startDate}"></td><td>-</td>
+                                  <td th:text="${organization.endStart}"></td><td>)</td>
                                 </tr>
                               </tbody>
                             </table><br>
                           <h4>Experience</h4>
                             <table th:cellpadding="3">
                               <tbody>
-                                  <tr>
-                                  <td>Oral Presenter in Seminar Nasional Matematika dan Pendidikan Matematika </td>
-                                  <td>2020-01-01</td>
+                                  <tr th:each="experience : ${experiences}">
+                                  <td th:text="${experience.name}"></td><td>(</td>
+                                  <td th:text="${experience.year}"></td><td>)</td>
                                 </tr>
                                   
                               </tbody>
@@ -140,9 +142,9 @@
                           <h4>Awards</h4>
                             <table th:cellpadding="3">
                               <tbody>
-                                  <tr>
-                                  <td>Finalist of National Olympic Mathematics</td>
-                                  <td>2020-01-01</td>
+                                  <tr th:each="award : ${awards}">
+                                  <td th:text="${award.name}"></td><td>(</td>
+                                  <td th:text="${award.year}"></td><td>)</td>
                                 </tr>
                                   
                               </tbody>
@@ -192,7 +194,7 @@
             <footer th:replace="layout/footer-layout::footer_layout"></footer>
             
             <!-- End of Footer -->
-            <script th:src="@{../js/adminpermission.js}" ></script>
+            <script th:src="@{../js/printcv.js}" ></script>
         </div>
         <!-- End of Content Wrapper -->
 

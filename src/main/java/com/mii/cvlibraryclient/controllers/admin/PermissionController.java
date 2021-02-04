@@ -7,6 +7,7 @@ package com.mii.cvlibraryclient.controllers.admin;
 
 import com.mii.cvlibraryclient.models.Permission;
 import com.mii.cvlibraryclient.models.data.ResponseData;
+import com.mii.cvlibraryclient.models.data.ResponseList;
 import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import com.mii.cvlibraryclient.services.PermissionService;
 import java.util.List;
@@ -37,10 +38,11 @@ public class PermissionController {
     @ResponseBody 
     public List<Permission> permission(){
         List<Permission> permission = permissionService.getAll().getData();
+        System.out.println(permissionService.getAll().getData());
         return permission;
     }
     
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public ResponseData<Permission> getById(@PathVariable Integer id){
         ResponseData<Permission> permission = permissionService.getById(id);
@@ -54,13 +56,12 @@ public class PermissionController {
         return permissionService.insert(permission);
     }
     
-    @PutMapping("{id}")
-    @ResponseBody
-    public ResponseMessage<Permission> update(@PathVariable Integer id, @RequestBody Permission permission ){
+    @PutMapping("/{id}")
+    public @ResponseBody ResponseMessage<Permission> update(@PathVariable Integer id, @RequestBody Permission permission ){
         return permissionService.update(id,permission);
     }
     
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseMessage<Permission> delete(@PathVariable Integer id){
         return permissionService.delete(id);

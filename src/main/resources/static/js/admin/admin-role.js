@@ -5,14 +5,14 @@
  */
 
 
-var tabelRole;
+var tableRole;
 
 $('document').ready(() => {
     getAllRole();
 });
 
 function getAllRole() {
-    tabelRole = $('#roleTable').DataTable({
+    tableRole = $('#roleTable').DataTable({
         'sAjaxSource': '/role',
         'sAjaxDataProp': '',
         'columns': [
@@ -26,11 +26,11 @@ function getAllRole() {
                                 <button class="btn btn-warning float-left mr-1" 
                                         id="${row.id}"
                                         name="${row.name}"
-                                        onclick="update(this.getAttribute('id'),this.getAttribute('name'))"
-                                        data-toggle="modal" data-target="#universityModal"><i class="fas fa-edit"></i></button>
+                                        onclick="updateBtn(this.getAttribute('id'),this.getAttribute('name'))"
+                                        data-toggle="modal" data-target="#roleModal"><i class="fas fa-edit"></i></button>
                                 <button class="btn btn-danger float-left" 
                                         id="${row.id}"
-                                        onclick="deleteUniversity(this.getAttribute('id'))"><i class="fas fa-trash-alt"></i></button>
+                                        onclick="deleteRole(this.getAttribute('id'))"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr>
                     `;
@@ -41,38 +41,35 @@ function getAllRole() {
 }
 
 function add(){
-    setForm('','');
-    setEnabledField(false, false);
+    setFormRole('','');
+    setEnabledField(false);
 }
 
-function setForm(id, name) {
-    $('#id').val(id);
-    $('#name').val(name);
+function setFormRole(id, name) {
+    $('#idRole').val(id);
+    $('#nameRole').val(name);
+    
+    
 }
-
-//function setFormEdit(id, name) {
-//    $('#idLevelEdit').val(id);
-//    $('#nameLevelEdit').val(name);
-//}
 
 function setEnabledField(isEnabled) {
-    $('#btn-save').prop('disabled', isEnabled);
-    $('#name').prop('disabled', isEnabled);
+    $('#nameRole').prop('disabled', isEnabled);
 }
 
-function addRole(){
+function saveRole(){
     let id = $('#idRole').val();
     let name = $('#nameRole').val();
     var role = {
         "name":name
     };
-//    if(id == undefined){
-//        console.log(id); 
-//    }
-//    else{
-//        console.log(id);
-//    }
+    if(id === ""){
+        addRole(role);
+    } else {
+        updateRole(id, role);
+    }
     
+}
+function addRole(role){
     $.ajax({
         contentType: 'application/json',
         type: 'POST',
@@ -84,7 +81,7 @@ function addRole(){
                    'Your file has been Added.',
                     'success');
                 $('#roleModal').modal('hide');
-                tabelRole.destroy();
+                tableRole.destroy();
                 getAllRole();
                 },
         error: function(data){
@@ -96,7 +93,75 @@ function addRole(){
         }
         
     });
-    
-    
-    
+}
+
+function updateBtn(id, name){
+    setFormRole(id,name);
+    setEnabledField(false);
+}
+
+function updateRole(id,role){
+    $.ajax({
+        contentType: 'application/json',
+        type: 'PUT',
+        url: "/role/" + id,
+        data: JSON.stringify(role),
+        success: function(data){
+            Swal.fire(
+                    'Update!',
+                    'Your file has been Update',
+                    'success'
+                    );
+            $('#roleModal').modal('hide');
+            tableRole.destroy;
+            getAllRole();
+        },
+        error: function (data) {
+            Swal.fire(
+                    'Failed!',
+                    'Your file cannot be Update.',
+                    'error'
+                    );
+        }
+    });
+}
+
+function deleteRole(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'DELETE',
+                url: "/role/" + id,
+                success: function () {
+                    Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                            );
+                    $('#roleModal').modal('hide');
+                    tableRole.destroy();
+                    getAllRole();
+                },
+
+                error: function (data) {
+                    console.log(data);
+                    Swal.fire(
+                            'Failed!',
+                            'Your file cannot be deleted.',
+                            'error'
+                            );
+                }
+
+            });
+
+        }
+    });
 }

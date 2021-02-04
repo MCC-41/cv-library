@@ -5,13 +5,12 @@
  */
 package com.mii.cvlibraryclient.models;
 
-import lombok.Data;
 
 /**
  *
  * @author Adhi
  */
-@Data
+
 public class UserPermission {
     
     private Integer id;
@@ -26,6 +25,32 @@ public class UserPermission {
         this.user = user;
         this.permission = permission;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Permission getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Permission permission) {
+        this.permission = permission;
+    }
+    
+    
     
     
     

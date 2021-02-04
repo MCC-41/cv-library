@@ -59,7 +59,7 @@ public class RoleController {
         return roleService.update(id,role);
     }
     
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     @ResponseBody
     public ResponseMessage<Role> delete(@PathVariable Integer id){
         return roleService.delete(id);

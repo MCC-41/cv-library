@@ -40,11 +40,11 @@ function getAllLevel() {
                                 <button class="btn btn-warning float-left mr-1" 
                                         id="${row.id}"
                                         name="${row.name}"
-                                        onclick="updateBtn(this.getAttribute('id'),this.getAttribute('name'))"
+                                        onclick="updateBtnLevel(this.getAttribute('id'),this.getAttribute('name'))"
                                         data-toggle="modal" data-target="#levelModal"><i class="fas fa-edit"></i></button>
                                 <button class="btn btn-danger float-left" 
                                         id="${row.id}"
-                                        onclick="deleted(this.getAttribute('id'))"><i class="fas fa-trash-alt"></i></button>
+                                        onclick="deleteLevel(this.getAttribute('id'))"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr>
                     `;
@@ -72,7 +72,7 @@ function save() {
     if (id === "") {
         insert(level);
     } else {
-        update(id, level);
+        updateLevel(id, level);
     }
 
 }
@@ -132,7 +132,7 @@ function update(id, level) {
     });
 }
 
-function deleted(id) {
+function deleteLevel(id) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",

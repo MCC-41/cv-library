@@ -42,7 +42,7 @@ public class UserRoleService {
         return response.getBody();
     }
     
-    public ResponseData<UserRole> getLevelById(Integer id){
+    public ResponseData<UserRole> getById(Integer id){
         ResponseEntity<ResponseData<UserRole>> response
                 = restTemplate.exchange(url + "/user_role" + id, HttpMethod.GET, 
                         new HttpEntity<> (service.createHeaders()), 
@@ -50,7 +50,7 @@ public class UserRoleService {
         return response.getBody();
     }
     
-    public ResponseMessage<UserRole> postLevel(UserRole userRole){
+    public ResponseMessage<UserRole> insert(UserRole userRole){
         ResponseEntity<ResponseMessage<UserRole>> response
                 = restTemplate.exchange(url + "/user_role", HttpMethod.POST, 
                         new HttpEntity<>(userRole, service.createHeaders()), 
@@ -58,18 +58,18 @@ public class UserRoleService {
         return response.getBody();
     }
     
-    public ResponseMessage<UserRole> putLevel(UserRole userRole){
+    public ResponseMessage<UserRole> update(Integer id, UserRole userRole){
         ResponseEntity<ResponseMessage<UserRole>> response
-                = restTemplate.exchange(url + "/user_role", HttpMethod.PUT, 
+                = restTemplate.exchange(url + "/user_role/" + id, HttpMethod.PUT, 
                         new HttpEntity<>(userRole, service.createHeaders()), 
                         new ParameterizedTypeReference<ResponseMessage<UserRole>>() {});
         return response.getBody();
         
     }
     
-    public ResponseMessage<UserRole> deleteLevel(Integer id){
+    public ResponseMessage<UserRole> delete(Integer id){
         ResponseEntity<ResponseMessage<UserRole>> response 
-                = restTemplate.exchange(url + "/user_role" + id, HttpMethod.DELETE, 
+                = restTemplate.exchange(url + "/user_role/" + id, HttpMethod.DELETE, 
                         new HttpEntity<>(service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<UserRole>>() {});
         return response.getBody();
