@@ -61,10 +61,10 @@ function save() {
     let role = $("#role").val();
     var userrole = {
         "user": {
-            "user": user
+            "id": user
         },
         "role": {
-            "role": role
+            "id": role
         }
     };
     if (id === "") {
@@ -108,11 +108,11 @@ function updateUserRole(id, userrole) {
         data: JSON.stringify(userrole),
         success: function (data) {
             Swal.fire(
-                    'Added!',
+                    'Update!',
                     'Your file has been Updated.',
                     'success'
                     );
-            $('#trainingModal').modal('hide');
+            $('#userRoleModal').modal('hide');
             tableUserRole.destroy();
             getAll();
         },

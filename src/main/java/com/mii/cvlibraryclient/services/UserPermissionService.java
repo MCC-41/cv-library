@@ -58,7 +58,7 @@ public class UserPermissionService {
         return response.getBody();
     }
     
-    public ResponseMessage<UserPermission> update(Integer id,UserPermission userPermission){
+    public ResponseMessage<UserPermission> update(Integer id, UserPermission userPermission){
         ResponseEntity<ResponseMessage<UserPermission>> response
                 = restTemplate.exchange(url + "/user_permission/" + id, HttpMethod.PUT, 
                         new HttpEntity<>(userPermission, service.createHeaders()), 

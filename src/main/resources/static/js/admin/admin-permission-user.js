@@ -55,22 +55,25 @@ function getAll() {
     });
 }
 
-function save() {
+function saveUserPermission() {
     let id = $("#id").val();
     let user = $("#user").val();
     let permission = $("#permission").val();
+    console.log(id);
+    console.log(user);
+    console.log(permission);
     var userpermission = {
         "user": {
-            "user": user
+            "id": user
         },
         "permission": {
-            "permission": permission
+            "id": permission
         }
     };
     if (id === "") {
-        insertUserPermission(permission);
+        insertUserPermission(userpermission);
     } else {
-        updateUserPermission(id, permission);
+        updateUserPermission(id, userpermission);
     }
 }
 
@@ -101,6 +104,7 @@ function insertUserPermission(userpermission) {
 }
 
 function updateUserPermission(id, userpermission) {
+        console.log(userpermission);
     $.ajax({
         contentType: 'application/json',
         type: 'PUT',
@@ -108,7 +112,7 @@ function updateUserPermission(id, userpermission) {
         data: JSON.stringify(userpermission),
         success: function (data) {
             Swal.fire(
-                    'Added!',
+                    'Update!',
                     'Your file has been Updated.',
                     'success'
                     );

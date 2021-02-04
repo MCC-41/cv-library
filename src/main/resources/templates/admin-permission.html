@@ -140,13 +140,13 @@
                                                     <label for="role"> Permission </label>
                                                     <select class="form-control" th:id="permission">
                                                         <option value="">Select Type</option>
-                                                        <option th:each="permission : ${permissions}" th:text="${permission.name}" th:value="${permission.id}" th:name="role"></option>
+                                                        <option th:each="permission : ${permissions}" th:text="${permission.name}" th:value="${permission.id}" th:name="permission"></option>
                                                     </select>
 
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary" th:onclick="save()">Save changes</button>
+                                                    <button type="button" class="btn btn-primary" th:onclick="saveUserPermission()">Save changes</button>
                                                 </div>
                                             </form>
                                         </div>
