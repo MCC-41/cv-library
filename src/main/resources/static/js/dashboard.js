@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-let url = "http://localhost:8090";
+let url = "http://localhost:8020/dashboard";
 
 function getAllEmployee() {
     return JSON.parse($.ajax({
         type: 'GET',
-        url: url + '/employee/all',
+        url: url + '/employee-all',
         dataType: 'json',
         global: false,
         async: false,
@@ -22,7 +22,7 @@ function getAllEmployee() {
 function getAllUser() {
     return JSON.parse($.ajax({
         type: 'GET',
-        url: url + '/user',
+        url: url + '/user-all',
         dataType: 'json',
         global: false,
         async: false,
