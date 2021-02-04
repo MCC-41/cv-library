@@ -5,7 +5,6 @@
  */
 package com.mii.cvlibrary.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mii.cvlibrary.controllers.icontrollers.IController;
 import com.mii.cvlibrary.models.Employee;
 import com.mii.cvlibrary.models.Training;
@@ -16,10 +15,14 @@ import com.mii.cvlibrary.services.TrainingService;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -109,9 +113,10 @@ public class TrainingController implements IController<Training, Integer> {
                 try (FileOutputStream fout = new FileOutputStream(saveFile)) {
                     fout.write(file.getBytes());
                 }
-                training.setFile(file.getBytes());
+                training.setFile(file.getOriginalFilename());
             } else {
                 System.out.println("kosong");
+                training.setFile(null);
             }
 
             return ResponseRest.success(ts.insert(training), "Success");
@@ -131,21 +136,22 @@ public class TrainingController implements IController<Training, Integer> {
             @RequestParam Integer trainingType,
             @RequestParam MultipartFile file) {
         try {
-            Training training = new Training();
+            Training training = ts.getById(id);
             training.setName(name);
             training.setInstitution(institution);
             training.setYear(new SimpleDateFormat("yyyy-MM-dd").parse(year));
             Employee e = new Employee();
             e.setId(employee);
             training.setEmployee(e);
+            System.out.println(employee);
             TrainingType type = new TrainingType();
             type.setId(trainingType);
             training.setTrainingType(type);
 
-            if (!file.isEmpty()) {
+            if (!file.isEmpty() || !file.getOriginalFilename().equals(training.getFile())) {
                 String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\training\\employee-" + employee;
                 String documentDir = dir + "\\" + file.getOriginalFilename();
-                File oldFile = new File(dir + "\\" + "pp3.jpg");
+                File oldFile = new File(dir + "\\" + training.getFile());
                 File newFile = new File(documentDir);
 
                 oldFile.delete();
@@ -154,12 +160,12 @@ public class TrainingController implements IController<Training, Integer> {
                 FileOutputStream fout = new FileOutputStream(newFile);
                 fout.write(file.getBytes());
                 fout.close();
-                training.setFile(file.getBytes());
+                training.setFile(file.getOriginalFilename());
             } else {
                 System.out.println("kosong");
             }
 
-            return ResponseRest.success(ts.update(id, training),"Success");
+            return ResponseRest.success(ts.update(id, training), "Success");
         } catch (Exception e) {
             return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);
         }
@@ -180,6 +186,12 @@ public class TrainingController implements IController<Training, Integer> {
     @PreAuthorize("hasAnyAuthority('DELETE_ADMIN','DELETE_USER')")
     @Override
     public ResponseRest<Training> delete(Integer id) {
+        Training training = ts.getById(id);
+        if(!training.getFile().isEmpty()){
+            String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\training\\employee-" + training.getEmployee().getId();
+            File oldFile = new File(dir + "\\" + training.getFile());
+            oldFile.delete();
+        }
         if (ts.delete(id)) {
             return ResponseRest.success("Success");
         } else {
@@ -188,8 +200,27 @@ public class TrainingController implements IController<Training, Integer> {
     }
 
     @GetMapping("training/{id}/employee")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER','READ_RM')")
     public ResponseList<Training> getByEmployee(@PathVariable Integer id) {
         return new ResponseList(ts.getByEmployee(id));
     }
+
+    @PostMapping("training/{id}/download")
+    public ResponseEntity<ByteArrayResource> download(@PathVariable Integer id) throws IOException {
+        try {
+            Training training = ts.getById(id);
+            if (training.getFile() != null) {
+                String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\training\\employee-" + training.getEmployee().getId() + "\\" + training.getFile();
+                File file = new File(dir);
+                byte[] bytes = Files.readAllBytes(file.toPath());
+                ByteArrayResource resource = new ByteArrayResource(bytes);
+                return new ResponseEntity<>(resource, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        } catch (IOException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

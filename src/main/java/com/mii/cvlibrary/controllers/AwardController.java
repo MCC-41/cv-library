@@ -82,7 +82,7 @@ public class AwardController implements IController<Award, Integer>{
     }
     
     @GetMapping("award/{id}/employee")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER','READ_RM')")
     public ResponseList<Award> getByEmployee(@PathVariable Integer id) {
         return new ResponseList(as.getByEmployee(id));
     }

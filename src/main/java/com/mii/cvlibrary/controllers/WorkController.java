@@ -84,7 +84,7 @@ public class WorkController implements IController<Work, Integer>{
     }
     
     @GetMapping("work/{id}/employee")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER','READ_RM')")
     public ResponseList<Work> getByEmployee(@PathVariable Integer id) {
         return new ResponseList(ws.getByEmployee(id));
     }

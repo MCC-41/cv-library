@@ -5,6 +5,7 @@
  */
 package com.mii.cvlibrary.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.List;
@@ -46,6 +47,7 @@ public class Religion implements Serializable {
     private String name;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) 
     @OneToMany(mappedBy = "religion", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Employee> employeeList;
 
     public Religion() {

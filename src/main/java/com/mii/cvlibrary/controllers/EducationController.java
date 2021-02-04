@@ -81,7 +81,7 @@ public class EducationController implements IController<Education, Integer>{
     }
     
     @GetMapping("education/{id}/employee")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER','READ_RM')")
     public ResponseList<Education> getByEmployee(@PathVariable Integer id) {
         return new ResponseList(es.getByEmployee(id));
     }

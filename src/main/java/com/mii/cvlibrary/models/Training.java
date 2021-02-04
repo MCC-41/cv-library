@@ -37,9 +37,8 @@ import lombok.Data;
     @NamedQuery(name = "Training.findAll", query = "SELECT t FROM Training t")})
 public class Training implements Serializable {
 
-    @Lob()
     @Column(name = "file")
-    private byte[] file;
+    private String file;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,13 +62,4 @@ public class Training implements Serializable {
     @JoinColumn(name = "id_training_type", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TrainingType trainingType;
-
-    public byte[] getFile() {
-        return file;
-    }
-
-    public void setFile(byte[] file) {
-        this.file = file;
-    }
-    
 }

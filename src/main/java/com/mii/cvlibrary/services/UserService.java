@@ -68,7 +68,7 @@ public class UserService implements IService<User, Integer>{
 
     @Override
     public User getById(Integer id) {
-        return ur.getOne(id);
+        return ur.findById(id).get();
     }
 
     @Override
@@ -79,9 +79,6 @@ public class UserService implements IService<User, Integer>{
     @Override
     public User update(Integer id, User data) {
         User user = getById(id);
-        user.setEmployee(new Employee(getId()));
-        user.setUsername(data.getUsername());
-        user.setPassword(data.getPassword());
         user.setStatus(data.getStatus());
         user.setVerified(data.getIsVerified());
         return ur.save(user);

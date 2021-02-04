@@ -5,6 +5,7 @@
  */
 package com.mii.cvlibrary.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
@@ -43,9 +44,8 @@ import lombok.Data;
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")})
 public class Employee implements Serializable {
 
-    @Lob
     @Column(name = "photo")
-    private byte[] photo;
+    private String photo;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -82,6 +82,7 @@ public class Employee implements Serializable {
     private List<Training> trainingList;
     @JoinColumn(name = "id_religion", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Religion religion;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)

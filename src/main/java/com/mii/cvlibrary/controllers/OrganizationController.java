@@ -82,7 +82,7 @@ public class OrganizationController implements IController<Organization, Integer
     }
     
     @GetMapping("organization/{id}/employee")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER','READ_RM')")
     public ResponseList<Organization> getByEmployee(@PathVariable Integer id) {
         return new ResponseList(os.getByEmployee(id));
     }

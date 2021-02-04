@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,16 +65,23 @@ public class UserController implements IController<User, Integer>{
     @PostMapping("user")
     @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     @Override
-    public ResponseRest<User> insert(User data) {
+    public ResponseRest<User> insert( User data) {
         try {
             Employee employee = es.getById(data.getId());
             data.setUsername(makeUsername(employee.getName()));
-            data.setPassword(passwordConfig.passwordEncoder().encode(makeUsername(employee.getName())));
-            data.setStatus(new Status(0));
-            data.setVerified(true);
+//            String[] split = employee.getDateBirth().toString().split("-");
+//            System.out.println(split[0]);
+//            System.out.println(split[1]);
+//            System.out.println(split[2]);
+            data.setPassword(passwordConfig.passwordEncoder().encode(makePassword(employee.getDateBirth().toString())));
+//            data.setStatus(new Status(0));
+//            data.setVerified(true);
+//            Employee e = new Employee();
+//            e.setId(data.getId());
+//            data.setEmployee(e);
             return ResponseRest.success(us.insert(data), "Success");
         } catch (Exception e) {
-            return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);
+            return ResponseRest.failed("Failed"+e, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -117,5 +125,9 @@ public class UserController implements IController<User, Integer>{
         }else{
             return name;
         }
+    }
+    private String makePassword(String date){
+        String arr[] = date.split("-");
+        return arr[2]+arr[1]+arr[0].substring(2,4);
     }
 }

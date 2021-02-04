@@ -82,7 +82,7 @@ public class ExperienceController implements IController<Experience, Integer>{
     }
     
     @GetMapping("experience/{id}/employee")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER','READ_RM')")
     public ResponseList<Experience> getByEmployee(@PathVariable Integer id) {
         return new ResponseList(es.getByEmployee(id));
     }

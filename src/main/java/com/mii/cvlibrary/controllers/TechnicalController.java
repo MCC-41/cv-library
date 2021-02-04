@@ -83,7 +83,7 @@ public class TechnicalController implements IController<Technical, Integer>{
     }
     
     @GetMapping("technical/{id}/employee")
-    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER','READ_RM')")
     public ResponseList<Technical> getByEmployee(@PathVariable Integer id) {
         return new ResponseList(ts.getByEmployee(id));
     }
