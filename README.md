@@ -6,7 +6,7 @@
 
 
 **Dokumentasi**
-- Business Process Model and Notation (BPMN) ([Link](https://app.diagrams.net/))
+- Business Process Model and Notation (BPMN) ([Link](https://viewer.diagrams.net/?page-id=xhSgquusLhebBiVk9tAO&highlight=0000ff&edit=_blank&layers=1&nav=1&page-id=xhSgquusLhebBiVk9tAO#G1WXLVfJ36oD-CuiiWEMBzCeHg_FNOl6jd))
 - Use Case ([Link](https://viewer.diagrams.net/?page-id=cl_gO__0OmYSrJzpSbAF&highlight=0000ff&edit=_blank&layers=1&nav=1&page-id=cl_gO__0OmYSrJzpSbAF#G1WXLVfJ36oD-CuiiWEMBzCeHg_FNOl6jd))
 - Mock Up ([Link](https://www.figma.com/file/h5GJDi5gjYeZOhxLFdYiMK/CV?node-id=0%3A1))
 - Entity Relationship Diagram (ERD) ([Link](https://viewer.diagrams.net/?page-id=dlKqxiAYXgTCokRBTRsk&highlight=0000ff&edit=_blank&layers=1&nav=1&page-id=dlKqxiAYXgTCokRBTRsk#G1WXLVfJ36oD-CuiiWEMBzCeHg_FNOl6jd/))
