@@ -6,10 +6,12 @@
 package com.mii.cvlibraryclient.services;
 
 import com.mii.cvlibraryclient.models.Employee;
+import com.mii.cvlibraryclient.models.data.RequestMemo;
 import com.mii.cvlibraryclient.models.data.ResponseData;
 import com.mii.cvlibraryclient.models.data.ResponseList;
 import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -162,11 +164,19 @@ public class EmployeeService {
         return response.getBody();
     }
     
-     public ByteArrayResource getdown(Integer id) {
+     public ByteArrayResource getdown(Integer id) throws IOException {
         ResponseEntity<ByteArrayResource> response
                 = restTemplate.exchange(url + "/employee/"+ id +"/photo", HttpMethod.GET,
                         new HttpEntity<>(service.createHeaders()),
                         ByteArrayResource.class);
+        return response.getBody();
+    }
+    public ResponseMessage<String> senEmail(RequestMemo memo) {
+        ResponseEntity<ResponseMessage<String>> response
+                = restTemplate.exchange(url + "/employee/send", HttpMethod.POST,
+                        new HttpEntity<>(memo,service.createHeaders()),
+                        new ParameterizedTypeReference<ResponseMessage<String>>() {
+                });
         return response.getBody();
     }
 }

@@ -27,7 +27,7 @@ function setForm(title, id, name, institution, year, trainingType, isEnable, fil
     $("#institution").val(institution);
     $("#year").val(year);
     $("#trainingType").val(trainingType);
-    $("#fileName").val(file);
+//    $("#fileName").val(file);
 }
 function getAll() {
     table = $('#trainingTable').DataTable({
@@ -74,20 +74,14 @@ function save() {
     let institution = $("#institution").val();
     let year = $("#year").val();
     let type = $("#trainingType").val();
-//    let file = $("#fileName").text();
-    
     let data = new FormData();
+    
+    data.append('name', name);
+    data.append('institution', institution);
+    data.append('year', year);
+    data.append('trainingType', type);
     data.append('file',$('#fileName')[0].files[0]);
-//    jQuery.each(jQuery('#fileName')[0].files, function (i, file) {
-//        data.append('file', file);
-//    });
-    console.log(id);
-    console.log(name);
-    console.log(institution);
-    console.log(year);
-    console.log(type);
-//    console.log(file);
-    console.log(data);
+    
     var award = {
         "name": name,
         "institution": institution,
@@ -97,17 +91,17 @@ function save() {
         }
     };
     if (id === "") {
-        insert(name,institution, year, type, data);
+        insert(data);
     } else {
-        update(id, name, institution, year, type, data);
+        update(id, data);
     }
 }
-function insert(name, institution, year, trainingType,data) {
+function insert(data) {
     $.ajax({
         contentType: false,
         enctype: 'multipart/form-data',
         type: 'POST',
-        url: "/training/add?"+$.param({name: name,institution: institution,year: year,trainingType: trainingType}),
+        url: "/training/add",
         data: data,
         processData: false,
         success: function (data) {
@@ -129,13 +123,14 @@ function insert(name, institution, year, trainingType,data) {
         }
     });
 }
-function update(id, name, institution, year, type, data) {
+function update(id, data) {
     $.ajax({
+        enctype: 'multipart/form-data',
         contentType: false,
         processData: false,
         type: 'PUT',
-        url: "/training/" + id + "?" + $.param({name: name, institution: institution, year: year, trainingType: type}),
-        data: data === null ? '' : data,
+        url: "/training/" + id,
+        data: data,
         success: function (data) {
             Swal.fire(
                     'Added!',

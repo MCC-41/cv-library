@@ -86,7 +86,7 @@ public class TrainingController {
             @RequestParam String institution,
             @RequestParam String year,
             @RequestParam Integer trainingType,
-            @RequestParam MultipartFile file) throws IOException {
+            @RequestParam(value = "file", required = false) MultipartFile file){
         
         Training training = new Training();
         training.setName(name);
@@ -98,7 +98,11 @@ public class TrainingController {
         Employee emp = new Employee();
         emp.setId(loginService.getIdEmployee());
         training.setEmployee(emp);
-        return service.insert(training,file);
+        if(file!=null){
+            return service.insert(training,file);
+        }else{
+            return service.insertWithoutFile(training);
+        }
     }
 
     @PutMapping("/{id}")
@@ -110,7 +114,7 @@ public class TrainingController {
             @RequestParam String institution,
             @RequestParam String year,
             @RequestParam Integer trainingType,
-            @RequestParam(value = "file",required = false) MultipartFile file) throws IOException {
+            @RequestParam(value = "file", required = false) MultipartFile file){
         Training training = new Training();
         training.setName(name);
         training.setInstitution(institution);
@@ -121,7 +125,11 @@ public class TrainingController {
         Employee employee = new Employee();
         employee.setId(loginService.getIdEmployee());
         training.setEmployee(employee);
-        return service.update(id, training, file);
+        if(file!=null){
+            return service.update(id, training, file);
+        }else{
+            return service.updateWithoutFile(id, training);
+        }
     }
 
     @DeleteMapping("/{id}")

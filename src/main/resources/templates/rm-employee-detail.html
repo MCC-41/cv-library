@@ -1,207 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="layout/head-layout :: head_layout"></head>
+    <head th:replace="layout/head-layout :: head_layout"></head>
 
-<body id="page-top">
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
-        <!-- End of Sidebar -->
-        
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-            <!-- Main Content -->
-            <div id="content">
-                <!-- Topbar -->
-                <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
-                <!-- End of Topbar -->
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <div class="card">
-                        <div class="card-header">Profile Detail
-                            <button class="btn btn-warning float-right" href="#" data-toggle="modal" data-target="#memoModal"><i class="fas fa-print"></i>Memo</button>
-                            <button  class="btn btn-primary float-right" onclick="printContent('profile-cv')">Print</button>
-                        </div>
-                        <div class="card-body" th:id="profile-cv">
-                            <table width="800px">
-                              <tbody>
-                                 
-                                <tr>
-                                  <td width="25%" >Name</td>
-                                  <td width="1%">:</td>
-                                  <td th:text="${employees.name}"></td>
-                                  <td rowspan="7" width="350px" align="right"><img src="https://tmssl.akamaized.net/images/portrait/originals/88103-1540568385.jpg" alt="Me with Rini Sugianto" title="Me with Rini Sugianto" height="200px" width="150px"></td>
-                                </tr>
-                                <tr>
-                                  <td>Date of Birth</td>
-                                  <td>:</td>
-                                  <td th:text="${employees.dateBirth}"></td>
-                                </tr>
-                                <tr>
-                                  <td>Nationality</td>
-                                  <td>:</td>
-                                  <td th:text="${employees.nation}"></td>
-                                </tr>
-                                  <td>Email</td>
-                                  <td>:</td>
-                                  <td th:text="${employees.email}"></td>
-                                </tr>
-                                </tr>
-                                  <td>Status</td>
-                                  <td>:</td>
-                                  <td th:text="${employees.status}"></td>
-                                </tr>
-                                </tr>
-                                  <td>Gender</td>
-                                  <td>:</td>
-                                  <td th:text="${employees.gender}"></td>
-                                </tr>
-                                </tr>
-                                  <td>Religion</td>
-                                  <td>:</td>
-                                  <td th:text="${employees.religion.name}"></td>
-                                </tr>
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <ul th:replace="layout/sidebar-layout::sidebar_layout"></ul>
+            <!-- End of Sidebar -->
 
-                              </tbody>
-                            </table><br>
-                          <h4>Education</h4>
-                            <table th:cellpadding="3">
-                              <tbody>
-                                <tr th:each="education : ${educations}">
-                                  <td th:text="${education.university.name}"></td><td >,</td>
-                                  <td th:text="${education.major.name}"></td><td >,</td>
-                                  <td th:text="${education.level.name}"></td><td >,</td>
-                                  <td th:text="${education.year}"></td><td >,</td>
-                                  <td th:text="${education.ipk}"></td>
-                                  <td >ipk</td>
-                                </tr>
-                              </tbody>
-                            </table><br>
-                          <h4>Technical</h4>
-                            <table th:cellpadding="3">
-                             <tbody>
-                                <tr th:each="technical : ${technicals}">
-                                  <td th:text="${technical.technicalType.name}"></td>
-                                  <td th:text="${technical.name}"></td>
-                                </tr>
-                              </tbody>
-                            </table><br>
-                          <h4>Work</h4>
-                            <table th:cellpadding="3">
-                             <tbody>
-                                 <tr th:each="work : ${works}">
-                                     <td th:text="${work.companyName}">Metrodata</td>
-                                     <td th:text="${work.position}">Programmer</td>
-                                     <td th:text="${work.jobDesc}">Programmer Java</td>
-                                     <td th:text="${work.startDate}">2019-12-01</td>
-                                     <td th:text="${work.endDate}">2020-12-01</td>
-                                 </tr>
-                             </tbody>
-                            </table><br>
-                          <h4>Training</h4>
-                            <table th:cellpadding="3">
-                              <tbody>
-                                <tr th:each="training : ${trainings}">
-                                  <td th:text="${training.name}"></td>
-                                  <td th:text="${training.institution}">Lembaga Bahasa dan Pendidikan Profesional LBPP LIA </td>
-                                  <td th:text="${training.year}">2020-01-01</td>
-                                  <td th:text="${training.trainingType.name}">2020-01-01</td>
-                                  <td th:text="${training.file}">2020-01-01</td>
-                                </tr>
-                              </tbody>
-                            </table><br>
-                          <h4>Organization</h4>
-                            <table th:cellpadding="3">
-                              <tbody>
-                                <tr th:each="organization : ${organizations}">
-                                  <td th:text="${organization.name}">Asosiasi Matematika Terapan</td>
-                                  <td th:text="${organization.institution}">Matematika Universitas Diponegoro </td>
-                                  <td th:text="${organization.startDate}">2019-01-01</td>
-                                  <td th:text="${organization.endStart}">2020-01-01</td>
-                                </tr>
-                              </tbody>
-                            </table><br>
-                          <h4>Experience</h4>
-                            <table th:cellpadding="3">
-                              <tbody>
-                                  <tr th:each="experience : ${experiences}">
-                                  <td th:text="${experience.name}">Oral Presenter in Seminar Nasional Matematika dan Pendidikan Matematika </td>
-                                  <td th:text="${experience.year}">2020-01-01</td>
-                                </tr>
-                                  
-                              </tbody>
-                            </table><br>
-                          <h4>Awards</h4>
-                            <table th:cellpadding="3">
-                              <tbody>
-                                  <tr th:each="award : ${awards}">
-                                  <td th:text="${award.name}">Finalist of National Olympic Mathematics</td>
-                                  <td th:text="${award.year}">2020-01-01</td>
-                                </tr>
-                                  
-                              </tbody>
-                            </table>
-                        
-                        </div>
-                    </div><br>
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Topbar -->
+                    <nav th:replace="layout/navbar-layout::navbar_layout"></nav>
+                    <!-- End of Topbar -->
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-header">Profile Detail
+                                <button class="btn btn-warning float-right " data-toggle="modal" data-target="#memoModal" th:email="${employees.email}" th:onclick="text(this.getAttribute('email'))"><i class="fas fa-print"></i>Memo</button>
+                                <button  class="btn btn-primary float-right mr-2" onclick="printContent('profile-cv')">Print</button>
+                            </div>
+                            <div class="card-body" th:id="profile-cv">
+                                <table width="800px">
+                                    <tbody>
 
-                </div>
-                <!-- /.container-fluid -->
+                                        <tr>
+                                            <td width="25%" >Name</td>
+                                            <td width="1%">:</td>
+                                            <td th:text="${employees.name}"></td>
+                                            <td rowspan="7" width="350px" align="right"><img th:src="@{/rm-employee/{id}/photo (id = ${employees.id})}" height="200px" width="150px"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date of Birth</td>
+                                            <td>:</td>
+                                            <td th:text="${employees.dateBirth}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nationality</td>
+                                            <td>:</td>
+                                            <td th:text="${employees.nation}"></td>
+                                        </tr>
+                                    <td>Email</td>
+                                    <td>:</td>
+                                    <td th:text="${employees.email}"></td>
+                                    </tr>
+                                    </tr>
+                                    <td>Status</td>
+                                    <td>:</td>
+                                    <td th:text="${employees.status}"></td>
+                                    </tr>
+                                    </tr>
+                                    <td>Gender</td>
+                                    <td>:</td>
+                                    <td th:text="${employees.gender}"></td>
+                                    </tr>
+                                    </tr>
+                                    <td>Religion</td>
+                                    <td>:</td>
+                                    <td th:text="${employees.religion.name}"></td>
+                                    </tr>
 
-            </div>
-            <!-- End of Main Content -->
-            <!-- MODAL -->
-                            <div class="modal fade" id="memoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Memo</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="" method="POST">
-                                                <div class="form-group">
-                                                    <input type="hidden" class="form-control" id="id" th:name="id">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="regionName"> Memo </label>
-                                                    <input type="text" class="form-control" th:name="memo" id="memo">
+                                    </tbody>
+                                </table><br>
+                                <div th:if="${!educations.isEmpty()}">
+                                    <h4>Education</h4>
+                                    <table th:cellpadding="3">
+                                        <tbody>
+                                            <tr th:each="education : ${educations}">
 
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Send Memo</button>
-                                        </div>
-                                    </div>
+                                                <td th:text="${education.university.name}"></td>
+                                                <td>,</td>
+                                                <td th:text="${education.level.name}"></td>
+                                                <td>,</td>
+                                                <td th:text="${education.major.name}"></td>
+                                                <td>(</td>
+                                                <td th:text="${education.year}"></td>
+                                                <td>),</td>
+                                                <td th:text="${education.ipk}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table><br>
+                                </div>
+                                <div th:if="${!technicals.isEmpty()}">
+                                    <h4>Technical</h4>
+                                    <table th:cellpadding="3">
+                                        <tbody>
+                                            <tr th:each="technical : ${technicals}">
+                                                <td th:text="${technical.technicalType.name}"></td><td>-</td>
+                                                <td th:text="${technical.name}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table><br>
+                                </div>
+                                <div th:if="${!works.isEmpty()}">
+                                    <h4>Work</h4>
+                                    <table th:cellpadding="3">
+                                        <tbody>
+                                            <tr th:each="work : ${works}">
+                                                <td th:text="${work.companyName}"></td><td>,</td>
+                                                <td th:text="${work.position}"></td><td>,</td>
+                                                <td th:text="${work.jobDesc}"></td><td>(</td>
+                                                <td th:text="${work.startDate}"></td><td>-</td>
+                                                <td th:text="${work.endDate}"></td><td>)</td>
+                                            </tr>
+                                        </tbody>
+                                    </table><br>
+                                </div>
+                                <div th:if="${!trainings.isEmpty()}">
+                                    <h4>Training</h4>
+                                    <table th:cellpadding="3">
+                                        <tbody>
+                                            <tr th:each="training : ${trainings}">
+                                                <td th:text="${training.name}"></td><td>,</td>
+                                                <td th:text="${training.institution}"></td><td>(</td>
+                                                <td th:text="${training.year}"></td><td>)</td>
+                                            </tr>
+                                        </tbody>
+                                    </table><br>
+                                </div>
+                                <div th:if="${!organizations.isEmpty()}">
+                                    <h4>Organization</h4>
+                                    <table th:cellpadding="3">
+                                        <tbody>
+                                            <tr th:each="organization : ${organizations}">
+                                                <td th:text="${organization.name}"></td><td>,</td>
+                                                <td th:text="${organization.institution}"></td><td>(</td>
+                                                <td th:text="${organization.startDate}"></td><td>-</td>
+                                                <td th:text="${organization.endStart}"></td><td>)</td>
+                                            </tr>
+                                        </tbody>
+                                    </table><br>
+                                </div>
+                                <div th:if="${!experiences.isEmpty()}">
+                                    <h4>Experience</h4>
+                                    <table th:cellpadding="3">
+                                        <tbody>
+                                            <tr th:each="experience : ${experiences}">
+                                                <td th:text="${experience.name}"></td><td>(</td>
+                                                <td th:text="${experience.year}"></td><td>)</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table><br>
+                                </div>
+                                <div th:if="${!awards.isEmpty()}">
+                                    <h4>Awards</h4>
+                                    <table th:cellpadding="3">
+                                        <tbody>
+                                            <tr th:each="award : ${awards}">
+                                                <td th:text="${award.name}"></td><td>(</td>
+                                                <td th:text="${award.year}"></td><td>)</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-            <!--end-->
-            <!-- Footer -->
-            <footer th:replace="layout/footer-layout::footer_layout"></footer>
-            
-            <!-- End of Footer -->
-            <script th:src="@{../js/printcv.js}" ></script>
+                        </div><br>
+<!--                        <div th:if="${!trainings.isEmpty()}">
+                            <h5>Training Sertificate</h5>
+                            <table th:cellpadding="3">
+                                <tbody>
+                                    <tr th:each="training : ${trainings}">
+                                        <td th:text="${training.name}"></td><td> - </td>
+                                        <td>
+                                            <button class="btn btn-info" 
+                                                    th:id="${training.id}" 
+                                                    th:fname="${training.file}"
+                                                    th:onclick="download(this.getAttribute('id'), this.getAttribute('fname'))"><i class="fa fa-sm fa-print mx-1 "></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table><br>
+                        </div>-->
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+                <!-- MODAL -->
+                <div class="modal fade" id="memoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Memo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" id="id" th:name="id">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="regionName">Send Memo to Employee</label>
+                                        <textarea type="text" class="form-control" th:name="memo" id="memo" th:rowspan="3"></textarea>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" th:email="${employees.email}" th:onclick="send()" >Send Memo</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--end-->
+                <!-- Footer -->
+                <footer th:replace="layout/footer-layout::footer_layout"></footer>
+
+                <!-- End of Footer -->
+                <script th:src="@{../js/printcv.js}" ></script>
+                <script th:src="@{../js/rm-detail.js}" ></script>
+            </div>
+            <!-- End of Content Wrapper -->
+
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
 
-    
-    
 
-</body>
+
+
+    </body>
 
 </html>
 

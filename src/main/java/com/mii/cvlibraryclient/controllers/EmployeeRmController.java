@@ -6,6 +6,8 @@
 package com.mii.cvlibraryclient.controllers;
 
 import com.mii.cvlibraryclient.models.Employee;
+import com.mii.cvlibraryclient.models.data.RequestMemo;
+import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import com.mii.cvlibraryclient.services.AwardService;
 import com.mii.cvlibraryclient.services.EducationService;
 import com.mii.cvlibraryclient.services.EmployeeService;
@@ -17,12 +19,20 @@ import com.mii.cvlibraryclient.services.TrainingService;
 import com.mii.cvlibraryclient.services.WorkService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -53,7 +63,7 @@ public class EmployeeRmController {
     @Autowired
     private LoginService loginService;
     
-    @GetMapping("rm-employee/{id}")
+    @GetMapping("rm-employee/{id}/**")
     public String page(Model model, @PathVariable Integer id){
         model.addAttribute("employees", employeeService.getById(id).getData());
         model.addAttribute("educations", educationService.getAllByEmployee(id).getData());
@@ -74,7 +84,7 @@ public class EmployeeRmController {
         return "rm-employee";
     }
     
-    @GetMapping("detail")
+    @GetMapping("details")
     public String detail(Model model){
         return "rm-employee-detail";
     }
@@ -84,9 +94,35 @@ public class EmployeeRmController {
         return employeeService.getAll().getData();
     }
     
+    @GetMapping("rm-employee/{id}/photo")
+    public @ResponseBody ResponseEntity getPhoto(@PathVariable Integer id) {
+        try {
+            ByteArrayResource data = employeeService.getdown(id);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(data);
+        } catch (Exception e) {
+            return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+        }
+    }
     
+    @PostMapping("send")
+    public @ResponseBody ResponseMessage<String> send(@RequestBody RequestMemo memo){
+        return employeeService.senEmail(memo);
+    }
     
-    
-    
-    
+    @GetMapping("/{id}/download")
+    public @ResponseBody ResponseEntity getDown(@PathVariable Integer id, @RequestParam String file) {
+        try {
+            ByteArrayResource data = trainingService.getdown(id);
+            System.out.println(data);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType("application/pdf"))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file + "\"")
+                    .contentLength(data.contentLength())
+                    .body(data);
+        } catch (Exception e) {
+            return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

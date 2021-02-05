@@ -10,6 +10,8 @@ import com.mii.cvlibraryclient.models.data.ResponseData;
 import com.mii.cvlibraryclient.models.data.ResponseList;
 import com.mii.cvlibraryclient.models.data.ResponseMessage;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -77,15 +79,19 @@ public class TrainingService {
         return response.getBody();
     }
     
-    public ResponseMessage<Training> insert(Training training, MultipartFile file) throws IOException {
+    public ResponseMessage<Training> insert(Training training, MultipartFile file){
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-        ByteArrayResource resource = new ByteArrayResource(file.getBytes()) {
-            @Override
-            public String getFilename() {
-                return file.getOriginalFilename();
-            }
-        };
-        System.out.println(resource);
+        ByteArrayResource resource=null;
+        try {
+            resource = new ByteArrayResource(file.getBytes()) {
+                @Override
+                public String getFilename() {
+                    return file.getOriginalFilename();
+                }
+            };
+        } catch (IOException ex) {
+            Logger.getLogger(TrainingService.class.getName()).log(Level.SEVERE, null, ex);
+        }
         map.set("name", training.getName());
         map.set("institution", training.getInstitution());
         map.set("year", training.getYear());
@@ -104,15 +110,29 @@ public class TrainingService {
                 });
         return response.getBody();
     }
-
-    public ResponseMessage<Training> update(Integer id, Training training, MultipartFile file) throws IOException {
+    
+    public ResponseMessage<Training> insertWithoutFile(Training training){
+        ResponseEntity<ResponseMessage<Training>> response
+                = restTemplate.exchange(url + "/training", HttpMethod.POST,
+                        new HttpEntity<>(training,service.createHeaders()),
+                        new ParameterizedTypeReference<ResponseMessage<Training>>() {
+                });
+        return response.getBody();
+    }
+    
+    public ResponseMessage<Training> update(Integer id, Training training, MultipartFile file){
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-        ByteArrayResource resource = new ByteArrayResource(file.getBytes()) {
-            @Override
-            public String getFilename() {
-                return file.getOriginalFilename();
-            }
-        };
+        ByteArrayResource resource=null;
+        try {
+            resource = new ByteArrayResource(file.getBytes()) {
+                @Override
+                public String getFilename() {
+                    return file.getOriginalFilename();
+                }
+            };
+        } catch (IOException ex) {
+            Logger.getLogger(TrainingService.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         HttpHeaders headers = service.createHeader();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -126,15 +146,21 @@ public class TrainingService {
         map.set("year", training.getYear());
         map.set("trainingType", training.getTrainingType().getId().toString());
         map.set("employee", training.getEmployee().getId().toString());
-        if (file.isEmpty()) {
-            map.set("file", null);
-        } else {
-            map.set("file", new HttpEntity<>(resource, fileHeaders));
-        }
+        map.set("file", new HttpEntity<>(resource, fileHeaders));
 
         ResponseEntity<ResponseMessage<Training>> response
                 = restTemplate.exchange(url + "/trainings/" + id, HttpMethod.PUT,
                         requestEntity,
+                        new ParameterizedTypeReference<ResponseMessage<Training>>() {
+                });
+        return response.getBody();
+
+    }
+    
+    public ResponseMessage<Training> updateWithoutFile(Integer id, Training training){
+        ResponseEntity<ResponseMessage<Training>> response
+                = restTemplate.exchange(url + "/training/" + id, HttpMethod.PUT,
+                        new HttpEntity<>(training,service.createHeaders()),
                         new ParameterizedTypeReference<ResponseMessage<Training>>() {
                 });
         return response.getBody();

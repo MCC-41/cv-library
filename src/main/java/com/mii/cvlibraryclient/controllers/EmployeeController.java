@@ -9,16 +9,10 @@ import com.mii.cvlibraryclient.models.Employee;
 import com.mii.cvlibraryclient.models.Religion;
 import com.mii.cvlibraryclient.models.data.ResponseData;
 import com.mii.cvlibraryclient.models.data.ResponseMessage;
-import com.mii.cvlibraryclient.services.AwardService;
-import com.mii.cvlibraryclient.services.EducationService;
 import com.mii.cvlibraryclient.services.EmployeeService;
-import com.mii.cvlibraryclient.services.ExperienceService;
 import com.mii.cvlibraryclient.services.LoginService;
-import com.mii.cvlibraryclient.services.OrganizationService;
 import com.mii.cvlibraryclient.services.ReligionService;
-import com.mii.cvlibraryclient.services.TechnicalService;
-import com.mii.cvlibraryclient.services.TrainingService;
-import com.mii.cvlibraryclient.services.WorkService;
+import java.net.URL;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -34,10 +28,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -56,20 +48,6 @@ public class EmployeeController {
     private LoginService loginService;
     @Autowired
     private ReligionService religionService;
-    @Autowired
-    private EducationService educationService;
-    @Autowired
-    private TechnicalService technicalService;
-    @Autowired
-    private WorkService workService;
-    @Autowired
-    private ExperienceService experienceService;
-    @Autowired
-    private TrainingService trainingService;
-    @Autowired
-    private AwardService awardService;
-    @Autowired
-    private OrganizationService organizationService;
     
     @GetMapping("")
     @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER')")
@@ -77,20 +55,6 @@ public class EmployeeController {
         model.addAttribute("religions", religionService.getAll().getData());
         model.addAttribute("employees", service.getById(loginService.getIdEmployee()).getData());
         return "employee";
-    }
-    
-    @GetMapping("/detail")
-    public String detail(Model model){
-        model.addAttribute("employees", service.getById(loginService.getIdEmployee()).getData());
-        model.addAttribute("educations", educationService.getAllEducation().getData());
-        model.addAttribute("technicals", technicalService.getAllTechnical().getData());
-        model.addAttribute("works", workService.getAllWork().getData());
-        model.addAttribute("trainings", trainingService.getAllTraining().getData());
-        model.addAttribute("organizations", organizationService.getAllOrganization().getData());
-        model.addAttribute("experiences", experienceService.getAllExperience().getData());
-        model.addAttribute("awards", awardService.getAllAward().getData());
-        System.out.println(educationService.getAllEducation());
-        return "employee-detail";
     }
     
     @GetMapping("/all")
@@ -141,7 +105,7 @@ public class EmployeeController {
             @RequestParam String status,
             @RequestParam String gender,
             @RequestParam Integer religion,
-            @RequestParam(value = "file",required = false) MultipartFile file) throws IOException {
+            @RequestParam(value = "file",required = false) MultipartFile file) {
         Employee employee = service.getById(id).getData();
         employee.setName(name);
         employee.setEmail(email);
@@ -152,24 +116,37 @@ public class EmployeeController {
         Religion r = new Religion();
         r.setId(religion);
         employee.setReligion(r);
-        return service.update(id, employee, file);
+        if(file!=null){
+            return service.update(id, employee, file);
+        }else{
+            return service.updateWithoutFile(id, employee);
+        }
     }
     
-    @GetMapping("/{id}/photo")
-    public ByteArrayResource getPhoto(@PathVariable Integer id) {
-        Employee employee = service.getById(id).getData();
-        String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\employee-photo\\"+employee.getPhoto();
-        return service.getdown(id);
-    }
+//    @GetMapping("/{id}/photo")
+//    public ByteArrayResource getPhoto(@PathVariable Integer id) {
+//        Employee employee = service.getById(id).getData();
+//        String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\employee-photo\\"+employee.getPhoto();
+//        return service.getdown(id);
+//    }
     
-    @PostMapping("/{id}/photo")
-    public @ResponseBody ResponseEntity getDown(@PathVariable Integer id, @RequestParam String file) {
+    @GetMapping("/photo")
+    public @ResponseBody ResponseEntity getDown() {
+        try {
+            ByteArrayResource data = service.getdown(loginService.getIdEmployee());
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(data);
+        } catch (Exception e) {
+            return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping("{id}/photo")
+    public @ResponseBody ResponseEntity getPhoto(@PathVariable Integer id) {
         try {
             ByteArrayResource data = service.getdown(id);
             return ResponseEntity.ok()
                     .contentType(MediaType.IMAGE_JPEG)
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file + "\"")
-                    .contentLength(data.contentLength())
                     .body(data);
         } catch (Exception e) {
             return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
