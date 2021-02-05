@@ -82,14 +82,8 @@ public class TrainingController implements IController<Training, Integer> {
             @RequestParam String year,
             @RequestParam Integer employee,
             @RequestParam Integer trainingType,
-            @RequestParam MultipartFile file) {
+            @RequestParam(value = "file", required = false) MultipartFile file) {
         try {
-            System.out.println(name);
-            System.out.println(institution);
-            System.out.println(year);
-            System.out.println(employee);
-            System.out.println(trainingType);
-
             Training training = new Training();
             training.setName(name);
             training.setInstitution(institution);
@@ -116,7 +110,6 @@ public class TrainingController implements IController<Training, Integer> {
                 training.setFile(file.getOriginalFilename());
             } else {
                 System.out.println("kosong");
-                training.setFile(null);
             }
 
             return ResponseRest.success(ts.insert(training), "Success");
@@ -134,7 +127,7 @@ public class TrainingController implements IController<Training, Integer> {
             @RequestParam String year,
             @RequestParam Integer employee,
             @RequestParam Integer trainingType,
-            @RequestParam MultipartFile file) {
+            @RequestParam(value = "file", required = false) MultipartFile file) {
         try {
             Training training = ts.getById(id);
             training.setName(name);
@@ -150,6 +143,10 @@ public class TrainingController implements IController<Training, Integer> {
 
             if (!file.isEmpty() || !file.getOriginalFilename().equals(training.getFile())) {
                 String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\training\\employee-" + employee;
+                File checkDir = new File(dir);
+                if (!checkDir.exists()) {
+                    checkDir.mkdirs();
+                }
                 String documentDir = dir + "\\" + file.getOriginalFilename();
                 File oldFile = new File(dir + "\\" + training.getFile());
                 File newFile = new File(documentDir);
@@ -164,7 +161,6 @@ public class TrainingController implements IController<Training, Integer> {
             } else {
                 System.out.println("kosong");
             }
-
             return ResponseRest.success(ts.update(id, training), "Success");
         } catch (Exception e) {
             return ResponseRest.failed("Failed", HttpStatus.BAD_REQUEST);
@@ -222,5 +218,5 @@ public class TrainingController implements IController<Training, Integer> {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
-
+    
 }

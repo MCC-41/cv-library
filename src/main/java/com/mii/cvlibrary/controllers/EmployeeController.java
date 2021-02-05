@@ -18,10 +18,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +31,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,7 +40,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_RM')")
 public class EmployeeController implements IController<Employee, Integer> {
 
     @Autowired
@@ -104,7 +102,6 @@ public class EmployeeController implements IController<Employee, Integer> {
     }
 
     @PostMapping("employee/send")
-    @PreAuthorize("hasAnyAuthority('CREATE_ADMIN','CREATE_USER')")
     public ResponseRest<String> sendMemo(@RequestBody MemoRequest mr) {
         try {
             ns.sendMemo(mr.getEmail(), mr.getMemo());
@@ -208,14 +205,23 @@ public class EmployeeController implements IController<Employee, Integer> {
             return ResponseRest.failed("Failed" + e, HttpStatus.BAD_REQUEST);
         }
     }
-
+    
     @GetMapping("employee/{id}/photo")
-    public ByteArrayResource getPhoto(@PathVariable Integer id) throws IOException {
-        Employee employee = service.getById(id);
-        String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\employee-photo\\" + employee.getPhoto();
-        File file = new File(dir);
-        byte[] bytes = Files.readAllBytes(file.toPath());
-        ByteArrayResource resource = new ByteArrayResource(bytes);
-        return resource;
+    @PreAuthorize("hasAnyAuthority('READ_ADMIN','READ_USER','READ_RM')")
+    public ResponseEntity<ByteArrayResource> download(@PathVariable Integer id) throws IOException {
+        try {
+            Employee employee = service.getById(id);
+            if (employee.getPhoto()!= null) {
+                String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\employee-photo\\" +  employee.getPhoto();
+                File file = new File(dir);
+                byte[] bytes = Files.readAllBytes(file.toPath());
+                ByteArrayResource resource = new ByteArrayResource(bytes);
+                return new ResponseEntity<>(resource, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        } catch (IOException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 }
