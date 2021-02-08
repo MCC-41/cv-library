@@ -7,6 +7,7 @@ package com.mii.cvlibrary.repositories;
 
 import com.mii.cvlibrary.models.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Repository;
  * @author habib
  */
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
-    
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+
+    @Query(value = "SELECT count(*) FROM Employee", nativeQuery = true)
+    int totalEmployee();
 }

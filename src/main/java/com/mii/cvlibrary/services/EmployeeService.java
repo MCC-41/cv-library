@@ -47,7 +47,7 @@ public class EmployeeService implements IService<Employee, Integer>{
         employee.setStatus(data.getStatus());
         employee.setGender(data.getGender());
         employee.setReligion(data.getReligion());
-        employee.setPhoto(data.getPhoto());
+//        employee.setPhoto(data.getPhoto());
         return er.save(employee);
     }
 
