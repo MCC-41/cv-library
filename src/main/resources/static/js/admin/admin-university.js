@@ -59,11 +59,13 @@ function add(){
     setForm('','');
 }
 function edit(id, name){
+    console.log(id, name);
     setForm(id, name);
 }
 function setForm(id, name) {
-    $('#idUniversity').val(id);
-    $('#nameUniversity').val(name);
+    $('#id').val(id);
+    $('#name').val(name);
+    console.log(id,name);
 }
 function setEnabledField(isEnabled) {
     $('#nameUniversity').prop('disabled', isEnabled);

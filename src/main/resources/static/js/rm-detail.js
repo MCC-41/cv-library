@@ -44,9 +44,9 @@ function send(){
 }
 function download(id, file) {
     $.ajax({
+        type: 'POST',
         contentType: 'application/json',
-        url: "/"+id +"/download?"+$.param({file: file}),
-        type: 'GET',
+        url: "/download/"+ id +"/?"+$.param({file: file}),
         success: function (data) {
 //            Swal.fire(
 //                    'Added!',
@@ -55,7 +55,6 @@ function download(id, file) {
 //                    );
         },
         error: function (data) {
-            console.log(data);
             Swal.fire(
                     'Failed!',
                     'Your file cannot be downloaded.',

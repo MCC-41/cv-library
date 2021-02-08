@@ -40,7 +40,7 @@ function getAllLevel() {
                                 <button class="btn btn-warning float-left mr-1" 
                                         id="${row.id}"
                                         name="${row.name}"
-                                        onclick="updateBtnLevel(this.getAttribute('id'),this.getAttribute('name'))"
+                                        onclick="updateBtn(this.getAttribute('id'),this.getAttribute('name'))"
                                         data-toggle="modal" data-target="#levelModal"><i class="fas fa-edit"></i></button>
                                 <button class="btn btn-danger float-left" 
                                         id="${row.id}"
@@ -72,7 +72,7 @@ function save() {
     if (id === "") {
         insert(level);
     } else {
-        updateLevel(id, level);
+        update(id, level);
     }
 
 }

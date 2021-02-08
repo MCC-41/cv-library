@@ -32,7 +32,7 @@ function getAll() {
                                 <table width="250px">
                                     <tbody>
                                       <tr>
-                                        <td rowspan="3" width="100px" align="left"><img src="https://tmssl.akamaized.net/images/portrait/originals/88103-1540568385.jpg" alt="" title="" height="100px" width="75px"></td>
+                                        <td rowspan="3" width="100px" align="left"><img src="/rm-employee/${data[item].id}/photo" alt="" title="" height="100px" width="75px"></td>
                                         <td text="">${data[item].name}</td>
                                       </tr>
                                       <tr>

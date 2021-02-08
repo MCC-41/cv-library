@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Adhi
  */
 @Controller
-@RequestMapping("")
+@RequestMapping("/")
 @PreAuthorize("hasAnyRole('ROLE_RM')")
 public class EmployeeRmController {
     
@@ -111,11 +111,11 @@ public class EmployeeRmController {
         return employeeService.senEmail(memo);
     }
     
-    @GetMapping("/{id}/download")
-    public @ResponseBody ResponseEntity getDown(@PathVariable Integer id, @RequestParam String file) {
+    @PostMapping("download/{id}")
+    public @ResponseBody ResponseEntity getTraining(@PathVariable Integer id, @RequestParam String file) {
         try {
             ByteArrayResource data = trainingService.getdown(id);
-            System.out.println(data);
+            System.out.println("=======");
             return ResponseEntity.ok()
                     .contentType(MediaType.parseMediaType("application/pdf"))
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file + "\"")
